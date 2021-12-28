@@ -1,0 +1,91 @@
+﻿<Window x:Class="F1T.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:F1T"
+        mc:Ignorable="d"
+        Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Loaded="Window_Loaded"
+        MouseDown="Window_MouseDown">
+
+
+
+    <Border Background="#272537" CornerRadius="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="75"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Background="#22202f" CornerRadius="10,0,0,0"/>
+            <Border Grid.Column="1"  Background="#22202f" CornerRadius="0,10,0,0"/>
+ 
+            <TextBlock Grid.Row="0" Grid.Column="0" 
+                       VerticalAlignment="Center" HorizontalAlignment="Left" 
+                       Text="F1T V1.0.0" Foreground="DarkGray" FontSize="12" FontFamily="/Fonts/#Poppins"
+                       Margin="10,0,0,0"></TextBlock>
+
+
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+                <Button Click="MinimizeButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
+                    <TextBlock Text="–" Margin="0,-3,0,0" FontSize="20"/>
+                </Button>
+                <Button Click="FullscreenButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
+                    <TextBlock x:Name="MinMaxIcon" Text="1" Margin="0,0,-1,-1" FontSize="16" FontFamily="Marlett"/>
+                </Button>
+                <Button Click="CloseButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
+                    <TextBlock Text="x" Margin="0,-3,0,0" FontSize="20"/>
+                </Button>
+            </StackPanel>
+   
+
+            <TextBlock Grid.Row="1" Grid.Column="0" 
+                    VerticalAlignment="Center" HorizontalAlignment="Left" 
+                    Text="F1T" Foreground="White" FontSize="22" FontFamily="/Fonts/#Poppins"
+                    Margin="20,0,0,0"></TextBlock>
+
+            <StackPanel Grid.Row="2" Grid.Column="0">
+                <RadioButton Content="Home"
+                             Height="50"
+                             Foreground="White" FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             IsChecked="True"
+                             Command="{Binding InputTelemetrySettingViewCommand}">
+
+                </RadioButton>
+                <RadioButton Content="Input Telemetry"
+                             Height="50"
+                             Foreground="White" FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             IsChecked="True"
+                             Command="{Binding InputTelemetrySettingViewCommand}">
+                    
+                </RadioButton>
+                <RadioButton Content="Flags"
+                             Height="50"
+                             Foreground="White" FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding FlagSettingViewCommand}">
+                    
+                </RadioButton>
+            </StackPanel>
+
+
+            <ContentControl Grid.Row="2" Grid.Column="1" Margin="10"
+                            Content="{Binding CurrentView}">
+            </ContentControl>
+
+        </Grid>
+    </Border>
+</Window>

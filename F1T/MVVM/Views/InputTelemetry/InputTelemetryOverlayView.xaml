@@ -1,0 +1,76 @@
+﻿<Window x:Class="F1T.MVVM.Views.InputTelemetry.InputTelemetryOverlayView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:F1T.Converters"
+        mc:Ignorable="d"
+        Height="125"
+        AllowsTransparency="True" Background="Transparent" WindowStyle="None"
+    MouseDown="Window_MouseDown">
+
+
+    <Window.Resources>
+        <converters:PercentageConverter x:Key="PercentageConverter"/>
+        <converters:SteeringConverter x:Key="SteeringConverter"/>
+    </Window.Resources>
+
+    <Grid MouseDown="Window_MouseDown">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="125"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Grid.Column="0" Fill="#22202f"></Rectangle>
+        <Rectangle Grid.Column="1" Fill="Black" Opacity="{Binding Path=Opacity}"></Rectangle>
+        <Border Grid.Column="1" Opacity="{Binding Path=Opacity}" Background="Black"/>
+        <TextBlock FontSize="15" Foreground="White"  Grid.ColumnSpan="4" FontFamily="/Fonts/#Poppins" Margin="7,107,24,-107">
+            TELEMETRY
+            <TextBlock.RenderTransform>
+                <RotateTransform Angle="270" />
+            </TextBlock.RenderTransform>
+        </TextBlock>
+
+        <Border Grid.Column="2" Opacity="{Binding Path=Opacity}" Background="Black"/>
+        <WpfPlot Grid.Column="2" x:Name="InputTelemetryPlot" Width="400" HorizontalAlignment="Left"/>
+
+
+
+        <Border Grid.Column="3" Opacity="{Binding Path=Opacity}" Background="Black"/>
+        <StackPanel Grid.Column="3">
+            <TextBlock Grid.Column="3" Grid.Row="0" Foreground="White" 
+                       HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"
+                       Text="{Binding Path=sharedViewModel.PlayerCarTelemetryData.m_brake, Converter={StaticResource PercentageConverter}}"></TextBlock>
+            <ProgressBar Minimum="0" Maximum="100" Height="94" Width="20" Margin="5.5, 10, 5.5, 1"
+                         Value="{Binding Path=sharedViewModel.PlayerCarTelemetryData.m_brake, Converter={StaticResource PercentageConverter}}"
+                         Orientation="Vertical" Style="{StaticResource BrakeBarTheme}"/>
+        </StackPanel>
+
+
+        <Border Grid.Column="4" Opacity="{Binding Path=Opacity}" Background="Black"/>
+        <StackPanel Grid.Column="4">
+            <TextBlock Grid.Column="4" Grid.Row="0" Foreground="White" 
+                       HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"
+                       Text="{Binding Path=sharedViewModel.PlayerCarTelemetryData.m_throttle, Converter={StaticResource PercentageConverter}}"></TextBlock>
+            <ProgressBar Minimum="0" Maximum="100" Height="94" Width="20" Margin="5.5, 10, 5.5, 1"
+                         Value="{Binding Path=sharedViewModel.PlayerCarTelemetryData.m_throttle, Converter={StaticResource PercentageConverter}}" 
+                         Orientation="Vertical" Style="{StaticResource ThrottleBarTheme}"/>
+        </StackPanel>
+
+        <Border Grid.Column="5" Opacity="{Binding Path=Opacity}" Background="Black" CornerRadius="0,75,75,0"/>
+
+        <Image Grid.Column="5" Width="100" Height="100" RenderTransformOrigin="0.5,0.5">
+            <Image.Source>
+                <BitmapImage  UriSource="/Images/wheel.png" />
+            </Image.Source>
+            <Image.RenderTransform>
+                <RotateTransform Angle="{Binding Path=sharedViewModel.PlayerCarTelemetryData.m_steer, Converter={StaticResource SteeringConverter}}" />
+            </Image.RenderTransform>
+        </Image>
+
+    </Grid>
+</Window>
