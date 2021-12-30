@@ -2,7 +2,7 @@
 
 namespace F1T.MVVM.ViewModels
 {
-    public class InputTelemetryViewModel : BaseOverlayViewModel
+    public class InputTelemetryViewModel : BaseModuleViewModel
     {
 
 
@@ -46,14 +46,6 @@ namespace F1T.MVVM.ViewModels
         }
 
 
-        private PacketViewModel _sharedViewModel = PacketViewModel.GetInstance();
-        public PacketViewModel sharedViewModel
-        {
-            get { return _sharedViewModel; }
-            set
-            {
-                SetField(ref _sharedViewModel, value, "sharedViewModel");
-            }
-        }
+
     }
 }

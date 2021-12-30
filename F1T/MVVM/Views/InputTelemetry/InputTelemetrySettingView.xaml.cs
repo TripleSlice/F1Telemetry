@@ -1,4 +1,5 @@
 ﻿using F1T.MVVM.ViewModels;
+using F1T.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,10 @@ namespace F1T.MVVM.Views.InputTelemetry
         private void ToggleVisibilityButton_Click(object sender, RoutedEventArgs e)
         {
 
+
+            // TODO This logic is wrong, that and the FocusMonitor logic
+            // desired behaviour is when the button is pressed
+            // the overlay is only shown when the game is up...
             if (Model.Toggled)
             {
                 FocusMonitor.HideOverlay(Model);

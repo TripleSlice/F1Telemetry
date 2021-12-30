@@ -33,6 +33,7 @@ namespace F1T.MVVM.Views.InputTelemetry
 
             UpdateValues();
 
+            // InputTelemetryPlot Styling and Init Plotting
             InputTelemetryPlot.Plot.PlotSignal(ThrottleValues.ToArray(), 1, 0, 0, System.Drawing.Color.LimeGreen, 3);
             InputTelemetryPlot.Plot.PlotSignal(BrakeValues.ToArray(), 1, 0, 0, System.Drawing.Color.Red, 3);
             InputTelemetryPlot.Plot.SetAxisLimits(0, _sizeFor5Seconds, -0.01, 1.01);
@@ -51,9 +52,6 @@ namespace F1T.MVVM.Views.InputTelemetry
             InputTelemetryPlot.Plot.Frameless();
             InputTelemetryPlot.Render();
 
-
-
-
             InitTimer();
         }
 
@@ -68,10 +66,10 @@ namespace F1T.MVVM.Views.InputTelemetry
         // If the Window is visible
         public void UpdateValues(object state = null)
         {
-            if (Model.OverlayVisible && Model.sharedViewModel.PlayerCarTelemetryData != null)
+            if (Model.OverlayVisible && Model.PacketViewModel.PlayerCarTelemetryData != null)
             {
-                BrakeValues.Push(Model.sharedViewModel.PlayerCarTelemetryData.m_brake);
-                ThrottleValues.Push(Model.sharedViewModel.PlayerCarTelemetryData.m_throttle);
+                BrakeValues.Push(Model.PacketViewModel.PlayerCarTelemetryData.m_brake);
+                ThrottleValues.Push(Model.PacketViewModel.PlayerCarTelemetryData.m_throttle);
 
                 Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Normal,
@@ -91,6 +89,5 @@ namespace F1T.MVVM.Views.InputTelemetry
             catch (Exception ex) { }
 
         }
-
     }
 }

@@ -12,32 +12,64 @@ using F1T.Core;
 using F1T.MVVM.Views.InputTelemetry;
 using F1T.MVVM.Views.Flags;
 using System.Windows.Input;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace F1T.MVVM.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
 
+        // ============= CREATING NEW MODULES =============
+        // Create new ViewModel class in ViewModels folder which extends BaseOverlayViewModel (Has to be done by a person)
+        // Create ViewModel instance in FocusMonitor -> MainWindow.xaml.cs (This class?)
 
-        // === Current View ===
-        private object _currentView;
+        // Create new two new View classes in Views/{module} (Has to be done by a person)
+        // 1. SettingView
+        // 2. OverlayView
+        // Create OverlayView instance in FocusMonitor -> MainWindow.xaml.cs (This class?)
 
-        public object CurrentView
-        {
-            get { return _currentView; }
-            set { SetField(ref _currentView, value, "CurrentView"); }
-        }
+        // Create a new command which binds the SettingView to the CurrentView object on click -> MainViewModel.cs (This class?)
+        // Bind command to button -> MainWindow.xaml (Has to be done by a person)
 
 
-        // === Command for Views ===
+        // === COMMANDS ===
+        // === Commands To Switch Views ===
         public RelayCommand InputTelemetrySettingViewCommand { get; set; }
         public RelayCommand FlagSettingViewCommand { get; set; }
 
-        // === Views ===
+        // === VIEWS ===
+        // === SettingView Instances ===
         public InputTelemetrySettingView InputTelemetrySetting = new InputTelemetrySettingView();
         public FlagsSettingView FlagSetting = new FlagsSettingView();
 
-        public PacketViewModel sharedViewModel = PacketViewModel.GetInstance();
+        // === OverlayView Instances ===
+        InputTelemetryOverlayView InputTelemetryOverlay = new InputTelemetryOverlayView();
+        FlagsOverlayView FlagsOverlay = new FlagsOverlayView();
+
+
+        // === VIEW MODELS ===
+        // === View Models Associated with Views
+        InputTelemetryViewModel InputTelemetryModel = InputTelemetryViewModel.GetInstance();
+
+
+        // Dict of ViewModel and OverlayView
+        Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayView = new Dictionary<BaseModuleViewModel, Window>();
+        // Dict of ViewModel and SettingView
+        Dictionary<BaseModuleViewModel, UserControl> ViewModelAndSettingView = new Dictionary<BaseModuleViewModel, UserControl>();
+
+        private void Init()
+        {
+            // == INPUT TELEMETRY MODULE ==
+            ViewModelAndOverlayView.Add(InputTelemetryModel, InputTelemetryOverlay);
+            ViewModelAndSettingView.Add(InputTelemetryModel, InputTelemetrySetting);
+            InputTelemetrySettingViewCommand = new RelayCommand(obj => { CurrentView = InputTelemetrySetting; });
+
+            // == FLAG MODULE
+            FlagSettingViewCommand = new RelayCommand(obj => { CurrentView = FlagSetting; });
+        }
+
 
 
         // === Singleton Instance with Thread Saftey ===
@@ -51,70 +83,36 @@ namespace F1T.MVVM.ViewModels
             }
         }
 
-        // == UDP Client ===
-        UdpClient Client;
+
+        // === Focus Monitor ===
+        FocusMonitor FocusMonitor;
+
+        // === UDP Connection ===
+        UDPConnection UDPConnection;
+
+
+        // === Current View ===
+        private object _currentView;
+        public object CurrentView
+        {
+            get { return _currentView; }
+            set { SetField(ref _currentView, value, "CurrentView"); }
+        }
 
         private MainViewModel()
         {
-            CreateCommandInstances();
-            CreateNewUDPClient();
+            // Init all OverlayViews, SettingViews, and ViewModels and link them
+            Init();
+
+            // == DEFAULT VIEW ON STARTUP ==
+            // Set current view to default view
             CurrentView = InputTelemetrySetting;
-        }
 
-        private void CreateCommandInstances()
-        {
-            InputTelemetrySettingViewCommand = new RelayCommand(obj =>{CurrentView = InputTelemetrySetting;});
-            FlagSettingViewCommand = new RelayCommand(obj => { CurrentView = FlagSetting; });
-        }
+            // Create FocusMonitor to monitor application for when to display overlays
+            FocusMonitor = new FocusMonitor(ViewModelAndOverlayView);
 
-        private void CreateNewUDPClient()
-        {
-            //Client uses as receive udp client
-            Client = new UdpClient(20777);
-
-            try
-            {
-                Client.BeginReceive(new AsyncCallback(recv), null);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-        }
-
-
-        // === Ingestion point of data from the game ===
-        // === We create packets, then observable objects ===
-        // === from the packets which we can use anywhere ===
-        private void recv(IAsyncResult res)
-        {
-            // https://stackoverflow.com/questions/7266101/receive-messages-continuously-using-udpclient
-            // https://stackoverflow.com/questions/60352529/byte-array-to-struct-udp-packet
-            IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-            byte[] received = Client.EndReceive(res, ref RemoteIpEndPoint);
-            ReadOnlySpan<byte> remaining = received;
-
-
-            PacketHeader packetHeader = PacketHeaderParser.Parse(remaining);
-
-            remaining = PacketHeaderParser.Slice(remaining);
-
-
-            byte playerCarIndex = packetHeader.m_playerCarIndex;
-
-
-            switch (packetHeader.m_packetId)
-            {
-                case PacketType.CarTelemetry:
-
-                    PacketCarTelemetryData packetCarTelemetryData = PacketCarTelemetryDataParser.Parse(remaining);
-                    CarTelemetryData playerCarTelemetryData = packetCarTelemetryData.m_carTelemetryData[playerCarIndex];
-                    sharedViewModel.PlayerCarTelemetryData = new CarTelemetryDataObject(playerCarTelemetryData);
-
-                    break;
-
-            }
-            Client.BeginReceive(new AsyncCallback(recv), null);
-        }
+            // Create and start UDP Connection to game on port 21777
+            UDPConnection = new UDPConnection();
+        } 
     }
 }

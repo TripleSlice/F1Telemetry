@@ -130,10 +130,12 @@
     </ApplicationDefinition>
     <Compile Include="Converters\PercentageConverter.cs" />
     <Compile Include="Converters\SteeringConverter.cs" />
+    <Compile Include="Core\FocusMonitor.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
+    <Compile Include="Core\UDPConnection.cs" />
     <Compile Include="DataStructures\FixedSizeQueue.cs" />
-    <Compile Include="MVVM\ViewModels\BaseOverlayViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\BaseModuleViewModel.cs" />
     <Compile Include="MVVM\ViewModels\InputTelemetryViewModel.cs" />
     <Compile Include="MVVM\ViewModels\PacketViewModel.cs" />
     <Compile Include="MVVM\Views\Flags\FlagsOverlayView.xaml.cs">

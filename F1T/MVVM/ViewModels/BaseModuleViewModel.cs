@@ -7,8 +7,18 @@ using System.Threading.Tasks;
 
 namespace F1T.MVVM.ViewModels
 {
-    public class BaseOverlayViewModel : ObservableObject
+    public class BaseModuleViewModel : ObservableObject
     {
+
+        private PacketViewModel _packetViewModel = PacketViewModel.GetInstance();
+        public PacketViewModel PacketViewModel
+        {
+            get { return _packetViewModel; }
+            set
+            {
+                SetField(ref _packetViewModel, value, "PacketViewModel");
+            }
+        }
 
         private bool _overlayVisible;
         public bool OverlayVisible
