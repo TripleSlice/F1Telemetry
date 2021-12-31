@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using F1T.MVVM.Views.Home;
 
 namespace F1T.MVVM.ViewModels
 {
@@ -36,13 +37,16 @@ namespace F1T.MVVM.ViewModels
 
         // === COMMANDS ===
         // === Commands To Switch Views ===
+        public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand InputTelemetrySettingViewCommand { get; set; }
         public RelayCommand FlagSettingViewCommand { get; set; }
 
         // === VIEWS ===
+        // === HomeView Instance ===
+        HomeView Home = new HomeView();
         // === SettingView Instances ===
-        public InputTelemetrySettingView InputTelemetrySetting = new InputTelemetrySettingView();
-        public FlagsSettingView FlagSetting = new FlagsSettingView();
+        InputTelemetrySettingView InputTelemetrySetting = new InputTelemetrySettingView();
+        FlagsSettingView FlagSetting = new FlagsSettingView();
 
         // === OverlayView Instances ===
         InputTelemetryOverlayView InputTelemetryOverlay = new InputTelemetryOverlayView();
@@ -61,6 +65,9 @@ namespace F1T.MVVM.ViewModels
 
         private void Init()
         {
+            // == HOME MODULE ==
+            HomeViewCommand = new RelayCommand(obj => { CurrentView = Home; });
+
             // == INPUT TELEMETRY MODULE ==
             ViewModelAndOverlayView.Add(InputTelemetryModel, InputTelemetryOverlay);
             ViewModelAndSettingView.Add(InputTelemetryModel, InputTelemetrySetting);
@@ -106,7 +113,7 @@ namespace F1T.MVVM.ViewModels
 
             // == DEFAULT VIEW ON STARTUP ==
             // Set current view to default view
-            CurrentView = InputTelemetrySetting;
+            CurrentView = Home;
 
             // Create FocusMonitor to monitor application for when to display overlays
             FocusMonitor = new FocusMonitor(ViewModelAndOverlayView);

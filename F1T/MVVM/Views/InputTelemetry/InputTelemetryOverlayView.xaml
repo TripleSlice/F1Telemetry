@@ -62,7 +62,7 @@
                          Orientation="Vertical" Style="{StaticResource ThrottleBarTheme}"/>
         </StackPanel>
 
-        <Border Grid.Column="5" Opacity="{Binding Path=Opacity}" Background="Black" CornerRadius="0,75,75,0"/>
+        <Border Grid.Column="5"  Opacity="{Binding Path=Opacity}" Background="Black" CornerRadius="0,75,75,0"/>
 
         <Image Grid.Column="5" Width="100" Height="100" RenderTransformOrigin="0.5,0.5">
             <Image.Source>

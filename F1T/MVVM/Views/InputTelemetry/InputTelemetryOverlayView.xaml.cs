@@ -12,7 +12,7 @@ using System.Windows.Threading;
 namespace F1T.MVVM.Views.InputTelemetry
 {
 
-    public partial class InputTelemetryOverlayView : Window
+    public partial class InputTelemetryOverlayView : Window, IOverlayView
     {
 
         private static int _timeBetweenLooks = 50;
@@ -23,7 +23,7 @@ namespace F1T.MVVM.Views.InputTelemetry
         private readonly Stopwatch Stopwatch = Stopwatch.StartNew();
 
         // === ViewModel ===
-        InputTelemetryViewModel Model = InputTelemetryViewModel.GetInstance();
+        public BaseModuleViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
 
 
         public InputTelemetryOverlayView()
@@ -78,16 +78,6 @@ namespace F1T.MVVM.Views.InputTelemetry
                 }));
             }
         }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                if (e.ChangedButton == MouseButton.Left)
-                    this.DragMove();
-            }
-            catch (Exception ex) { }
-
-        }
+        public void OnWindow_MouseDown(object sender, MouseButtonEventArgs e){}
     }
 }

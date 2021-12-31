@@ -136,8 +136,14 @@
     <Compile Include="Core\UDPConnection.cs" />
     <Compile Include="DataStructures\FixedSizeQueue.cs" />
     <Compile Include="MVVM\ViewModels\BaseModuleViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\InputTelemetryViewModel.cs" />
     <Compile Include="MVVM\ViewModels\PacketViewModel.cs" />
+    <Compile Include="MVVM\Views\Home\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Views\IOverlayView.cs" />
+    <Compile Include="MVVM\Views\ISettingView.cs" />
     <Compile Include="MVVM\Views\Flags\FlagsOverlayView.xaml.cs">
       <DependentUpon>FlagsOverlayView.xaml</DependentUpon>
     </Compile>
@@ -179,6 +185,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\Views\Home\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\Views\InputTelemetry\InputTelemetryOverlayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\BrakeBarTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\OnOffSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

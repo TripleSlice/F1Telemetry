@@ -20,35 +20,17 @@ namespace F1T.MVVM.Views.InputTelemetry
     /// <summary>
     /// Interaction logic for InputTelemetrySettingView.xaml
     /// </summary>
-    public partial class InputTelemetrySettingView : UserControl
+    public partial class InputTelemetrySettingView : UserControl, ISettingView
     {
 
-        // === ViewModel ===
-        InputTelemetryViewModel Model = InputTelemetryViewModel.GetInstance();
         public InputTelemetrySettingView()
         {
             InitializeComponent();
             this.DataContext = Model;
         }
 
-        private void ToggleVisibilityButton_Click(object sender, RoutedEventArgs e)
-        {
+        public BaseModuleViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
 
-
-            // TODO This logic is wrong, that and the FocusMonitor logic
-            // desired behaviour is when the button is pressed
-            // the overlay is only shown when the game is up...
-            if (Model.Toggled)
-            {
-                FocusMonitor.HideOverlay(Model);
-            }
-            else
-            {
-                FocusMonitor.DisplayOverlay(Model);
-            }
-
-            Model.OverlayVisible = !Model.OverlayVisible;
-            Model.Toggled = !Model.Toggled;
-        }
+        public void OnToggleVisibilityButton_Click(object sender, RoutedEventArgs e){}
     }
 }

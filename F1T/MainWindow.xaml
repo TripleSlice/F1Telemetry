@@ -10,8 +10,7 @@
         ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True"
-        Loaded="Window_Loaded"
-        MouseDown="Window_MouseDown">
+        Loaded="Window_Loaded">
 
 
 
@@ -28,26 +27,28 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Border Background="#22202f" CornerRadius="10,0,0,0"/>
-            <Border Grid.Column="1"  Background="#22202f" CornerRadius="0,10,0,0"/>
- 
-            <TextBlock Grid.Row="0" Grid.Column="0" 
+            <!-- TOP BAR -->
+            <Border Grid.ColumnSpan="2" Background="#22202f" CornerRadius="10,10,0,0"  MouseDown="Border_MouseDown">
+                <Grid HorizontalAlignment="Stretch">
+                    <Label Grid.Row="0" Grid.Column="0" 
                        VerticalAlignment="Center" HorizontalAlignment="Left" 
-                       Text="F1T V1.0.0" Foreground="DarkGray" FontSize="12" FontFamily="/Fonts/#Poppins"
-                       Margin="10,0,0,0"></TextBlock>
+                       Content="F1T V1.0.0" Foreground="DarkGray" FontSize="12" FontFamily="/Fonts/#Poppins"
+                       Margin="10,0,0,0"></Label>
 
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button Click="MinimizeButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
+                            <TextBlock Text="–" Margin="0,-3,0,0" FontSize="20"/>
+                        </Button>
+                        <Button Click="FullscreenButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
+                            <TextBlock x:Name="MinMaxIcon" Text="1" Margin="0,0,-1,-1" FontSize="16" FontFamily="Marlett"/>
+                        </Button>
+                        <Button Click="CloseButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
+                            <TextBlock Text="x" Margin="0,-3,0,0" FontSize="20"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
-                <Button Click="MinimizeButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
-                    <TextBlock Text="–" Margin="0,-3,0,0" FontSize="20"/>
-                </Button>
-                <Button Click="FullscreenButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
-                    <TextBlock x:Name="MinMaxIcon" Text="1" Margin="0,0,-1,-1" FontSize="16" FontFamily="Marlett"/>
-                </Button>
-                <Button Click="CloseButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
-                    <TextBlock Text="x" Margin="0,-3,0,0" FontSize="20"/>
-                </Button>
-            </StackPanel>
    
 
             <TextBlock Grid.Row="1" Grid.Column="0" 
@@ -61,14 +62,13 @@
                              Foreground="White" FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
-                             Command="{Binding InputTelemetrySettingViewCommand}">
+                             Command="{Binding HomeViewCommand}">
 
                 </RadioButton>
                 <RadioButton Content="Input Telemetry"
                              Height="50"
                              Foreground="White" FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
-                             IsChecked="True"
                              Command="{Binding InputTelemetrySettingViewCommand}">
                     
                 </RadioButton>

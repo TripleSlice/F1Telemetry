@@ -73,12 +73,6 @@ namespace F1T
             this.DataContext = Model;
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
-
  
         private void OnWindowclose(object sender, EventArgs e)
         {
@@ -114,6 +108,12 @@ namespace F1T
                 MinMaxIcon.Text = "1";
                 this.WindowState = WindowState.Normal;
             }
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

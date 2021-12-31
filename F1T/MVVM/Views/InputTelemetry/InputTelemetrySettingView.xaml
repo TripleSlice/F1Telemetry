@@ -10,5 +10,12 @@
     <StackPanel>
         <Slider Maximum="100" Name="OpacitySlider" Value="{Binding OpacitySliderValue}"/>
         <Button Click="ToggleVisibilityButton_Click">Toggle Visibility</Button>
+        <ComboBox>
+            <ComboBoxItem>ComboBox Item #1</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">ComboBox Item #2</ComboBoxItem>
+            <ComboBoxItem>ComboBox Item #3</ComboBoxItem>
+        </ComboBox>
+        <RadioButton></RadioButton>
+        <CheckBox Style="{StaticResource OrangeSwitchStyle}"></CheckBox>
     </StackPanel>
 </UserControl>
