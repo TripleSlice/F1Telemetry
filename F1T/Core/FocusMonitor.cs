@@ -24,7 +24,7 @@ namespace F1T.Core
 
 
         // Checks if F1 or this app is focused
-        private bool F1Focused = false;
+        private static bool F1Focused = false;
 
         private Timer timer;
 
@@ -75,6 +75,12 @@ namespace F1T.Core
 
         public static void DisplayOverlay(BaseModuleViewModel Model)
         {
+
+            if (!F1Focused)
+            {
+                return;
+            }
+
             Window View;
             FocusMonitor.ViewModelAndOverlayView.TryGetValue(Model, out View);
 
@@ -97,6 +103,7 @@ namespace F1T.Core
             {
                 BaseModuleViewModel Model = entry.Key;
                 Window View = entry.Value;
+
 
                 if (Model.Toggled && !Model.OverlayVisible)
                 {

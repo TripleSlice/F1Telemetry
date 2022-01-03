@@ -29,21 +29,21 @@
 
             <!-- TOP BAR -->
             <Border Grid.ColumnSpan="2" Background="#22202f" CornerRadius="10,10,0,0"  MouseDown="Border_MouseDown">
-                <Grid HorizontalAlignment="Stretch">
+                <Grid Margin="0,3,0,0" HorizontalAlignment="Stretch">
                     <Label Grid.Row="0" Grid.Column="0" 
                        VerticalAlignment="Center" HorizontalAlignment="Left" 
                        Content="F1T V1.0.0" Foreground="DarkGray" FontSize="12" FontFamily="/Fonts/#Poppins"
                        Margin="10,0,0,0"></Label>
 
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Button Click="MinimizeButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
+                        <Button Click="MinimizeButton_Click" Width="30" Style="{StaticResource TopbarButtonTheme}">
                             <TextBlock Text="–" Margin="0,-3,0,0" FontSize="20"/>
                         </Button>
-                        <Button Click="FullscreenButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
+                        <Button Click="FullscreenButton_Click" Width="30" Style="{StaticResource TopbarButtonTheme}">
                             <TextBlock x:Name="MinMaxIcon" Text="1" Margin="0,0,-1,-1" FontSize="16" FontFamily="Marlett"/>
                         </Button>
-                        <Button Click="CloseButton_Click" Width="25" Style="{StaticResource TopbarButtonTheme}">
-                            <TextBlock Text="x" Margin="0,-3,0,0" FontSize="20"/>
+                        <Button Click="CloseButton_Click" Width="45" Style="{StaticResource TopbarCloseButtonTheme}">
+                            <TextBlock Text="x" Margin="0,-5,0,0" FontSize="20"/>
                         </Button>
                     </StackPanel>
                 </Grid>

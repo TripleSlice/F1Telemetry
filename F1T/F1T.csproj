@@ -165,6 +165,9 @@
     <Compile Include="Structs\CustomTypes.cs" />
     <Compile Include="Structs\PacketCarTelemetryData.cs" />
     <Compile Include="Structs\PacketHeader.cs" />
+    <Compile Include="Themes\ToggleButton.xaml.cs">
+      <DependentUpon>ToggleButton.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -201,9 +204,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\OnOffSlider.xaml">
+    <Page Include="Themes\ToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\TopbarCloseButtonTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\TopbarButtonTheme.xaml">
       <SubType>Designer</SubType>

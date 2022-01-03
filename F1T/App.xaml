@@ -11,7 +11,7 @@
                 <ResourceDictionary Source="./Themes/BrakeBarTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/ThrottleBarTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/TopbarButtonTheme.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="./Themes/OnOffSlider.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="./Themes/TopbarCloseButtonTheme.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

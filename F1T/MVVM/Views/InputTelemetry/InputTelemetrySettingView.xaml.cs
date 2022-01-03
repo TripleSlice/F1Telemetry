@@ -22,7 +22,6 @@ namespace F1T.MVVM.Views.InputTelemetry
     /// </summary>
     public partial class InputTelemetrySettingView : UserControl, ISettingView
     {
-
         public InputTelemetrySettingView()
         {
             InitializeComponent();

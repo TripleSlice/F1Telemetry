@@ -27,8 +27,7 @@ namespace F1T.MVVM.Views
             {
                 FocusMonitor.DisplayOverlay(iSettingView.Model);
             }
-
-            iSettingView.Model.OverlayVisible = !iSettingView.Model.OverlayVisible;
+            
             iSettingView.Model.Toggled = !iSettingView.Model.Toggled;
 
             iSettingView.OnToggleVisibilityButton_Click(sender, e);

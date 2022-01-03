@@ -5,8 +5,6 @@ namespace F1T.MVVM.ViewModels
     public class InputTelemetryViewModel : BaseModuleViewModel
     {
 
-
-
         // === Singleton Instance with Thread Saftey ===
         private static InputTelemetryViewModel _instance = null;
         private static object _singletonLock = new object();
@@ -26,6 +24,10 @@ namespace F1T.MVVM.ViewModels
             Opacity = 0.50f;
         }
 
+
+        // TODO
+        // Move this to IOverlayView...
+        // Use a Converter with it...
         private int _opacitySliderValue;
         public int OpacitySliderValue
         {
