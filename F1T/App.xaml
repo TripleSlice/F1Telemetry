@@ -12,6 +12,10 @@
                 <ResourceDictionary Source="./Themes/ThrottleBarTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/TopbarButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/TopbarCloseButtonTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="./Themes/SliderTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="./Themes/PercentageSliderTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="./Themes/PixelSliderTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="./Themes/ComboBoxTheme.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

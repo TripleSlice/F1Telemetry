@@ -5,7 +5,6 @@ namespace F1T.DataStructures
     public class FixedSizeQueue<T>
     {
         private T[] items;
-        private int top = 0;
         public FixedSizeQueue(int capacity)
         {
             items = new T[capacity];

@@ -14,8 +14,8 @@
             </Grid.ColumnDefinitions>
 
             <!-- Actual "Button" -->
-            <Rectangle Grid.ColumnSpan="2" x:Name="Back" Fill="#212121" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="136" Margin="2,2,0,0" RadiusY="14" RadiusX="14" MouseLeftButtonDown="Click_MouseLeftButtonDown"/>
-            <Rectangle Grid.ColumnSpan="2" x:Name="Pill" Fill="White" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Width="60" RadiusY="12" RadiusX="12" MouseLeftButtonDown="Click_MouseLeftButtonDown"/>
+            <Rectangle Grid.ColumnSpan="2" x:Name="Back" Fill="#1a1a1a " HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="136" Margin="2,2,0,0" RadiusY="14" RadiusX="14"/>
+            <Rectangle Grid.ColumnSpan="2" x:Name="Pill" Fill="White" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Width="60" RadiusY="12" RadiusX="12" RenderTransformOrigin="0.5,0.5"/>
 
             <!-- Labels for button -->
             <Label x:Name="OnLabel" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontFamily="/Fonts/#Poppins" FontSize="18" IsHitTestVisible="False" Grid.Column="0">ON</Label>

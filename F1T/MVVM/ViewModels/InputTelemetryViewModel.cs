@@ -17,37 +17,11 @@ namespace F1T.MVVM.ViewModels
             }
         }
 
-        private InputTelemetryViewModel()
+        private InputTelemetryViewModel() : base()
         {
+            // TODO
             // Set Defaults...
-            // This should be loaded and saved to file eventually
-            Opacity = 0.50f;
+            // Regarding this module specifically....
         }
-
-
-        // TODO
-        // Move this to IOverlayView...
-        // Use a Converter with it...
-        private int _opacitySliderValue;
-        public int OpacitySliderValue
-        {
-            get { return _opacitySliderValue; }
-            set {
-                SetField(ref _opacitySliderValue, value, "OpacitySliderValue");
-                Opacity = OpacitySliderValue / 100f; 
-            }
-        }
-
-        private float _opacity;
-        public float Opacity
-        {
-            get { return _opacity; }
-            set { 
-                SetField(ref _opacity, value, "Opacity");
-            }
-        }
-
-
-
     }
 }

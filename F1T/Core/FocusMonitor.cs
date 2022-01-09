@@ -76,10 +76,15 @@ namespace F1T.Core
         public static void DisplayOverlay(BaseModuleViewModel Model)
         {
 
-            if (!F1Focused)
-            {
-                return;
-            }
+            #if DEBUG
+                Console.WriteLine("Overlay toggled regardless due to being in DEBUG mode..."); 
+            #else
+                if (!F1Focused)
+                {
+                    return;
+                }
+            #endif
+
 
             Window View;
             FocusMonitor.ViewModelAndOverlayView.TryGetValue(Model, out View);

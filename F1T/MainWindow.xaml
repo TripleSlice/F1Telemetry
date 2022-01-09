@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:F1T"
         mc:Ignorable="d"
+        Icon="F1T_Logo.ico"
         Height="600" Width="920"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True"
         Loaded="Window_Loaded">
-
 
 
     <Border Background="#272537" CornerRadius="10">
@@ -29,13 +29,13 @@
 
             <!-- TOP BAR -->
             <Border Grid.ColumnSpan="2" Background="#22202f" CornerRadius="10,10,0,0"  MouseDown="Border_MouseDown">
-                <Grid Margin="0,3,0,0" HorizontalAlignment="Stretch">
+                <Grid  HorizontalAlignment="Stretch">
                     <Label Grid.Row="0" Grid.Column="0" 
                        VerticalAlignment="Center" HorizontalAlignment="Left" 
                        Content="F1T V1.0.0" Foreground="DarkGray" FontSize="12" FontFamily="/Fonts/#Poppins"
                        Margin="10,0,0,0"></Label>
 
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,3,0,0">
                         <Button Click="MinimizeButton_Click" Width="30" Style="{StaticResource TopbarButtonTheme}">
                             <TextBlock Text="–" Margin="0,-3,0,0" FontSize="20"/>
                         </Button>
@@ -49,35 +49,40 @@
                 </Grid>
             </Border>
 
-   
 
-            <TextBlock Grid.Row="1" Grid.Column="0" 
+
+            <Image Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="30,0,0,0"
+                   RenderOptions.BitmapScalingMode="HighQuality">
+                <Image.Source>
+                    <BitmapImage  UriSource="/Images/F1T_LOGO.png" />
+                </Image.Source>
+            </Image>
+
+            <!-- Old Text "Logo" -->
+            <!-- <TextBlock Grid.Row="1" Grid.Column="0" 
                     VerticalAlignment="Center" HorizontalAlignment="Left" 
                     Text="F1T" Foreground="White" FontSize="22" FontFamily="/Fonts/#Poppins"
-                    Margin="20,0,0,0"></TextBlock>
+                    Margin="20,0,0,0"></TextBlock> -->
 
             <StackPanel Grid.Row="2" Grid.Column="0">
                 <RadioButton Content="Home"
                              Height="50"
-                             Foreground="White" FontSize="14"
+                             Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
                              Command="{Binding HomeViewCommand}">
-
                 </RadioButton>
                 <RadioButton Content="Input Telemetry"
                              Height="50"
-                             Foreground="White" FontSize="14"
+                             Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding InputTelemetrySettingViewCommand}">
-                    
                 </RadioButton>
                 <RadioButton Content="Flags"
                              Height="50"
-                             Foreground="White" FontSize="14"
+                             Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding FlagSettingViewCommand}">
-                    
                 </RadioButton>
             </StackPanel>
 

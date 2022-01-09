@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="F1T.Themes.SettingLabel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:F1T.Themes"
+             mc:Ignorable="d" >
+    <StackPanel x:Name="StackPanel" Orientation="Horizontal" HorizontalAlignment="Left">
+        <Label Content="{Binding LabelContent}" FontFamily="/Fonts/#Poppins" Foreground="White" FontSize="11"/>
+
+    </StackPanel>
+</UserControl>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Height="125"
         AllowsTransparency="True" Background="Transparent" WindowStyle="None"
-    MouseDown="Window_MouseDown">
+        MouseDown="Window_MouseDown">
 
 
     <Window.Resources>
@@ -64,7 +64,8 @@
 
         <Border Grid.Column="5"  Opacity="{Binding Path=Opacity}" Background="Black" CornerRadius="0,75,75,0"/>
 
-        <Image Grid.Column="5" Width="100" Height="100" RenderTransformOrigin="0.5,0.5">
+        <Image Grid.Column="5" Width="100" Height="100" RenderTransformOrigin="0.5,0.5"
+                RenderOptions.BitmapScalingMode="HighQuality">
             <Image.Source>
                 <BitmapImage  UriSource="/Images/wheel.png" />
             </Image.Source>

@@ -15,6 +15,7 @@ namespace F1T.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
+
             int val = (int)value;
 
             return val / 100f;

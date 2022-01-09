@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using F1T.Themes;
 
 namespace F1T.MVVM.Views.InputTelemetry
 {
@@ -29,7 +30,11 @@ namespace F1T.MVVM.Views.InputTelemetry
         }
 
         public BaseModuleViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
+        public ToggleButton VisibilityButton { get => VisibilityButtonInstance; }
+
 
         public void OnToggleVisibilityButton_Click(object sender, RoutedEventArgs e){}
+        public void ViewToggleVisibilityButton_Click(object sender, RoutedEventArgs e){ this.ToggleVisibilityButton_Click(sender, e); }
+
     }
 }
