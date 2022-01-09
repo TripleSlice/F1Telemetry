@@ -28,7 +28,12 @@ namespace F1T.MVVM.ViewModels
         }
 
         // === Packets as Observable Objects ===
-        public ObservableCollection<CarTelemetryDataObject> CarTelemetryDataObjects { get; set; }
+        private PacketCarTelemetryDataObject _AllCarTelemetryData;
+        public PacketCarTelemetryDataObject AllCarTelemetryData
+        {
+            get { return _AllCarTelemetryData; }
+            set { SetField(ref _AllCarTelemetryData, value, "AllCarTelemetryData"); }
+        }
 
         private CarTelemetryDataObject _PlayerCarTelemetryData;
         public CarTelemetryDataObject PlayerCarTelemetryData
@@ -36,5 +41,27 @@ namespace F1T.MVVM.ViewModels
             get { return _PlayerCarTelemetryData; }
             set { SetField(ref _PlayerCarTelemetryData, value, "PlayerCarTelemetryData"); }
         }
+
+
+        private PacketMotionDataObject _AllCarMotionData;
+        public PacketMotionDataObject AllCarMotionData
+        {
+            get { return _AllCarMotionData; }
+            set { SetField(ref _AllCarMotionData, value, "AllCarMotionData"); }
+        }
+
+
+        private CarMotionDataObject _PlayerCarMotionData;
+        public CarMotionDataObject PlayerCarMotionData
+        {
+            get { return _PlayerCarMotionData; }
+            set { SetField(ref _PlayerCarMotionData, value, "PlayerCarMotionData"); }
+        }
+
+
+
+
+
+
     }
 }

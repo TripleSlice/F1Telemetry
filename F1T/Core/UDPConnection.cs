@@ -5,6 +5,7 @@ using F1T.Structs;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 
 namespace F1T.Core
 {
@@ -41,21 +42,37 @@ namespace F1T.Core
             byte[] received = Client.EndReceive(res, ref RemoteIpEndPoint);
             ReadOnlySpan<byte> remaining = received;
 
-
             PacketHeader packetHeader = PacketHeaderParser.Parse(remaining);
             remaining = PacketHeaderParser.Slice(remaining);
 
-
             byte playerCarIndex = packetHeader.m_playerCarIndex;
-
 
             switch (packetHeader.m_packetId)
             {
                 case PacketType.CarTelemetry:
-
                     PacketCarTelemetryData packetCarTelemetryData = PacketCarTelemetryDataParser.Parse(remaining);
+                    packetViewModel.AllCarTelemetryData = new PacketCarTelemetryDataObject(packetCarTelemetryData);
                     CarTelemetryData playerCarTelemetryData = packetCarTelemetryData.m_carTelemetryData[playerCarIndex];
                     packetViewModel.PlayerCarTelemetryData = new CarTelemetryDataObject(playerCarTelemetryData);
+                    break;
+
+                case PacketType.Motion:
+
+                    Console.WriteLine(remaining.Length);
+
+                    PacketMotionData packetMotionData = PacketMotionDataParser.Parse(remaining);
+                    packetViewModel.AllCarMotionData = new PacketMotionDataObject(packetMotionData);
+                    CarMotionData playerCarMotionData = packetMotionData.m_carMotionData[playerCarIndex];
+                    packetViewModel.PlayerCarMotionData = new CarMotionDataObject(playerCarMotionData);
+
+
+                    Console.WriteLine("X: " + packetViewModel.PlayerCarMotionData.m_worldPositionX);
+                    Console.WriteLine("Y: " + packetViewModel.PlayerCarMotionData.m_worldPositionY);
+                    Console.WriteLine("Z: " + packetViewModel.PlayerCarMotionData.m_worldPositionZ);
+
+                    Console.WriteLine("Pitch: " + packetViewModel.PlayerCarMotionData.m_pitch);
+                    Console.WriteLine("Yaw: " + packetViewModel.PlayerCarMotionData.m_yaw);
+                    Console.WriteLine("Roll: " + packetViewModel.PlayerCarMotionData.m_roll);
 
                     break;
             }

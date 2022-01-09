@@ -1,19 +1,10 @@
 ﻿using F1T.Core;
-using F1T.MVVM.Models;
 using F1T.Structs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace F1T.MVVM.Models
 {
     public class CarTelemetryDataObject : ObservableObject
     {
-
-
-
 
         private ushort _m_speed;
         public ushort m_speed // Speed of car in kilometres per hour
@@ -61,7 +52,7 @@ namespace F1T.MVVM.Models
         public UInt8Quad m_tyresSurfaceTemperature; // Tyres surface temperature (celsius)
         public UInt8Quad m_tyresInnerTemperature; // Tyres inner temperature (celsius)
         public ushort m_engineTemperature;        // Engine temperature (celsius)
-        public SingleQuad m_tyresPressure;         // Tyres pressure (PSI)
+        public FloatQuad m_tyresPressure;         // Tyres pressure (PSI)
         public ByteQuad m_surfaceType;           // Driving surface, see appendices
 
         public CarTelemetryDataObject()
@@ -80,7 +71,7 @@ namespace F1T.MVVM.Models
             m_tyresSurfaceTemperature = new UInt8Quad();
             m_tyresInnerTemperature = new UInt8Quad();
             m_engineTemperature = 0;
-            m_tyresPressure = new SingleQuad();
+            m_tyresPressure = new FloatQuad();
             m_surfaceType = new ByteQuad();
         }
         public CarTelemetryDataObject(CarTelemetryData data)
@@ -101,6 +92,18 @@ namespace F1T.MVVM.Models
             m_engineTemperature = data.m_engineTemperature;
             m_tyresPressure = data.m_tyresPressure;
             m_surfaceType = data.m_surfaceType;
+        }
+
+        public static CarTelemetryDataObject[] FromArray(CarTelemetryData[] data)
+        {
+            CarTelemetryDataObject[] array = new CarTelemetryDataObject[22];
+
+            for (int i = 0; i<data.Length; i++)
+            {
+                array[i] = new CarTelemetryDataObject(data[i]);
+            }
+
+            return array;
         }
     }
 }

@@ -28,7 +28,7 @@ namespace F1T.Structs
         public ushort D;
     }
     [StructLayout(LayoutKind.Explicit, Pack = 0, Size = 16)]
-    public struct SingleQuad
+    public struct FloatQuad
     {
         [FieldOffset(0)]
         public float A;

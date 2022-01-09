@@ -35,7 +35,7 @@ namespace F1T.Structs
         [FieldOffset(38)]
         public ushort m_engineTemperature;        // Engine temperature (celsius)
         [FieldOffset(40)]
-        public SingleQuad m_tyresPressure;         // Tyres pressure (PSI)
+        public FloatQuad m_tyresPressure;         // Tyres pressure (PSI)
         [FieldOffset(56)]
         public ByteQuad m_surfaceType;           // Driving surface, see appendices
     };

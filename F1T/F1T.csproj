@@ -138,6 +138,9 @@
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Core\UDPConnection.cs" />
     <Compile Include="DataStructures\FixedSizeQueue.cs" />
+    <Compile Include="MVVM\Models\CarMotionDataObject.cs" />
+    <Compile Include="MVVM\Models\PacketCarTelemetryDataObject.cs" />
+    <Compile Include="MVVM\Models\PacketMotionDataObject.cs" />
     <Compile Include="MVVM\ViewModels\BaseModuleViewModel.cs" />
     <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\InputTelemetryViewModel.cs" />
@@ -160,14 +163,18 @@
       <DependentUpon>InputTelemetrySettingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PacketParsers\BasePacketParser.cs" />
+    <Compile Include="PacketParsers\CarMotionDataParser.cs" />
     <Compile Include="PacketParsers\CarTelemetryDataParser.cs" />
     <Compile Include="PacketParsers\PacketCarTelemetryDataParser.cs" />
     <Compile Include="PacketParsers\PacketHeaderParser.cs" />
     <Compile Include="MVVM\Models\CarTelemetryDataObject.cs" />
+    <Compile Include="PacketParsers\PacketMotionDataParser.cs" />
+    <Compile Include="Structs\CarMotionData.cs" />
     <Compile Include="Structs\CarTelemetryData.cs" />
     <Compile Include="Structs\CustomTypes.cs" />
     <Compile Include="Structs\PacketCarTelemetryData.cs" />
     <Compile Include="Structs\PacketHeader.cs" />
+    <Compile Include="Structs\PacketMotionData.cs" />
     <Compile Include="Themes\PlusMinusButton.xaml.cs">
       <DependentUpon>PlusMinusButton.xaml</DependentUpon>
     </Compile>
@@ -337,6 +344,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\doge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Structs\Info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />
