@@ -5,27 +5,10 @@ namespace F1T.MVVM.Models
 {
     public class CarMotionDataObject : ObservableObject
     {
-        private float _m_worldPositionX;
-        public float m_worldPositionX // World space X position
-        {
-            get { return _m_worldPositionX; }
-            set { SetField(ref _m_worldPositionX, value, "m_worldPositionX"); }
-        }
 
-        private float _m_worldPositionY;
-        public float m_worldPositionY           // World space Y position
-        {
-            get { return _m_worldPositionY; }
-            set { SetField(ref _m_worldPositionY, value, "m_worldPositionY"); }
-        }
-
-        private float _m_worldPositionZ;
-        public float m_worldPositionZ           // World space Z position
-        {
-            get { return _m_worldPositionZ; }
-            set { SetField(ref _m_worldPositionZ, value, "m_worldPositionZ"); }
-        }
-
+        public float m_worldPositionX;           // World space X position
+        public float m_worldPositionY;           // World space Y position
+        public float m_worldPositionZ;           // World space Z position
         public float m_worldVelocityX;           // Velocity in world space X
         public float m_worldVelocityY;           // Velocity in world space Y
         public float m_worldVelocityZ;           // Velocity in world space Z
@@ -38,28 +21,9 @@ namespace F1T.MVVM.Models
         public float m_gForceLateral;            // Lateral G-Force component
         public float m_gForceLongitudinal;       // Longitudinal G-Force component
         public float m_gForceVertical;           // Vertical G-Force component
-
-        private float _m_yaw;
-        public float m_yaw                      // Yaw angle in radians
-        {
-            get { return _m_yaw; }
-            set { SetField(ref _m_yaw, value, "m_yaw"); }
-        }
-
-        private float _m_pitch;
-        public float m_pitch                     // Pitch angle in radians
-        {
-            get { return _m_pitch; }
-            set { SetField(ref _m_pitch, value, "m_pitch"); }
-        }
-
-        private float _m_roll;
-        public float m_roll                     // Roll angle in radians
-        {
-            get { return _m_roll; }
-            set { SetField(ref _m_roll, value, "m_wm_rollorldPositionZ"); }
-        }
-
+        public float m_yaw;                      // Yaw angle in radians
+        public float m_pitch;                    // Pitch angle in radians
+        public float m_roll;                     // Roll angle in radians
 
         public CarMotionDataObject()
         {

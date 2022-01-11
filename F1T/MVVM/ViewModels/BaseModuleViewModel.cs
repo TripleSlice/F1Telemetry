@@ -20,6 +20,7 @@ namespace F1T.MVVM.ViewModels
             // since they are specific to all modules
             // Then in each module specifically, 
             // the properties should be saved and loaded in their constructor
+            Opacity = 0.5f;
         }
 
         private PacketViewModel _packetViewModel = PacketViewModel.GetInstance();

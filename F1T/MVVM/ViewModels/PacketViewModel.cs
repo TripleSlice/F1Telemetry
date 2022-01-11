@@ -59,6 +59,12 @@ namespace F1T.MVVM.ViewModels
         }
 
 
+        private int _PlayCarMotionIndex;
+        public int PlayerCarMotionIndex
+        {
+            get { return _PlayCarMotionIndex; }
+            set { SetField(ref _PlayCarMotionIndex, value, "PlayerCarMotionIndex"); }
+        }
 
 
 

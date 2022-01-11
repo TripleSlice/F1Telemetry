@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using F1T.MVVM.Views.Home;
+using F1T.MVVM.Views.Radar;
 
 namespace F1T.MVVM.ViewModels
 {
@@ -40,6 +41,7 @@ namespace F1T.MVVM.ViewModels
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand InputTelemetrySettingViewCommand { get; set; }
         public RelayCommand FlagSettingViewCommand { get; set; }
+        public RelayCommand RadarSettingViewCommand { get; set; }
 
         // === VIEWS ===
         // === HomeView Instance ===
@@ -47,15 +49,19 @@ namespace F1T.MVVM.ViewModels
         // === SettingView Instances ===
         InputTelemetrySettingView InputTelemetrySetting = new InputTelemetrySettingView();
         FlagsSettingView FlagSetting = new FlagsSettingView();
+        RadarSettingView RadarSetting = new RadarSettingView();
 
         // === OverlayView Instances ===
         InputTelemetryOverlayView InputTelemetryOverlay = new InputTelemetryOverlayView();
         FlagsOverlayView FlagsOverlay = new FlagsOverlayView();
+        RadarOverlayView RadarOverlay = new RadarOverlayView();
 
 
         // === VIEW MODELS ===
         // === View Models Associated with Views
         InputTelemetryViewModel InputTelemetryModel = InputTelemetryViewModel.GetInstance();
+
+        RadarViewModel RadarModel = RadarViewModel.GetInstance();
 
 
         // Dict of ViewModel and OverlayView
@@ -73,8 +79,13 @@ namespace F1T.MVVM.ViewModels
             ViewModelAndSettingView.Add(InputTelemetryModel, InputTelemetrySetting);
             InputTelemetrySettingViewCommand = new RelayCommand(obj => { CurrentView = InputTelemetrySetting; });
 
-            // == FLAG MODULE
+            // == FLAG MODULE ==
             FlagSettingViewCommand = new RelayCommand(obj => { CurrentView = FlagSetting; });
+
+            // == RADAR MODULE ==
+            ViewModelAndOverlayView.Add(RadarModel, RadarOverlay);
+            ViewModelAndSettingView.Add(RadarModel, RadarSetting);
+            RadarSettingViewCommand = new RelayCommand(obj => { CurrentView = RadarSetting; });
         }
 
 

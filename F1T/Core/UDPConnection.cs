@@ -54,25 +54,17 @@ namespace F1T.Core
                     packetViewModel.AllCarTelemetryData = new PacketCarTelemetryDataObject(packetCarTelemetryData);
                     CarTelemetryData playerCarTelemetryData = packetCarTelemetryData.m_carTelemetryData[playerCarIndex];
                     packetViewModel.PlayerCarTelemetryData = new CarTelemetryDataObject(playerCarTelemetryData);
+
                     break;
 
                 case PacketType.Motion:
-
-                    Console.WriteLine(remaining.Length);
-
                     PacketMotionData packetMotionData = PacketMotionDataParser.Parse(remaining);
                     packetViewModel.AllCarMotionData = new PacketMotionDataObject(packetMotionData);
                     CarMotionData playerCarMotionData = packetMotionData.m_carMotionData[playerCarIndex];
                     packetViewModel.PlayerCarMotionData = new CarMotionDataObject(playerCarMotionData);
+                    packetViewModel.PlayerCarMotionIndex = packetHeader.m_playerCarIndex;
 
 
-                    Console.WriteLine("X: " + packetViewModel.PlayerCarMotionData.m_worldPositionX);
-                    Console.WriteLine("Y: " + packetViewModel.PlayerCarMotionData.m_worldPositionY);
-                    Console.WriteLine("Z: " + packetViewModel.PlayerCarMotionData.m_worldPositionZ);
-
-                    Console.WriteLine("Pitch: " + packetViewModel.PlayerCarMotionData.m_pitch);
-                    Console.WriteLine("Yaw: " + packetViewModel.PlayerCarMotionData.m_yaw);
-                    Console.WriteLine("Roll: " + packetViewModel.PlayerCarMotionData.m_roll);
 
                     break;
             }

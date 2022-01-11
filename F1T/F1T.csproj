@@ -145,6 +145,7 @@
     <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\InputTelemetryViewModel.cs" />
     <Compile Include="MVVM\ViewModels\PacketViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\RadarViewModel.cs" />
     <Compile Include="MVVM\Views\Home\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -161,6 +162,12 @@
     </Compile>
     <Compile Include="MVVM\Views\InputTelemetry\InputTelemetrySettingView.xaml.cs">
       <DependentUpon>InputTelemetrySettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Views\Radar\RadarOverlayView.xaml.cs">
+      <DependentUpon>RadarOverlayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Views\Radar\RadarSettingView.xaml.cs">
+      <DependentUpon>RadarSettingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PacketParsers\BasePacketParser.cs" />
     <Compile Include="PacketParsers\CarMotionDataParser.cs" />
@@ -213,6 +220,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\Views\InputTelemetry\InputTelemetrySettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\Views\Radar\RadarOverlayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\Views\Radar\RadarSettingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
