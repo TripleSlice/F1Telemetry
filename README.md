@@ -16,17 +16,17 @@ Creates a graph of your inputs!
 Download the latest release from [here](https://github.com/ryanabaker/F1T/releases "Releases"), or clone the project and compile it yourself.
 
 #### Required F1 2021 Settings
-F1 will need to be run in borderless window mode!
+F1 will need to be run in **borderless window mode!**
 
-Set up telemetry - Go to options -> settings -> telemtry settings and set the following:
+Set up telemetry - Go to options -> settings -> telemetry settings and set the following:
 
 UDP Telemetry - On
 
 UDP IP Address - 127.0.0.1
 
-UDP Port - 20777 (can be changed in the settings)
+UDP Port - 20777
 
-UDP Send Rate - 60hz (can be set to anything but the higher the better)
+UDP Send Rate - 60hz (recomended 60hz)
 
 UDP Format - 2021
 
@@ -49,7 +49,8 @@ Feel free to create new issues with new features you would like. I can't guarant
 [Does this work for UNIX/OS X systems?](#does-this-work-for-unixos-x-systems)
 
 
-
+#### Does it work in multiplayer?
+It does! It is not considered "cheating" by the games standards, and you can use it whenever you want. However you may want to check with your league owner if something like this would be allowed in your league
 #### The overlay won't display over top of F1?
 Make sure you follow [these](##how-to-use?) instructions
 #### Will this work for F1 2022?
@@ -62,4 +63,13 @@ No. I have no interest in making this paid. Will most likely always be open sour
 Suggest it on the [issues page](https://github.com/ryanabaker/F1T/issues "Issues"). There is 0 guarentee that it will ever get looked at or completed, but it is worth a shot
 #### Does this work for UNIX/OS X systems?
 Not currently
+
+## Help
+Create a issue on the [issues page](https://github.com/ryanabaker/F1T/issues "Issues") or join the [Discord](discordlinktocome)
+
+## Upcoming Features
+- Flags Modules
+- Weather Module
+- Other Player Tyre Module
+- Many more that haven't been thought of yet
 
