@@ -28,13 +28,14 @@ namespace F1T.MVVM.Views.Radar
 
         private static int _timeBetweenLooks = 33;
 
-        
+
         // === ViewModel ===
         public BaseModuleViewModel Model { get => RadarViewModel.GetInstance(); }
         public RadarViewModel RadarModel = RadarViewModel.GetInstance();
 
 
         SolidColorBrush NiceBlue = new SolidColorBrush(Color.FromRgb(3, 144, 252));
+        SolidColorBrush NiceRed = new SolidColorBrush(Color.FromRgb(247, 68, 45));
 
         List<Rectangle> Rectangles = new List<Rectangle>();
 
@@ -46,6 +47,30 @@ namespace F1T.MVVM.Views.Radar
             UpdateValues();
 
             InitTimer();
+
+            // Points in global space
+            Vector2 A = new Vector2(50, 50);
+            Vector2 B = new Vector2(80, 90);
+
+            // Make A be "center" and B be relitive to A
+            B.X = B.X - A.X;
+            B.Y = B.Y - A.Y;
+
+            A.X = 0;
+            A.Y = 0;
+
+
+            var R = Math.Sqrt(B.X * B.X + B.Y * B.Y);
+            var phi1 = Math.Atan2(B.Y, B.X); 
+            var phi2 = 1.10714961; // PlayerYaw?
+
+
+            var deltaPhi = phi1 - phi2;
+
+            var x = R * Math.Cos(deltaPhi);
+            var y = R * Math.Sin(deltaPhi);
+            
+
         }
 
 
@@ -62,133 +87,99 @@ namespace F1T.MVVM.Views.Radar
 
             if (Model.OverlayVisible && Model.PacketViewModel.PlayerCarMotionData != null)
             {
-
-                CarMotionDataObject PlayerCar = Model.PacketViewModel.PlayerCarMotionData;
-
-                var worldForwardDirX = PlayerCar.m_worldForwardDirX / 32767.0f;
-                var worldForwardDirZ = PlayerCar.m_worldForwardDirZ / 32767.0f;
-                var worldRightDirX = PlayerCar.m_worldRightDirX / 32767.0f;
-                var worldRightDirZ = PlayerCar.m_worldRightDirZ / 32767.0f;
-
-                Vector2 worldForward = new Vector2(worldForwardDirX, worldForwardDirZ);
-                Vector2 worldRight = new Vector2(worldRightDirX, worldRightDirZ);
-
+                // Must start this here, or else we could be dealing with de-sync between values of Model and this code...
                 Application.Current.Dispatcher.BeginInvoke(
                     DispatcherPriority.Normal,
                     new Action(() =>
                     {
+                        // Clear the rectangles from the previous call of this func
                         for (int i = Rectangles.Count - 1; i >= 0; --i)
                         {
                             Canvas.Children.Remove(Rectangles[i]);
                             //Rectangles.RemoveAt(i);
                         }
                         Rectangles.Clear();
+
+                        // Set the PlayerCar and AllCars variables
+                        CarMotionDataObject PlayerCar = Model.PacketViewModel.PlayerCarMotionData;
+                        CarMotionDataObject[] AllCars = Model.PacketViewModel.AllCarMotionData.m_carMotionData;
+                        int PlayerCarIndex = Model.PacketViewModel.PlayerCarMotionIndex;
+
+                        for (int i = 0; i < AllCars.Length; i++)
+                        {
+                            // If we are on the player car...
+                            if (i == PlayerCarIndex)
+                            {
+                                continue;
+                            }
+
+                            // Get the current car object
+                            CarMotionDataObject Car = AllCars[i];
+
+                            // Not sure why but sometimes the carYaw == 0 (ghost cars?)
+                            if (Car.m_yaw == 0)
+                            {
+                                continue;
+                            }
+
+
+                            // https://gamedev.stackexchange.com/questions/79765/how-do-i-convert-from-the-global-coordinate-space-to-a-local-space
+                            // https://gamedev.stackexchange.com/questions/198852/converting-from-global-coordinates-to-local-coordinates/198860#198860
+                            // Compute delta between two cars
+                            var deltaX = Car.m_worldPositionX - PlayerCar.m_worldPositionX;
+                            var deltaZ = Car.m_worldPositionZ - PlayerCar.m_worldPositionZ;
+
+                            // Arbitrary square selected as 20 world units out in every direction
+                            // aka a 40 x 40 square
+                            if (Math.Abs(deltaX) < 20 && Math.Abs(deltaZ) < 20)
+                            {
+                                // If we are within this square, perform calculations
+                                double deltaYawRad = Car.m_yaw - PlayerCar.m_yaw;
+                                double deltaYaw = (180 / Math.PI) * deltaYawRad;
+
+                                // Polar coordinates
+                                var radius = Math.Sqrt(deltaX * deltaX + deltaZ * deltaZ);
+                                var phi1 = Math.Atan2(deltaZ, deltaX);
+                                var phi2 = -PlayerCar.m_yaw;
+
+                                var deltaPhi = phi1 - phi2;
+
+                                // Convert from polar back to cartesian
+                                var X = -(radius * Math.Cos(deltaPhi));
+                                var Y = -(radius * Math.Sin(deltaPhi));
+
+                                Rectangle rec = new Rectangle()
+                                {
+                                    Width = RadarModel.CarWidth,
+                                    Height = RadarModel.CarHeight,
+                                    Fill = NiceBlue,
+                                    RadiusY = 5,
+                                    RadiusX = 5
+                                };
+
+                                // Rotate the rectangle so that it displays the rotation
+                                rec.RenderTransformOrigin = new Point(0.5, 0.5);
+                                rec.RenderTransform = new RotateTransform(-deltaYaw);
+
+                                Canvas.Children.Add(rec);
+                                Rectangles.Add(rec);
+
+                                // Set our X and Y multiplied by our scale, subtracted by where our 0,0 is (NOT CANVAS 0,0)
+                                Canvas.SetLeft(rec, RadarModel.PlayerCarLeft + X * RadarModel.Scale);
+                                Canvas.SetTop(rec, RadarModel.PlayerCarTop + Y * RadarModel.Scale);
+                            }
+                        }
                     }));
-
-
-
-
-                for (int i = 0; i < Model.PacketViewModel.AllCarMotionData.m_carMotionData.Length; i++)
-                {
-
-                    CarMotionDataObject car = Model.PacketViewModel.AllCarMotionData.m_carMotionData[i];
-
-                    var deltaX = PlayerCar.m_worldPositionX - car.m_worldPositionX;
-                    var deltaZ = PlayerCar.m_worldPositionZ - car.m_worldPositionZ;
-
-                    Vector2 deltaVector = new Vector2(deltaX, deltaZ);
-
-                    var deltaYawRad = PlayerCar.m_yaw - car.m_yaw;
-                    double deltaYaw = (180 / Math.PI) * deltaYawRad;
-
-
-                    // If we are on the players car
-                    if (i == Model.PacketViewModel.PlayerCarMotionIndex)
-                    {
-                        continue;
-                    }
-
-                    // Arbitrrary "Radius" (Square) selected as 100
-                    if (Math.Abs(deltaX) < 100 && Math.Abs(deltaZ) < 100)
-                    {
-                        Application.Current.Dispatcher.BeginInvoke(
-                                    DispatcherPriority.Normal,
-                                    new Action(() =>
-                                    {
-                                        Rectangle rec = new Rectangle()
-                                        {
-                                            Width = RadarModel.CarWidth,
-                                            Height = RadarModel.CarHeight,
-                                            Fill = NiceBlue,
-                                            RadiusY = 5,
-                                            RadiusX = 5
-                                        };
-
-                                        rec.RenderTransformOrigin = new Point(0.5, 0.5);
-                                        rec.RenderTransform = new RotateTransform(-deltaYaw);
-
-                                        Canvas.Children.Add(rec);
-                                        Rectangles.Add(rec);
-
-
-
-                                        Console.WriteLine("worldForwardDirX: " + worldForwardDirX);
-                                        Console.WriteLine("worldForwardDirZ: " + worldForwardDirZ);
-                                        Console.WriteLine("worldRightDirX: " + worldRightDirX);
-                                        Console.WriteLine("worldRightDirZ: " + worldRightDirZ);
-
-
-                                        // values on straight
-                                        // worldForwardDirX: -0.5568407
-                                        // worldForwardDirZ: -0.001739555
-                                        // worldRightDirX: -0.9992371
-                                        // worldRightDirZ: 0.01614429
-
-                                        // Same direction as straight
-                                        // worldForwardDirX: -0.4811853
-                                        // worldForwardDirZ: 0.02578814
-                                        // worldRightDirX: -0.9893185
-                                        // worldRightDirZ: 0.02691733
-
-
-                                        // Opposite from straight
-                                        // worldForwardDirX: 0.52031 <- switches
-                                        // worldForwardDirZ: -0.0004272591
-                                        // worldRightDirX: 0.9994202 <- switches
-                                        // worldRightDirZ: 0.02755821
-
-
-                                        // perpendicular to striaght
-                                        // worldForwardDirX: -0.4921415
-                                        // worldForwardDirZ: 0.01965392
-                                        // worldRightDirX: -0.2396008 <- switches
-                                        // worldRightDirZ: -0.01391644 <- switches
-
-
-                                        // what "worked" before on straight
-                                        //var moveUp = deltaZ * 1 + 0;
-                                        //var moveLeft = deltaX * -1 + 0;
-                                        // OR
-                                        //var moveUp = deltaZ * -1 + 0;
-                                        //var moveLeft = deltaX * -1 + 0;
-
-
-                                        var moveUp = Vector2.Dot(deltaVector, worldForward);
-                                        var moveLeft = -Vector2.Dot(deltaVector, worldRight);
-
-                                        Canvas.SetTop(rec, RadarModel.PlayerCarTop + moveUp * RadarModel.Scale);
-                                        Canvas.SetLeft(rec, RadarModel.PlayerCarLeft + moveLeft * RadarModel.Scale);
-
-                                        // what "worked" before
-                                        //Canvas.SetTop(rec, RadarModel.PlayerCarTop + deltaZ * RadarModel.Scale * -1);
-                                        //Canvas.SetLeft(rec, RadarModel.PlayerCarLeft + deltaX * RadarModel.Scale * -1);
-
-                                    }));
-                    }
-                }
             }
         }
 
         public void OnWindow_MouseDown(object sender, MouseButtonEventArgs e) { }
     }
 }
+
+//For use the old way of rotating incase this one breaks for some reason...
+//Canvas.RenderTransformOrigin = new Point(0.5, 0.5);
+//PlayerCarRect.RenderTransformOrigin = new Point(0.5, 0.5);
+//rec.RenderTransform = new RotateTransform(deltaYaw);
+//Canvas.RenderTransform = new RotateTransform(playerYaw);
+//PlayerCarRect.RenderTransform = new RotateTransform(-playerYaw);
