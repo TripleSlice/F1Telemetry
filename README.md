@@ -44,7 +44,7 @@ Feel free to create new issues with new features you would like. I can't guarant
 
 [Will there ever be premium features or a paid version?](#will-there-ever-be-premium-features-or-a-paid-version)
 
-[I have an idea for a feature, but I can't code it...](#i-have-an-idea-for-a-feature-but-i-cant-code-it
+[I have an idea for a feature, but I can't code it...](#i-have-an-idea-for-a-feature-but-i-cant-code-it)
 
 [Does this work for UNIX/OS X systems?](#does-this-work-for-unixos-x-systems)
 
