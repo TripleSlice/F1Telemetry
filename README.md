@@ -36,17 +36,17 @@ Head on over to the [issues page](https://github.com/ryanabaker/F1T/issues "Issu
 Feel free to create new issues with new features you would like. I can't guarantee it will be possible/I will have time for it, but it doesn't hurt to ask. 
 
 ## Frequently Asked Questions
-[The overlay won't display over top of F1?](####the-overlay-won't-display-over-top-of-F1?)
+[The overlay won't display over top of F1?](####the-overlay-wont-display-over-top-of-f1)
 
-[Will this work for F1 2022?](####will-this-work-for-f1-2022?)
+[Will this work for F1 2022?](####will-this-work-for-f1-2022)
 
-[How can I tell there is no malicious code](####how-can-i-tell-there-is-no-malicious-code?)
+[How can I tell there is no malicious code](####how-can-i-tell-there-is-no-malicious-code)
 
-[Will there ever be premium features or a paid version?](####ill-there-ever-be-premium-features-or-a-paid-version?)
+[Will there ever be premium features or a paid version?](####ill-there-ever-be-premium-features-or-a-paid-version)
 
-[I have an idea for a feature, but I can't code it...](####i-have-an-idea-for-a-feature,-but-i-can't-code-it...)
+[I have an idea for a feature, but I can't code it...](####i-have-an-idea-for-a-feature-but-i-cant-code-it)
 
-[Does this work for UNIX/OS X systems?](####does-this-work-for-unis/os-x-systems?)
+[Does this work for UNIX/OS X systems?](####does-this-work-for-unisos-x-systems)
 
 
 
