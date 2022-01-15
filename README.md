@@ -16,19 +16,25 @@ Creates a graph of your inputs!
 Download the latest release from [here](https://github.com/ryanabaker/F1T/releases "Releases"), or clone the project and compile it yourself.
 
 #### Required F1 2021 Settings
-F1 will need to be run in **borderless window mode!**
 
-Set up telemetry - Go to options -> settings -> telemetry settings and set the following:
+##### Video Settings
+F1 needs to be run in **(Windowed) Fullscreen**
 
-UDP Telemetry - On
+To do this, go into **Settings** -> **Graphic Settings** -> **Video Mode** 
 
-UDP IP Address - 127.0.0.1
+- **Display Mode** -> **(Windowed) Fullscreen**
 
-UDP Port - 20777
+##### Telemetry Settings
+In order for this application to function, telemetry must be turned on in the settings.
 
-UDP Send Rate - 60hz (recomended 60hz)
+To do this, go into **Settings** -> **Telemetry Settings** and ensure you have the following settings
 
-UDP Format - 2021
+- **UDP Telemetry** -> **On**
+- **UDP IP Address** -> **127.0.0.1**
+- **UDP Port** -> **20777**
+- **UDP Send Rate** -> **60hz** (Recomended 60hz, although if you computer is struggling you can lower it)
+- **UDP Format** -> **2021**
+
 
 ## How to contribute?
 Head on over to the [issues page](https://github.com/ryanabaker/F1T/issues "Issues") and find an issue!
