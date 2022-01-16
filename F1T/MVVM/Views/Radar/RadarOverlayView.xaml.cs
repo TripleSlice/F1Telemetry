@@ -28,7 +28,6 @@ namespace F1T.MVVM.Views.Radar
 
         private static int _timeBetweenLooks = 33;
 
-
         // === ViewModel ===
         public BaseModuleViewModel Model { get => RadarViewModel.GetInstance(); }
         public RadarViewModel RadarModel = RadarViewModel.GetInstance();
@@ -36,8 +35,12 @@ namespace F1T.MVVM.Views.Radar
 
         SolidColorBrush NiceBlue = new SolidColorBrush(Color.FromRgb(3, 144, 252));
         SolidColorBrush NiceRed = new SolidColorBrush(Color.FromRgb(247, 68, 45));
+        SolidColorBrush NiceYellow = new SolidColorBrush(Color.FromRgb(252, 211, 3));
 
         List<Rectangle> Rectangles = new List<Rectangle>();
+
+
+
 
         public RadarOverlayView()
         {
@@ -47,30 +50,6 @@ namespace F1T.MVVM.Views.Radar
             UpdateValues();
 
             InitTimer();
-
-            // Points in global space
-            Vector2 A = new Vector2(50, 50);
-            Vector2 B = new Vector2(80, 90);
-
-            // Make A be "center" and B be relitive to A
-            B.X = B.X - A.X;
-            B.Y = B.Y - A.Y;
-
-            A.X = 0;
-            A.Y = 0;
-
-
-            var R = Math.Sqrt(B.X * B.X + B.Y * B.Y);
-            var phi1 = Math.Atan2(B.Y, B.X); 
-            var phi2 = 1.10714961; // PlayerYaw?
-
-
-            var deltaPhi = phi1 - phi2;
-
-            var x = R * Math.Cos(deltaPhi);
-            var y = R * Math.Sin(deltaPhi);
-            
-
         }
 
 
@@ -78,6 +57,11 @@ namespace F1T.MVVM.Views.Radar
         public void InitTimer()
         {
             timer = new Timer(UpdateValues, null, 0, _timeBetweenLooks);
+        }
+
+        private bool isInsideSquare(double X, double Y, int radius)
+        {
+            return Math.Abs(X) < (RadarModel.CarWidth / 2) + radius  && Math.Abs(Y) < (RadarModel.CarHeight / 2) + radius * 2f;
         }
 
 
@@ -145,28 +129,38 @@ namespace F1T.MVVM.Views.Radar
                                 var deltaPhi = phi1 - phi2;
 
                                 // Convert from polar back to cartesian
-                                var X = -(radius * Math.Cos(deltaPhi));
-                                var Y = -(radius * Math.Sin(deltaPhi));
+                                var X = -(radius * Math.Cos(deltaPhi)) * RadarModel.Scale;
+                                var Y = -(radius * Math.Sin(deltaPhi)) * RadarModel.Scale;
+
+                                SolidColorBrush color = NiceBlue;
+
+                                if (isInsideSquare(X, Y, RadarModel.DangerRadius))
+                                {
+                                    color = NiceRed;
+                                }else if (isInsideSquare(X, Y, RadarModel.WarningRadius))
+                                {
+                                    color = NiceYellow;
+                                }
 
                                 Rectangle rec = new Rectangle()
                                 {
                                     Width = RadarModel.CarWidth,
                                     Height = RadarModel.CarHeight,
-                                    Fill = NiceBlue,
+                                    Fill = color,
                                     RadiusY = 5,
                                     RadiusX = 5
                                 };
 
                                 // Rotate the rectangle so that it displays the rotation
                                 rec.RenderTransformOrigin = new Point(0.5, 0.5);
-                                rec.RenderTransform = new RotateTransform(-deltaYaw);
+                                rec.RenderTransform = new RotateTransform(-deltaYaw); ;
 
                                 Canvas.Children.Add(rec);
                                 Rectangles.Add(rec);
 
                                 // Set our X and Y multiplied by our scale, subtracted by where our 0,0 is (NOT CANVAS 0,0)
-                                Canvas.SetLeft(rec, RadarModel.PlayerCarLeft + X * RadarModel.Scale);
-                                Canvas.SetTop(rec, RadarModel.PlayerCarTop + Y * RadarModel.Scale);
+                                Canvas.SetLeft(rec, RadarModel.PlayerCarLeft + X);
+                                Canvas.SetTop(rec, RadarModel.PlayerCarTop + Y);
                             }
                         }
                     }));

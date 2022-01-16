@@ -78,12 +78,6 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding InputTelemetrySettingViewCommand}">
                 </RadioButton>
-                <RadioButton Content="Flags"
-                             Height="50"
-                             Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding FlagSettingViewCommand}">
-                </RadioButton>
                 <RadioButton Content="Radar"
                              Height="50"
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"

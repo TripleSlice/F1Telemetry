@@ -6,7 +6,6 @@ using System.Windows.Automation;
 using System.Diagnostics;
 using System.Windows.Threading;
 using F1T.MVVM.Views.InputTelemetry;
-using F1T.MVVM.Views.Flags;
 using System.Windows.Input;
 using System.Reflection;
 using System.Globalization;

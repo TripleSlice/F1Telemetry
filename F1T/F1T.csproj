@@ -151,12 +151,6 @@
     </Compile>
     <Compile Include="MVVM\Views\IOverlayView.cs" />
     <Compile Include="MVVM\Views\ISettingView.cs" />
-    <Compile Include="MVVM\Views\Flags\FlagsOverlayView.xaml.cs">
-      <DependentUpon>FlagsOverlayView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\Views\Flags\FlagsSettingView.xaml.cs">
-      <DependentUpon>FlagsSettingView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MVVM\Views\InputTelemetry\InputTelemetryOverlayView.xaml.cs">
       <DependentUpon>InputTelemetryOverlayView.xaml</DependentUpon>
     </Compile>
@@ -203,14 +197,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MVVM\Views\Flags\FlagsOverlayView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\Views\Flags\FlagsSettingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MVVM\Views\Home\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

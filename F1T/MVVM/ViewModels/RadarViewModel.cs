@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,8 +24,8 @@ namespace F1T.MVVM.ViewModels
             }
         }
 
-        private double _carWidth;
-        public double CarWidth
+        private float _carWidth;
+        public float CarWidth
         {
             get { return _carWidth; }
             set
@@ -33,8 +34,8 @@ namespace F1T.MVVM.ViewModels
             }
         }
 
-        private double _carHeight;
-        public double CarHeight
+        private float _carHeight;
+        public float CarHeight
         {
             get { return _carHeight; }
             set
@@ -44,8 +45,8 @@ namespace F1T.MVVM.ViewModels
         }
 
 
-        private double _playerCarLeft;
-        public double PlayerCarLeft
+        private float _playerCarLeft;
+        public float PlayerCarLeft
         {
             get { return _playerCarLeft; }
             set
@@ -54,8 +55,8 @@ namespace F1T.MVVM.ViewModels
             }
         }
 
-        private double _playerCarTop;
-        public double PlayerCarTop
+        private float _playerCarTop;
+        public float PlayerCarTop
         {
             get { return _playerCarTop; }
             set
@@ -63,6 +64,21 @@ namespace F1T.MVVM.ViewModels
                 SetField(ref _playerCarTop, value, "PlayerCarTop");
             }
         }
+
+        private int _dangerRadius;
+        public int DangerRadius
+        {
+            get { return _dangerRadius; }
+            set { SetField(ref _dangerRadius, value, "DangerRadius"); }
+        }
+
+        private int _warningRadius;
+        public int WarningRadius
+        {
+            get { return _warningRadius; }
+            set { SetField(ref _warningRadius, value, "WarningRadius"); }
+        }
+
 
         // === Singleton Instance with Thread Saftey ===
         private static RadarViewModel _instance = null;
@@ -80,11 +96,14 @@ namespace F1T.MVVM.ViewModels
         {
             Scale = 20;
 
-            CarWidth = 1.9 * Scale;
-            CarHeight = 5.3 * Scale;
+            CarWidth = 1.9f * Scale;
+            CarHeight = 5.35f * Scale;
 
             PlayerCarLeft = ViewWidth / 2 - CarWidth / 2;
             PlayerCarTop = ViewHeight / 2 - CarHeight / 2;
+
+            DangerRadius = (int)Math.Round(2f * Scale);
+            WarningRadius = (int)Math.Round(3.5f * Scale);
 
             // TODO
             // Set Defaults...

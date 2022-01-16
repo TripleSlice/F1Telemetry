@@ -7,6 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Slider Maximum="100" x:Name="OpacitySlider" Value="{Binding OpacitySliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
+
         <themes:ToggleButton x:Name="VisibilityButtonInstance" Toggled="False" Click="ViewToggleVisibilityButton_Click"></themes:ToggleButton>
     </Grid>
 </UserControl>

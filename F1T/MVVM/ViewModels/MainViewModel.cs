@@ -10,7 +10,6 @@ using F1T.MVVM.Models;
 using System.Collections.ObjectModel;
 using F1T.Core;
 using F1T.MVVM.Views.InputTelemetry;
-using F1T.MVVM.Views.Flags;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Windows;
@@ -48,12 +47,10 @@ namespace F1T.MVVM.ViewModels
         HomeView Home = new HomeView();
         // === SettingView Instances ===
         InputTelemetrySettingView InputTelemetrySetting = new InputTelemetrySettingView();
-        FlagsSettingView FlagSetting = new FlagsSettingView();
         RadarSettingView RadarSetting = new RadarSettingView();
 
         // === OverlayView Instances ===
         InputTelemetryOverlayView InputTelemetryOverlay = new InputTelemetryOverlayView();
-        FlagsOverlayView FlagsOverlay = new FlagsOverlayView();
         RadarOverlayView RadarOverlay = new RadarOverlayView();
 
 
@@ -78,9 +75,6 @@ namespace F1T.MVVM.ViewModels
             ViewModelAndOverlayView.Add(InputTelemetryModel, InputTelemetryOverlay);
             ViewModelAndSettingView.Add(InputTelemetryModel, InputTelemetrySetting);
             InputTelemetrySettingViewCommand = new RelayCommand(obj => { CurrentView = InputTelemetrySetting; });
-
-            // == FLAG MODULE ==
-            FlagSettingViewCommand = new RelayCommand(obj => { CurrentView = FlagSetting; });
 
             // == RADAR MODULE ==
             ViewModelAndOverlayView.Add(RadarModel, RadarOverlay);

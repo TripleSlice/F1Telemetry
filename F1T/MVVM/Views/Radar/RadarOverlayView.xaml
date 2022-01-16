@@ -28,6 +28,22 @@
             <GradientStop Color="#77FFFFFF" Offset="0.5"/>
             <GradientStop Color="#00FFFFFF" Offset="0"/>
         </LinearGradientBrush>
+        <LinearGradientBrush
+            x:Key="Right"
+            StartPoint="0,0"
+            EndPoint="1,0">
+            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+            <GradientStop Color="#77FFFFFF" Offset="0.5"/>
+            <GradientStop Color="#00FFFFFF" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush
+            x:Key="Left"
+            StartPoint="0,0"
+            EndPoint="1,0">
+            <GradientStop Color="#FFFFFFFF" Offset="1"/>
+            <GradientStop Color="#77FFFFFF" Offset="0.5"/>
+            <GradientStop Color="#00FFFFFF" Offset="0"/>
+        </LinearGradientBrush>
     </Window.Resources>
     
     
@@ -41,19 +57,21 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+
+
+        <Rectangle Grid.ColumnSpan="2" Grid.RowSpan="2"
+                   Fill="Black" Opacity="{Binding Path=Opacity}"></Rectangle>
         
 
-
         <Rectangle Grid.Column="1" Grid.Row ="1" Fill="Gray" Width="2" HorizontalAlignment="Left" OpacityMask="{StaticResource Up}"></Rectangle>
-        <Rectangle Grid.Column="1" Grid.Row ="1" Fill="Gray" Height="2" VerticalAlignment="Top"></Rectangle>
-        <Rectangle Grid.Column="0" Grid.Row ="1" Fill="Gray" Height="2" VerticalAlignment="Top"></Rectangle>
+        <Rectangle Grid.Column="1" Grid.Row ="1" Fill="Gray" Height="2" VerticalAlignment="Top" OpacityMask="{StaticResource Right}"></Rectangle>
+        <Rectangle Grid.Column="0" Grid.Row ="1" Fill="Gray" Height="2" VerticalAlignment="Top" OpacityMask="{StaticResource Left}"></Rectangle>
         <Rectangle Grid.Column="1" Grid.Row ="0" Fill="Gray" Width="2" HorizontalAlignment="Left" OpacityMask="{StaticResource Down}"></Rectangle>
 
-
-        <Rectangle x:Name ="Quad4" Grid.Column="0" Grid.Row="0" Fill="AliceBlue" Opacity="0.1"></Rectangle>
-        <Rectangle x:Name ="Quad1" Grid.Column="1" Grid.Row="0" Fill="AliceBlue" Opacity="0.1"></Rectangle>
-        <Rectangle x:Name ="Quad2" Grid.Column="1" Grid.Row="1" Fill="AliceBlue" Opacity="0.1"></Rectangle>
-        <Rectangle x:Name ="Quad3" Grid.Column="0" Grid.Row="1" Fill="AliceBlue" Opacity="0.1"></Rectangle>
+        <Rectangle x:Name ="Quad1" Grid.Column="1" Grid.Row="0" Fill="Transparent" Opacity="0.1"></Rectangle>
+        <Rectangle x:Name ="Quad2" Grid.Column="1" Grid.Row="1" Fill="Transparent" Opacity="0.1"></Rectangle>
+        <Rectangle x:Name ="Quad3" Grid.Column="0" Grid.Row="1" Fill="Transparent" Opacity="0.1"></Rectangle>
+        <Rectangle x:Name ="Quad4" Grid.Column="0" Grid.Row="0" Fill="Transparent" Opacity="0.1"></Rectangle>
 
         <Canvas x:Name="Canvas" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Rectangle Canvas.Left="{Binding PlayerCarLeft}" Canvas.Top="{Binding PlayerCarTop}" 
