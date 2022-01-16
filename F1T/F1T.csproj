@@ -144,18 +144,22 @@
     <Compile Include="MVVM\ViewModels\BaseModuleViewModel.cs" />
     <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\InputTelemetryViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\OverlayContainerViewModel.cs" />
     <Compile Include="MVVM\ViewModels\PacketViewModel.cs" />
     <Compile Include="MVVM\ViewModels\RadarViewModel.cs" />
+    <Compile Include="MVVM\Views\BaseOverlayView.cs" />
+    <Compile Include="MVVM\Views\BaseSettingView.cs" />
     <Compile Include="MVVM\Views\Home\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Views\IOverlayView.cs" />
-    <Compile Include="MVVM\Views\ISettingView.cs" />
     <Compile Include="MVVM\Views\InputTelemetry\InputTelemetryOverlayView.xaml.cs">
       <DependentUpon>InputTelemetryOverlayView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\Views\InputTelemetry\InputTelemetrySettingView.xaml.cs">
       <DependentUpon>InputTelemetrySettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Views\OverlayContainer.xaml.cs">
+      <DependentUpon>OverlayContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\Views\Radar\RadarOverlayView.xaml.cs">
       <DependentUpon>RadarOverlayView.xaml</DependentUpon>
@@ -206,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\Views\InputTelemetry\InputTelemetrySettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\Views\OverlayContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -349,6 +357,7 @@
   <ItemGroup>
     <Resource Include="Structs\Info.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

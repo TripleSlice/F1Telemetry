@@ -12,7 +12,7 @@ using System.Windows.Threading;
 namespace F1T.MVVM.Views.InputTelemetry
 {
 
-    public partial class InputTelemetryOverlayView : Window, IOverlayView
+    public partial class InputTelemetryOverlayView : BaseOverlayView<InputTelemetryViewModel>
     {
 
         private static int _timeBetweenLooks = 50;
@@ -23,7 +23,7 @@ namespace F1T.MVVM.Views.InputTelemetry
         private readonly Stopwatch Stopwatch = Stopwatch.StartNew();
 
         // === ViewModel ===
-        public BaseModuleViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
+        public override InputTelemetryViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
 
 
         public InputTelemetryOverlayView()

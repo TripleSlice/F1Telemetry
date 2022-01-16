@@ -62,7 +62,7 @@ namespace F1T.MVVM.ViewModels
 
 
         // Dict of ViewModel and OverlayView
-        Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayView = new Dictionary<BaseModuleViewModel, Window>();
+        Dictionary<BaseModuleViewModel, UserControl> ViewModelAndOverlayView = new Dictionary<BaseModuleViewModel, UserControl>();
         // Dict of ViewModel and SettingView
         Dictionary<BaseModuleViewModel, UserControl> ViewModelAndSettingView = new Dictionary<BaseModuleViewModel, UserControl>();
 

@@ -21,7 +21,7 @@ namespace F1T.MVVM.Views.Radar
     /// <summary>
     /// Interaction logic for RadarSettingView.xaml
     /// </summary>
-    public partial class RadarSettingView : UserControl, ISettingView
+    public partial class RadarSettingView : BaseSettingView<RadarViewModel>
     {
         public RadarSettingView()
         {
@@ -29,10 +29,10 @@ namespace F1T.MVVM.Views.Radar
             this.DataContext = Model;
         }
 
-        public BaseModuleViewModel Model { get => RadarViewModel.GetInstance(); }
-        public ToggleButton VisibilityButton { get => VisibilityButtonInstance; }
+        public override RadarViewModel Model { get => RadarViewModel.GetInstance(); }
 
-        public void OnToggleVisibilityButton_Click(object sender, RoutedEventArgs e) { }
-        public void ViewToggleVisibilityButton_Click(object sender, RoutedEventArgs e) { this.ToggleVisibilityButton_Click(sender, e); }
+        protected override ToggleButton VisibilityButton { get => VisibilityButtonInstance; }
+        protected override Slider OpacitySlider { get => OpacitySliderInstance; }
+
     }
 }

@@ -8,6 +8,8 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using F1T.MVVM.ViewModels;
+using System.Windows.Controls;
+using F1T.MVVM.Views;
 
 namespace F1T.Core
 {
@@ -32,9 +34,22 @@ namespace F1T.Core
         {
             FocusMonitor.ViewModelAndOverlayView = ViewModelAndOverlayView;
         }
-        public FocusMonitor(Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayView)
+        public FocusMonitor(Dictionary<BaseModuleViewModel, UserControl> ViewModelAndOverlayView)
         {
-            FocusMonitor.SetModelsAndViews(ViewModelAndOverlayView);
+
+            Dictionary<BaseModuleViewModel, Window> ViewModelAndContainerWindows = new Dictionary<BaseModuleViewModel, Window>();
+
+            foreach (KeyValuePair<BaseModuleViewModel, UserControl> entry in ViewModelAndOverlayView)
+            {
+                // do something with entry.Value or entry.Key
+                ViewModelAndContainerWindows.Add(entry.Key, new OverlayContainer(entry.Value));
+            }
+
+
+
+
+
+            FocusMonitor.SetModelsAndViews(ViewModelAndContainerWindows);
             AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
             Automation.AddAutomationFocusChangedEventHandler(focusHandler);
             // How long to check the title of the window

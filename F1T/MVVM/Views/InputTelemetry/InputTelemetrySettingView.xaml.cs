@@ -21,7 +21,7 @@ namespace F1T.MVVM.Views.InputTelemetry
     /// <summary>
     /// Interaction logic for InputTelemetrySettingView.xaml
     /// </summary>
-    public partial class InputTelemetrySettingView : UserControl, ISettingView
+    public partial class InputTelemetrySettingView : BaseSettingView<InputTelemetryViewModel>
     {
         public InputTelemetrySettingView()
         {
@@ -29,8 +29,10 @@ namespace F1T.MVVM.Views.InputTelemetry
             this.DataContext = Model;
         }
 
-        public BaseModuleViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
-        public ToggleButton VisibilityButton { get => VisibilityButtonInstance; }
+        public override InputTelemetryViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
+
+        protected override ToggleButton VisibilityButton { get => VisibilityButtonInstance; }
+        protected override Slider OpacitySlider { get => OpacitySliderInstance; }
 
 
         public void OnToggleVisibilityButton_Click(object sender, RoutedEventArgs e){}

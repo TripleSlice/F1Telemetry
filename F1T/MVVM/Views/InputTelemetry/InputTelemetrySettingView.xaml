@@ -1,4 +1,11 @@
-﻿<UserControl x:Class="F1T.MVVM.Views.InputTelemetry.InputTelemetrySettingView"
+﻿<src:BaseSettingView  
+    
+    
+            x:TypeArguments="src1:InputTelemetryViewModel"
+    xmlns:src="clr-namespace:F1T.MVVM.Views"
+    xmlns:src1="clr-namespace:F1T.MVVM.ViewModels"
+    
+    x:Class="F1T.MVVM.Views.InputTelemetry.InputTelemetrySettingView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -14,7 +21,7 @@
 
 
         <themes:SettingLabel LabelContent="TEST CONTENT" TooltipContent="TEST TOOLTIP"></themes:SettingLabel>
-        <themes:ToggleButton x:Name="VisibilityButtonInstance" Toggled="False" Click="ViewToggleVisibilityButton_Click"></themes:ToggleButton>
+        <themes:ToggleButton x:Name="VisibilityButtonInstance" Toggled="False" Click="ToggleVisibilityButton_Click"></themes:ToggleButton>
         
         
         <themes:PlusMinusButton Value="1" Min="-1" Max="2"></themes:PlusMinusButton>
@@ -22,7 +29,7 @@
 
         
 
-        <Slider Maximum="100" x:Name="OpacitySlider" Value="{Binding OpacitySliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
+        <Slider Maximum="100" x:Name="OpacitySliderInstance" Value="{Binding OpacitySliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
 
         <ComboBox Style="{StaticResource ComboBoxTheme}">
             <ComboBoxItem>ComboBox Item #1</ComboBoxItem>
@@ -37,4 +44,4 @@
     
     
     
-</UserControl>
+</src:BaseSettingView>

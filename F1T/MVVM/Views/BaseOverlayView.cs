@@ -1,5 +1,4 @@
-﻿using F1T.Core;
-using F1T.MVVM.ViewModels;
+﻿using F1T.MVVM.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,16 +6,13 @@ using System.Windows.Input;
 
 namespace F1T.MVVM.Views
 {
-    public interface IOverlayView
+    public abstract class BaseOverlayView<T> : UserControl where T : BaseModuleViewModel
     {
-        // Fields and Methods which must exist on ALL SettingViews
-        BaseModuleViewModel Model { get; }
-        void OnWindow_MouseDown(object sender, MouseButtonEventArgs e);
-    }
+        // protected abstract meaning it must be overridden when we implement this class
+        public abstract T Model { get; }
 
-    public static class IOverlayViewHelper
-    {
-        public static void Window_MouseDown(this IOverlayView iOverlayView, object sender, MouseButtonEventArgs e)
+        // Function logic for all OverlayViews
+        public void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -28,8 +24,6 @@ namespace F1T.MVVM.Views
                     window.DragMove();
             }
             catch (Exception) { }
-
-            iOverlayView.OnWindow_MouseDown(sender, e);
         }
     }
 }
