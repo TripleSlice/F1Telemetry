@@ -71,18 +71,27 @@
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
                              Command="{Binding HomeViewCommand}">
+                    <RadioButton.Resources>
+                        <ImageSource x:Key="ImageURI">/Images/home.png</ImageSource>
+                    </RadioButton.Resources>
                 </RadioButton>
                 <RadioButton Content="Input Telemetry"
                              Height="50"
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding InputTelemetrySettingViewCommand}">
+                    <RadioButton.Resources>
+                        <ImageSource x:Key="ImageURI">/Images/inputtelemetry.png</ImageSource>
+                    </RadioButton.Resources>
                 </RadioButton>
                 <RadioButton Content="Radar"
                              Height="50"
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding RadarSettingViewCommand}">
+                    <RadioButton.Resources>
+                        <ImageSource x:Key="ImageURI">/Images/radar.png</ImageSource>
+                    </RadioButton.Resources>
                 </RadioButton>
             </StackPanel>
 

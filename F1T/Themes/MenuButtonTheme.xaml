@@ -6,15 +6,21 @@
            x:Key="MenuButtonTheme">
         <Style.Setters>
             <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="RadioButton">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                           Background="{TemplateBinding Background}">
-                        <TextBlock Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
+
+                            <Image Source="{DynamicResource ResourceKey=ImageURI}" Height="20" Width="20" Margin="30,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                            <TextBlock Grid.Column="1" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,0,0,0"></TextBlock>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
             </Setter>
 
         <Setter Property="Background" Value="Transparent"></Setter>

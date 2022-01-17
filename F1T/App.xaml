@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="./Themes/PercentageSliderTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/PixelSliderTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/ComboBoxTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="./Themes/SocialButtonTheme.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
