@@ -35,9 +35,8 @@ namespace F1T.MVVM.ViewModels
 
         // === VIEW MODELS ===
         // === View Models Associated with Views
-        InputTelemetryViewModel InputTelemetryModel = InputTelemetryViewModel.GetInstance();
-
-        RadarViewModel RadarModel = RadarViewModel.GetInstance();
+        public InputTelemetryViewModel InputTelemetryModel { get { return InputTelemetryViewModel.GetInstance(); } }
+        public RadarViewModel RadarModel { get { return RadarViewModel.GetInstance(); } }   
 
 
         // Dict of ViewModel and OverlayView

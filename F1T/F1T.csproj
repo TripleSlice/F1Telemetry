@@ -133,6 +133,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\PercentageConverter.cs" />
     <Compile Include="Converters\SteeringConverter.cs" />
+    <Compile Include="Converters\ToggledColorConverter.cs" />
     <Compile Include="Core\FocusMonitor.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />

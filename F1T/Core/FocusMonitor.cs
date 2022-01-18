@@ -34,6 +34,7 @@ namespace F1T.Core
         {
             FocusMonitor.ViewModelAndOverlayView = ViewModelAndOverlayView;
         }
+
         public FocusMonitor(Dictionary<BaseModuleViewModel, UserControl> ViewModelAndOverlayView)
         {
 
@@ -42,18 +43,17 @@ namespace F1T.Core
             foreach (KeyValuePair<BaseModuleViewModel, UserControl> entry in ViewModelAndOverlayView)
             {
                 // do something with entry.Value or entry.Key
-                ViewModelAndContainerWindows.Add(entry.Key, new OverlayContainer(entry.Value));
+                Window display = new OverlayContainer(entry.Value);
+                display.Height = entry.Key.Height;
+                display.Width = entry.Key.Width;
+                ViewModelAndContainerWindows.Add(entry.Key, display);
             }
-
-
-
-
 
             FocusMonitor.SetModelsAndViews(ViewModelAndContainerWindows);
             AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
             Automation.AddAutomationFocusChangedEventHandler(focusHandler);
             // How long to check the title of the window
-            timer = new Timer(CheckForF1Window, null, 0, 10000);
+            timer = new Timer(CheckForF1Window, null, 0, 5000);
         }
 
         private string GetActiveWindowTitle()
@@ -123,7 +123,6 @@ namespace F1T.Core
             {
                 BaseModuleViewModel Model = entry.Key;
                 Window View = entry.Value;
-
 
                 if (Model.Toggled && !Model.OverlayVisible)
                 {

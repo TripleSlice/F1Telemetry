@@ -11,13 +11,14 @@
                         <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                           Background="{TemplateBinding Background}">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
                                 <ColumnDefinition Width="50"></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-
-                            <Image Source="{DynamicResource ResourceKey=ImageURI}" Height="20" Width="20" Margin="30,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                            <TextBlock Grid.Column="1" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,0,0,0"></TextBlock>
+                            <Rectangle x:Name="StatusLight" Fill="{TemplateBinding Property=BorderBrush}" RadiusX="4" RadiusY="4" Width="8" Height="8" Margin="0,0,-40,0"></Rectangle>
+                            <Image Grid.Column="1" Source="{DynamicResource ResourceKey=ImageURI}" Height="20" Width="20" Margin="30,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                            <TextBlock Grid.Column="2" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,0,0,0"></TextBlock>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>

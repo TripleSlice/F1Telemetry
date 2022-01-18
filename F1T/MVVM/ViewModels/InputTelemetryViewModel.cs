@@ -56,12 +56,13 @@ namespace F1T.MVVM.ViewModels
             SteerValue = PlayerCarTelemetryData.m_steer;
         }
 
+        // TODO
+        // Load/Set Defaults of this Module
         private InputTelemetryViewModel() : base()
         {
             udpConnection.OnCarTelemetryDataReceive += TelemetryUpdate;
-            // TODO
-            // Set Defaults...
-            // Regarding this module specifically....
+
+            Height = 125;
         }
     }
 }

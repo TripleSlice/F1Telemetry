@@ -1,4 +1,5 @@
-﻿using F1T.DataStructures;
+﻿using F1T.Core;
+using F1T.DataStructures;
 using F1T.MVVM.ViewModels;
 using ScottPlot.Plottable;
 using System;

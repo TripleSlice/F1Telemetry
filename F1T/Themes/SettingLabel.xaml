@@ -7,6 +7,5 @@
              mc:Ignorable="d" >
     <StackPanel x:Name="StackPanel" Orientation="Horizontal" HorizontalAlignment="Left">
         <Label Content="{Binding LabelContent}" FontFamily="/Fonts/#Poppins" Foreground="White" FontSize="11"/>
-
     </StackPanel>
 </UserControl>

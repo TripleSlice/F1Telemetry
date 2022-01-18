@@ -105,6 +105,8 @@ namespace F1T.MVVM.ViewModels
             PlayerCarMotionData = packet.m_carMotionData[packet.m_header.m_playerCarIndex];
         }
 
+        // TODO
+        // Load/Set Defaults of this Module
         private RadarViewModel() : base()
         {
             Scale = 20;
@@ -120,9 +122,7 @@ namespace F1T.MVVM.ViewModels
 
             udpConnection.OnMotionDataReceive += RadarUpdate;
 
-            // TODO
-            // Set Defaults...
-            // Regarding this module specifically....
+            Width = 500;
         }
     }
 }

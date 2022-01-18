@@ -7,21 +7,17 @@ using System.Threading.Tasks;
 
 namespace F1T.MVVM.ViewModels
 {
-    public class BaseModuleViewModel : ObservableObject
+    public abstract class BaseModuleViewModel : ObservableObject
     {
 
         protected UDPConnection udpConnection = UDPConnection.GetInstance();
+
         public BaseModuleViewModel()
         {
-            // TODO
-            // Should probably be loading things from a properties file like here:
-            // opacity (overlay)
-            // size of window (overlay)
-            // location of window (overlay)
-            // since they are specific to all modules
-            // Then in each module specifically, 
-            // the properties should be saved and loaded in their constructor
-            Opacity = 0.5f;
+            Height = Double.NaN;
+            Width = Double.NaN;
+
+            OpacitySliderValue = 50;
         }
 
 
@@ -58,6 +54,20 @@ namespace F1T.MVVM.ViewModels
             {
                 SetField(ref _opacity, value, "Opacity");
             }
+        }
+
+        private double _width;
+        public double Width
+        {
+            get { return _width; }
+            set { SetField(ref _width, value, "Width"); }
+        }
+
+        private double _height;
+        public double Height
+        {
+            get { return _height; }
+            set { SetField(ref _height, value, "Height");  }
         }
     }
 }

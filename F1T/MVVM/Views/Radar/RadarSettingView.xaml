@@ -12,8 +12,42 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Slider Maximum="100" x:Name="OpacitySliderInstance" Value="{Binding OpacitySliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
+        <Grid.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Style.Setters>
+                    <Setter Property="Margin" Value="5"></Setter>
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#454066" Offset="1"></GradientStop>
+                                <GradientStop Color="#2f2d45" Offset="0.5"></GradientStop>
+                                <GradientStop Color="#272537" Offset="0.0"></GradientStop>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Style.Setters>
+            </Style>
+        </Grid.Resources>
 
-        <themes:ToggleButton x:Name="VisibilityButtonInstance" Toggled="False" Click="ToggleVisibilityButton_Click"></themes:ToggleButton>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <Border Grid.Row="0">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                <Label Content="TOGGLE MODULE" HorizontalAlignment="Center" FontSize="18" FontFamily="/Fonts/#Poppins" Foreground="White"></Label>
+                <themes:ToggleButton x:Name="VisibilityButtonInstance" Toggled="False" Click="ToggleVisibilityButton_Click"></themes:ToggleButton>
+            </StackPanel>
+        </Border>
+
+
+
+        <StackPanel Grid.Row="1">
+            <themes:SettingLabel LabelContent="BACKGROUND OPACITY"></themes:SettingLabel>
+            <Slider Maximum="100" x:Name="OpacitySliderInstance" Value="{Binding OpacitySliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
+        </StackPanel>
     </Grid>
 </src:BaseSettingView>

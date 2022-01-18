@@ -3,16 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:F1T"
+        xmlns:local="clr-namespace:F1T" 
+        xmlns:converters="clr-namespace:F1T.Converters"
         mc:Ignorable="d"
         Icon="F1T_Logo.ico"
-        Height="600" Width="920"
+        Height="625" Width="920"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True"
         Loaded="Window_Loaded">
 
+
+
+    <Window.Resources>
+        <converters:ToggledColorConverter x:Key="ToggledColorConverter"/>
+    </Window.Resources>
 
     <Border Background="#272537" CornerRadius="10">
         <Grid>
@@ -70,7 +76,8 @@
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
-                             Command="{Binding HomeViewCommand}">
+                             Command="{Binding HomeViewCommand}"
+                             BorderBrush="Transparent">
                     <RadioButton.Resources>
                         <ImageSource x:Key="ImageURI">/Images/home.png</ImageSource>
                     </RadioButton.Resources>
@@ -79,7 +86,8 @@
                              Height="50"
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding InputTelemetrySettingViewCommand}">
+                             Command="{Binding InputTelemetrySettingViewCommand}"
+                             BorderBrush="{Binding InputTelemetryModel.Toggled, Converter={StaticResource ToggledColorConverter}}">
                     <RadioButton.Resources>
                         <ImageSource x:Key="ImageURI">/Images/inputtelemetry.png</ImageSource>
                     </RadioButton.Resources>
@@ -88,7 +96,8 @@
                              Height="50"
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding RadarSettingViewCommand}">
+                             Command="{Binding RadarSettingViewCommand}"
+                             BorderBrush="{Binding RadarModel.Toggled, Converter={StaticResource ToggledColorConverter}}">
                     <RadioButton.Resources>
                         <ImageSource x:Key="ImageURI">/Images/radar.png</ImageSource>
                     </RadioButton.Resources>
@@ -96,7 +105,7 @@
             </StackPanel>
 
 
-            <ContentControl Grid.Row="2" Grid.Column="1" Margin="10"
+            <ContentControl Grid.Row="1" Grid.Column="1" Margin="10,40,20,10" Grid.RowSpan="2"
                             Content="{Binding CurrentView}">
             </ContentControl>
 
