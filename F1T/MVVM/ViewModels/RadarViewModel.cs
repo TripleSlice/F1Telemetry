@@ -123,6 +123,7 @@ namespace F1T.MVVM.ViewModels
             udpConnection.OnMotionDataReceive += RadarUpdate;
 
             Width = 500;
+            Height = 500;
         }
     }
 }

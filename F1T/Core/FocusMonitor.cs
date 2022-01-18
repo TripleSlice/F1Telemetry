@@ -100,7 +100,6 @@ namespace F1T.Core
                 }
             #endif
 
-
             Window View;
             FocusMonitor.ViewModelAndOverlayView.TryGetValue(Model, out View);
 
@@ -164,7 +163,7 @@ namespace F1T.Core
                 return;
             }
 
-            if (!F1Focused && (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021")))
+            if (!F1Focused && (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021") || currWindowName.StartsWith("F1T")))
             {
                 DisplayOverlays();
                 F1Focused = true;
@@ -174,6 +173,9 @@ namespace F1T.Core
                 HideOverlays();
                 F1Focused = false;
             }
+
+            Console.WriteLine(F1Focused);
+
         }
 
         private void CheckForF1Window(object state = null)
