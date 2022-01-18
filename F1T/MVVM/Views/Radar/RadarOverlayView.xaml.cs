@@ -1,22 +1,14 @@
-﻿using F1T.MVVM.Models;
-using F1T.MVVM.ViewModels;
+﻿using F1T.MVVM.ViewModels;
+using F1T.Structs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using System.Collections;
-using System.Numerics;
 
 namespace F1T.MVVM.Views.Radar
 {
@@ -67,7 +59,7 @@ namespace F1T.MVVM.Views.Radar
         public void UpdateValues(object state = null)
         {
 
-            if (Model.OverlayVisible && Model.PacketViewModel.PlayerCarMotionData != null)
+            if (Model.OverlayVisible && Model.PlayerIndex != -1)
             {
                 // Must start this here, or else we could be dealing with de-sync between values of Model and this code...
                 Application.Current.Dispatcher.BeginInvoke(
@@ -83,9 +75,9 @@ namespace F1T.MVVM.Views.Radar
                         Rectangles.Clear();
 
                         // Set the PlayerCar and AllCars variables
-                        CarMotionDataObject PlayerCar = Model.PacketViewModel.PlayerCarMotionData;
-                        CarMotionDataObject[] AllCars = Model.PacketViewModel.AllCarMotionData.m_carMotionData;
-                        int PlayerCarIndex = Model.PacketViewModel.PlayerCarMotionIndex;
+                        CarMotionData PlayerCar = Model.PlayerCarMotionData;
+                        CarMotionData[] AllCars = Model.MotionData.m_carMotionData;
+                        int PlayerCarIndex = Model.PlayerIndex;
 
                         for (int i = 0; i < AllCars.Length; i++)
                         {
@@ -96,7 +88,7 @@ namespace F1T.MVVM.Views.Radar
                             }
 
                             // Get the current car object
-                            CarMotionDataObject Car = AllCars[i];
+                            CarMotionData Car = AllCars[i];
 
                             // Not sure why but sometimes the carYaw == 0 (ghost cars?)
                             if (Car.m_yaw == 0)

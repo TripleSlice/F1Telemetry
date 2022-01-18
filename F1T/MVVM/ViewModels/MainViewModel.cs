@@ -1,18 +1,6 @@
-﻿using F1T.Structs;
-using F1T.PacketParsers;
-using System;
-using System.ComponentModel;
-using System.Net.Sockets;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using F1T.MVVM.Models;
-using System.Collections.ObjectModel;
-using F1T.Core;
+﻿using F1T.Core;
 using F1T.MVVM.Views.InputTelemetry;
-using System.Windows.Input;
 using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Controls;
 using F1T.MVVM.Views.Home;
 using F1T.MVVM.Views.Radar;
@@ -23,16 +11,7 @@ namespace F1T.MVVM.ViewModels
     {
 
         // ============= CREATING NEW MODULES =============
-        // Create new ViewModel class in ViewModels folder which extends BaseOverlayViewModel (Has to be done by a person)
-        // Create ViewModel instance in FocusMonitor -> MainWindow.xaml.cs (This class?)
-
-        // Create new two new View classes in Views/{module} (Has to be done by a person)
-        // 1. SettingView
-        // 2. OverlayView
-        // Create OverlayView instance in FocusMonitor -> MainWindow.xaml.cs (This class?)
-
-        // Create a new command which binds the SettingView to the CurrentView object on click -> MainViewModel.cs (This class?)
-        // Bind command to button -> MainWindow.xaml (Has to be done by a person)
+        // TODO - Write how to create a new module
 
 
         // === COMMANDS ===
@@ -124,7 +103,7 @@ namespace F1T.MVVM.ViewModels
             FocusMonitor = new FocusMonitor(ViewModelAndOverlayView);
 
             // Create and start UDP Connection to game on port 21777
-            UDPConnection = new UDPConnection();
+            UDPConnection = UDPConnection.GetInstance();
         } 
     }
 }

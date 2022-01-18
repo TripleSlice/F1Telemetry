@@ -1,4 +1,5 @@
-﻿using System;
+﻿using F1T.Structs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -92,6 +93,18 @@ namespace F1T.MVVM.ViewModels
             }
         }
 
+
+        public PacketMotionData MotionData;
+        public CarMotionData PlayerCarMotionData;
+        public int PlayerIndex = -1;
+
+        private void RadarUpdate(PacketMotionData packet)
+        {
+            MotionData = packet;
+            PlayerIndex = packet.m_header.m_playerCarIndex;
+            PlayerCarMotionData = packet.m_carMotionData[packet.m_header.m_playerCarIndex];
+        }
+
         private RadarViewModel() : base()
         {
             Scale = 20;
@@ -104,6 +117,8 @@ namespace F1T.MVVM.ViewModels
 
             DangerRadius = (int)Math.Round(2f * Scale);
             WarningRadius = (int)Math.Round(3.5f * Scale);
+
+            udpConnection.OnMotionDataReceive += RadarUpdate;
 
             // TODO
             // Set Defaults...

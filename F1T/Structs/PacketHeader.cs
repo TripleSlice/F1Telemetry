@@ -19,28 +19,18 @@ namespace F1T.Structs
         SessionHistory = 11,	// Lap and tyre data for session
     }
 
-    [StructLayout(LayoutKind.Explicit, Pack = 0, Size = 24)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct PacketHeader
     {
-        [FieldOffset(0)]
         public ushort m_packetFormat;         // 2021
-        [FieldOffset(2)]
         public byte m_gameMajorVersion;     // Game major version - "X.00"
-        [FieldOffset(3)]
         public byte m_gameMinorVersion;     // Game minor version - "1.XX"
-        [FieldOffset(4)]
         public byte m_packetVersion;        // Version of this packet type, all start from 1
-        [FieldOffset(5)]
         public PacketType m_packetId;             // Identifier for the packet type, see above
-        [FieldOffset(6)]
         public ulong m_sessionUID;           // Unique identifier for the session
-        [FieldOffset(14)]
         public float m_sessionTime;          // Session timestamp
-        [FieldOffset(18)]
         public uint m_frameIdentifier;      // Identifier for the frame the data was retrieved on
-        [FieldOffset(22)]
         public byte m_playerCarIndex;       // Index of player's car in the array
-        [FieldOffset(23)]
         public byte m_secondaryPlayerCarIndex;       // Index of 2nd player's car in the array
     };
 }

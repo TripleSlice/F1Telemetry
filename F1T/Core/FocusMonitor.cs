@@ -196,7 +196,7 @@ namespace F1T.Core
                     }
                 }
             }
-            catch (Exception ex) { }
+            catch { }
         }
     }
 }

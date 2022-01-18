@@ -49,9 +49,9 @@
         <StackPanel Grid.Column="3">
             <TextBlock Grid.Column="3" Grid.Row="0" Foreground="White" 
                        HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"
-                       Text="{Binding Path=PacketViewModel.PlayerCarTelemetryData.m_brake, Converter={StaticResource PercentageConverter}}"></TextBlock>
+                       Text="{Binding Path=BrakeValue, Converter={StaticResource PercentageConverter}}"></TextBlock>
             <ProgressBar Minimum="0" Maximum="100" Height="94" Width="20" Margin="5.5, 10, 5.5, 1"
-                         Value="{Binding Path=PacketViewModel.PlayerCarTelemetryData.m_brake, Converter={StaticResource PercentageConverter}}"
+                         Value="{Binding Path=BrakeValue, Converter={StaticResource PercentageConverter}}"
                          Orientation="Vertical" Style="{StaticResource BrakeBarTheme}"/>
         </StackPanel>
 
@@ -60,9 +60,9 @@
         <StackPanel Grid.Column="4">
             <TextBlock Grid.Column="4" Grid.Row="0" Foreground="White" 
                        HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"
-                       Text="{Binding Path=PacketViewModel.PlayerCarTelemetryData.m_throttle, Converter={StaticResource PercentageConverter}}"></TextBlock>
+                       Text="{Binding Path=ThrottleValue, Converter={StaticResource PercentageConverter}}"></TextBlock>
             <ProgressBar Minimum="0" Maximum="100" Height="94" Width="20" Margin="5.5, 10, 5.5, 1"
-                         Value="{Binding Path=PacketViewModel.PlayerCarTelemetryData.m_throttle, Converter={StaticResource PercentageConverter}}" 
+                         Value="{Binding Path=ThrottleValue, Converter={StaticResource PercentageConverter}}" 
                          Orientation="Vertical" Style="{StaticResource ThrottleBarTheme}"/>
         </StackPanel>
 
@@ -74,7 +74,7 @@
                 <BitmapImage  UriSource="/Images/wheel.png" />
             </Image.Source>
             <Image.RenderTransform>
-                <RotateTransform Angle="{Binding Path=PacketViewModel.PlayerCarTelemetryData.m_steer, Converter={StaticResource SteeringConverter}}" />
+                <RotateTransform Angle="{Binding Path=SteerValue, Converter={StaticResource SteeringConverter}}" />
             </Image.RenderTransform>
         </Image>
 

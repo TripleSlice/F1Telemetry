@@ -66,10 +66,10 @@ namespace F1T.MVVM.Views.InputTelemetry
         // If the Window is visible
         public void UpdateValues(object state = null)
         {
-            if (Model.OverlayVisible && Model.PacketViewModel.PlayerCarTelemetryData != null)
+            if (Model.OverlayVisible && Model.PlayerIndex != -1)
             {
-                BrakeValues.Push(Model.PacketViewModel.PlayerCarTelemetryData.m_brake);
-                ThrottleValues.Push(Model.PacketViewModel.PlayerCarTelemetryData.m_throttle);
+                BrakeValues.Push(Model.PlayerCarTelemetryData.m_brake);
+                ThrottleValues.Push(Model.PlayerCarTelemetryData.m_throttle);
 
                 Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Normal,

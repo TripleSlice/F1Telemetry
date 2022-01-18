@@ -10,6 +10,7 @@ namespace F1T.MVVM.ViewModels
     public class BaseModuleViewModel : ObservableObject
     {
 
+        protected UDPConnection udpConnection = UDPConnection.GetInstance();
         public BaseModuleViewModel()
         {
             // TODO
@@ -23,15 +24,6 @@ namespace F1T.MVVM.ViewModels
             Opacity = 0.5f;
         }
 
-        private PacketViewModel _packetViewModel = PacketViewModel.GetInstance();
-        public PacketViewModel PacketViewModel
-        {
-            get { return _packetViewModel; }
-            set
-            {
-                SetField(ref _packetViewModel, value, "PacketViewModel");
-            }
-        }
 
         private bool _overlayVisible;
         public bool OverlayVisible

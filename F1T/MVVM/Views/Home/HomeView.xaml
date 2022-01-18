@@ -38,8 +38,6 @@
                     here
                 </Hyperlink>  to see steps required in order for this application to work and frequently asked questions about the application</TextBlock>
         </StackPanel>
-        
-        
 
         <StackPanel Grid.Column ="1" Margin="5">
             <TextBlock FontWeight="SemiBold" Foreground="White" FontSize="24" FontFamily="/Fonts/#Poppins">F1T Socials</TextBlock>

@@ -138,14 +138,10 @@
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Core\UDPConnection.cs" />
     <Compile Include="DataStructures\FixedSizeQueue.cs" />
-    <Compile Include="MVVM\Models\CarMotionDataObject.cs" />
-    <Compile Include="MVVM\Models\PacketCarTelemetryDataObject.cs" />
-    <Compile Include="MVVM\Models\PacketMotionDataObject.cs" />
     <Compile Include="MVVM\ViewModels\BaseModuleViewModel.cs" />
     <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\InputTelemetryViewModel.cs" />
     <Compile Include="MVVM\ViewModels\OverlayContainerViewModel.cs" />
-    <Compile Include="MVVM\ViewModels\PacketViewModel.cs" />
     <Compile Include="MVVM\ViewModels\RadarViewModel.cs" />
     <Compile Include="MVVM\Views\BaseOverlayView.cs" />
     <Compile Include="MVVM\Views\BaseSettingView.cs" />
@@ -167,15 +163,6 @@
     <Compile Include="MVVM\Views\Radar\RadarSettingView.xaml.cs">
       <DependentUpon>RadarSettingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PacketParsers\BasePacketParser.cs" />
-    <Compile Include="PacketParsers\CarMotionDataParser.cs" />
-    <Compile Include="PacketParsers\CarTelemetryDataParser.cs" />
-    <Compile Include="PacketParsers\PacketCarTelemetryDataParser.cs" />
-    <Compile Include="PacketParsers\PacketHeaderParser.cs" />
-    <Compile Include="MVVM\Models\CarTelemetryDataObject.cs" />
-    <Compile Include="PacketParsers\PacketMotionDataParser.cs" />
-    <Compile Include="Structs\CarMotionData.cs" />
-    <Compile Include="Structs\CarTelemetryData.cs" />
     <Compile Include="Structs\CustomTypes.cs" />
     <Compile Include="Structs\PacketCarTelemetryData.cs" />
     <Compile Include="Structs\PacketHeader.cs" />
