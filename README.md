@@ -1,7 +1,7 @@
 # F1T
 
 F1T is a open source telemetry client for F1 2021!
-![Home Screen](https://github.com/ryanabaker/F1T/blob/main/READMEimages/home.png){:height="200px" width="200px"}
+<img src="https://github.com/ryanabaker/F1T/blob/main/READMEimages/home.png" height="200px" width="200px">
 
 ## Features
 
