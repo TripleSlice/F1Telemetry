@@ -1,17 +1,17 @@
 # F1T
 
 F1T is a open source telemetry client for F1 2021!
-![Home Screen](https://github.com/ryanabaker/F1T/blob/main/READMEimages/home.png | width=100)
+![Home Screen](https://github.com/ryanabaker/F1T/blob/main/READMEimages/home.png){:height="200px" width="200px"}
 
 ## Features
 
 #### Radar
 Allows you to see other cars!
-![Radar](https://github.com/ryanabaker/F1T/blob/main/READMEimages/radar.png | width=100)
+![Radar](https://github.com/ryanabaker/F1T/blob/main/READMEimages/radar.png)
 
 #### Input Telemetry
 Creates a graph of your inputs!
-![Input Telemetry](https://github.com/ryanabaker/F1T/blob/main/READMEimages/inputtelemetry.png | width=100)
+![Input Telemetry](https://github.com/ryanabaker/F1T/blob/main/READMEimages/inputtelemetry.png)
 
 ## How to use?
 
