@@ -149,6 +149,9 @@
     <Compile Include="MVVM\ViewModels\TyreViewModel.cs" />
     <Compile Include="MVVM\Views\BaseOverlayView.cs" />
     <Compile Include="MVVM\Views\BaseSettingView.cs" />
+    <Compile Include="MVVM\Views\CommonSettingUserControl.xaml.cs">
+      <DependentUpon>CommonSettingUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Views\Home\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -202,6 +205,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MVVM\Views\CommonSettingUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\Views\Home\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

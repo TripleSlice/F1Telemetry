@@ -52,6 +52,18 @@ namespace F1T.MVVM.ViewModels
             }
         }
 
+        private int _framesPerSecond;
+        public int FramesPerSecond
+        {
+            get { return _framesPerSecond; }
+            set { 
+                SetField(ref _framesPerSecond, value, "FramesPerSecond");
+                Frequency = 100 / FramesPerSecond;
+            }
+        }
+
+        public int Frequency;
+
         private float _opacity;
         public float Opacity
         {

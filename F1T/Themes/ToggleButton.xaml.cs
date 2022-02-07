@@ -40,8 +40,6 @@ namespace F1T.Themes
 
 
         // Click stuff incase we want to implement Click="Function" in XAML
-        // NOTE: Does not work with ISettingView or IOverlayView functions becuase they are 'Extension Methods'
-        // not really sure why...
         public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(
         "Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ToggleButton));
 

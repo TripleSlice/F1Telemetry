@@ -17,9 +17,6 @@ namespace F1T.MVVM.Views.Radar
     /// </summary>
     public partial class RadarOverlayView : BaseOverlayView<RadarViewModel>
     {
-
-        private static int _timeBetweenLooks = 33;
-
         // === ViewModel ===
         public override RadarViewModel Model { get => RadarViewModel.GetInstance(); }
 
@@ -29,25 +26,13 @@ namespace F1T.MVVM.Views.Radar
 
         List<Rectangle> Rectangles = new List<Rectangle>();
 
-
-
-
         public RadarOverlayView()
         {      
             this.DataContext = Model;
-
             InitializeComponent();
-
             UpdateValues();
-            InitTimer();
         }
 
-
-        private Timer timer;
-        public void InitTimer()
-        {
-            timer = new Timer(UpdateValues, null, 0, _timeBetweenLooks);
-        }
 
         private bool isInsideSquare(double X, double Y, int radius)
         {
@@ -55,7 +40,7 @@ namespace F1T.MVVM.Views.Radar
         }
 
 
-        public void UpdateValues(object state = null)
+        protected override void UpdateValues(object state = null)
         {
 
             if (Model.OverlayVisible && Model.PlayerIndex != -1)
@@ -155,8 +140,6 @@ namespace F1T.MVVM.Views.Radar
                     }));
             }
         }
-
-        public void OnWindow_MouseDown(object sender, MouseButtonEventArgs e) { }
     }
 }
 

@@ -18,7 +18,6 @@ namespace F1T.MVVM.Views
         protected abstract ToggleButton VisibilityButton { get; }
         protected abstract Slider OpacitySlider { get; }
 
-
         // Function logic for all SettingViews
         public void ToggleVisibilityButton_Click(object sender, RoutedEventArgs e)
         {

@@ -15,13 +15,9 @@ namespace F1T.MVVM.Views.InputTelemetry
 
     public partial class InputTelemetryOverlayView : BaseOverlayView<InputTelemetryViewModel>
     {
-
-        private static int _timeBetweenLooks = 50;
-        private static int _sizeFor5Seconds = 7000 / _timeBetweenLooks;
-
-        private FixedSizeQueue<double> ThrottleValues = new FixedSizeQueue<double>(_sizeFor5Seconds);
-        private FixedSizeQueue<double> BrakeValues = new FixedSizeQueue<double>(_sizeFor5Seconds);
-        private readonly Stopwatch Stopwatch = Stopwatch.StartNew();
+        private static int dummyInput = 50;
+        private FixedSizeQueue<double> ThrottleValues = new FixedSizeQueue<double>(dummyInput);
+        private FixedSizeQueue<double> BrakeValues = new FixedSizeQueue<double>(dummyInput);
 
         // === ViewModel ===
         public override InputTelemetryViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
@@ -32,14 +28,22 @@ namespace F1T.MVVM.Views.InputTelemetry
             InitializeComponent();
             this.DataContext = Model;
 
+            // This is here because if we do not call updatevalues atleast once
             UpdateValues();
 
             // InputTelemetryPlot Styling and Init Plotting
-            InputTelemetryPlot.Plot.PlotSignal(ThrottleValues.ToArray(), 1, 0, 0, System.Drawing.Color.LimeGreen, 3);
-            InputTelemetryPlot.Plot.PlotSignal(BrakeValues.ToArray(), 1, 0, 0, System.Drawing.Color.Red, 3);
-            InputTelemetryPlot.Plot.SetAxisLimits(0, _sizeFor5Seconds, -0.01, 1.01);
-            InputTelemetryPlot.Plot.SetOuterViewLimits(0, _sizeFor5Seconds, -0.01, 1.01);
-            InputTelemetryPlot.Plot.SetInnerViewLimits(0, _sizeFor5Seconds, -0.01, 1.01);
+            // Disable warning because depcreated...
+            // There might be a newer way of doing this but this still works...
+            #pragma warning disable CS0618 // Type or member is obsolete
+            InputTelemetryPlot.Plot.PlotSignal(ThrottleValues.ToArray(), 1, 0, 0, Color.LimeGreen, 3);
+            InputTelemetryPlot.Plot.PlotSignal(BrakeValues.ToArray(), 1, 0, 0, Color.Red, 3);
+            #pragma warning restore CS0618 // Type or member is obsolete
+
+            // 50 is random number I chose... since it will change depending on FPS
+            // More FPS -> More data points -> laggier, but smoother
+            InputTelemetryPlot.Plot.SetAxisLimits(0, dummyInput, -0.01, 1.01);
+            InputTelemetryPlot.Plot.SetOuterViewLimits(0, dummyInput, -0.01, 1.01);
+            InputTelemetryPlot.Plot.SetInnerViewLimits(0, dummyInput, -0.01, 1.01);
             InputTelemetryPlot.Plot.Style(figureBackground: System.Drawing.Color.Transparent);
             InputTelemetryPlot.Plot.Style(dataBackground: System.Drawing.Color.Transparent);
             double[] tempInt = new double[1] { -1 };
@@ -52,20 +56,29 @@ namespace F1T.MVVM.Views.InputTelemetry
             InputTelemetryPlot.Plot.Title("");
             InputTelemetryPlot.Plot.Frameless();
             InputTelemetryPlot.Render();
-
-            InitTimer();
         }
 
-        private Timer timer;
-        public void InitTimer()
+
+        public override void StartTimer()
         {
-            timer = new Timer(UpdateValues, null, 0, _timeBetweenLooks);
+            // TODO move the 7000 to be configurable...
+            // 7000 ms of data
+            int calculatedArraySize = 7000 / Model.Frequency;
+
+            ThrottleValues = new FixedSizeQueue<double>(calculatedArraySize);
+            BrakeValues = new FixedSizeQueue<double>(calculatedArraySize);
+
+            InputTelemetryPlot.Plot.SetAxisLimits(0, calculatedArraySize, -0.01, 1.01);
+            InputTelemetryPlot.Plot.SetOuterViewLimits(0, calculatedArraySize, -0.01, 1.01);
+            InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
+
+            timer = new Timer(UpdateValues, null, 0, Model.Frequency);
         }
 
         // Only update the values of the graph if
         // We have received PlayerCarTelemtryData and
         // If the Window is visible
-        public void UpdateValues(object state = null)
+        protected override void UpdateValues(object state = null)
         {
             if (Model.OverlayVisible && Model.PlayerIndex != -1)
             {
@@ -79,6 +92,5 @@ namespace F1T.MVVM.Views.InputTelemetry
                 }));
             }
         }
-        public void OnWindow_MouseDown(object sender, MouseButtonEventArgs e){}
     }
 }

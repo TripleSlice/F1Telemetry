@@ -25,31 +25,17 @@ namespace F1T.MVVM.Views.Tyre
     /// </summary>
     public partial class TyreOverlayView : BaseOverlayView<TyreViewModel>
     {
-
-        private static int _timeBetweenLooks = 100;
-
         public TyreOverlayView()
         {
             this.DataContext = Model;
             InitializeComponent();
-
             UpdateValues();
-            InitTimer();
         }
-
-
-        private Timer timer;
 
         public override TyreViewModel Model { get => TyreViewModel.GetInstance(); }
 
-        public void InitTimer()
-        {
-            timer = new Timer(UpdateValues, null, 0, _timeBetweenLooks);
-        }
-
-      
-
-        public void UpdateValues(object state = null)
+     
+        protected override void UpdateValues(object state = null)
         {
             if (Model.OverlayVisible && Model.PlayerIndexCarStatus != -1 && Model.PlayerIndexCarDamage != -1 && Model.PlayerIndexLapData != -1)
             {
