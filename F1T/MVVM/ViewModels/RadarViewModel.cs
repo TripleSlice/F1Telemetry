@@ -11,10 +11,6 @@ namespace F1T.MVVM.ViewModels
     public class RadarViewModel : BaseModuleViewModel
     {
 
-        public int ViewWidth = 500;
-        public int ViewHeight = 500;
-
-
         private int _scale;
         public int Scale
         {
@@ -114,16 +110,16 @@ namespace F1T.MVVM.ViewModels
             CarWidth = 1.9f * Scale;
             CarHeight = 5.35f * Scale;
 
-            PlayerCarLeft = ViewWidth / 2 - CarWidth / 2;
-            PlayerCarTop = ViewHeight / 2 - CarHeight / 2;
+            Width = 500;
+            Height = 500;
+
+            PlayerCarLeft = (int)Width / 2 - CarWidth / 2;
+            PlayerCarTop = (int)Height / 2 - CarHeight / 2;
 
             DangerRadius = (int)Math.Round(2f * Scale);
             WarningRadius = (int)Math.Round(3.5f * Scale);
 
             udpConnection.OnMotionDataReceive += RadarUpdate;
-
-            Width = 500;
-            Height = 500;
         }
     }
 }

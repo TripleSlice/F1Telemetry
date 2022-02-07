@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using F1T.MVVM.Views.Home;
 using F1T.MVVM.Views.Radar;
+using F1T.MVVM.Views.Tyre;
 
 namespace F1T.MVVM.ViewModels
 {
@@ -20,6 +21,7 @@ namespace F1T.MVVM.ViewModels
         public RelayCommand InputTelemetrySettingViewCommand { get; set; }
         public RelayCommand FlagSettingViewCommand { get; set; }
         public RelayCommand RadarSettingViewCommand { get; set; }
+        public RelayCommand TyreSettingViewCommand { get; set; }
 
         // === VIEWS ===
         // === HomeView Instance ===
@@ -27,16 +29,19 @@ namespace F1T.MVVM.ViewModels
         // === SettingView Instances ===
         InputTelemetrySettingView InputTelemetrySetting = new InputTelemetrySettingView();
         RadarSettingView RadarSetting = new RadarSettingView();
+        TyreSettingView TyreSetting = new TyreSettingView();
 
         // === OverlayView Instances ===
         InputTelemetryOverlayView InputTelemetryOverlay = new InputTelemetryOverlayView();
         RadarOverlayView RadarOverlay = new RadarOverlayView();
+        TyreOverlayView TyreOverlay = new TyreOverlayView();
 
 
         // === VIEW MODELS ===
         // === View Models Associated with Views
         public InputTelemetryViewModel InputTelemetryModel { get { return InputTelemetryViewModel.GetInstance(); } }
         public RadarViewModel RadarModel { get { return RadarViewModel.GetInstance(); } }   
+        public TyreViewModel TyreModel { get { return TyreViewModel.GetInstance(); } }   
 
 
         // Dict of ViewModel and OverlayView
@@ -58,7 +63,13 @@ namespace F1T.MVVM.ViewModels
             ViewModelAndOverlayView.Add(RadarModel, RadarOverlay);
             ViewModelAndSettingView.Add(RadarModel, RadarSetting);
             RadarSettingViewCommand = new RelayCommand(obj => { CurrentView = RadarSetting; });
+
+            // == RADAR MODULE ==
+            ViewModelAndOverlayView.Add(TyreModel, TyreOverlay);
+            ViewModelAndSettingView.Add(TyreModel, TyreSetting);
+            TyreSettingViewCommand = new RelayCommand(obj => { CurrentView = TyreSetting; });
         }
+
 
 
 
@@ -72,13 +83,6 @@ namespace F1T.MVVM.ViewModels
                 return _instance;
             }
         }
-
-
-        // === Focus Monitor ===
-        FocusMonitor FocusMonitor;
-
-        // === UDP Connection ===
-        UDPConnection UDPConnection;
 
 
         // === Current View ===
@@ -98,11 +102,12 @@ namespace F1T.MVVM.ViewModels
             // Set current view to default view
             CurrentView = Home;
 
-            // Create FocusMonitor to monitor application for when to display overlays
-            FocusMonitor = new FocusMonitor(ViewModelAndOverlayView);
 
+            // INIT Static Classes
+            // Create FocusMonitor to monitor application for when to display overlays
+            FocusMonitor FocusMonitor = new FocusMonitor(ViewModelAndOverlayView);
             // Create and start UDP Connection to game on port 21777
-            UDPConnection = UDPConnection.GetInstance();
+            UDPConnection UDPConnection = UDPConnection.GetInstance();
         } 
     }
 }

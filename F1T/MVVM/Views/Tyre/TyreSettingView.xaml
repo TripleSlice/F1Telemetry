@@ -1,16 +1,17 @@
 ﻿<src:BaseSettingView 
-    x:TypeArguments="src1:RadarViewModel"
+    x:TypeArguments="src1:TyreViewModel"
     xmlns:src="clr-namespace:F1T.MVVM.Views"
     xmlns:src1="clr-namespace:F1T.MVVM.ViewModels"
-    x:Class="F1T.MVVM.Views.Radar.RadarSettingView"
+    xmlns:themes="clr-namespace:F1T.Themes"
+    x:Class="F1T.MVVM.Views.Tyre.TyreSettingView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:F1T.MVVM.Views.Radar" 
-    xmlns:themes="clr-namespace:F1T.Themes"
+    xmlns:local="clr-namespace:F1T.MVVM.Views.Tyre"
     mc:Ignorable="d" 
     d:DesignHeight="450" d:DesignWidth="800">
+    
     <Grid>
         <Grid.Resources>
             <Style TargetType="{x:Type Border}">
@@ -48,6 +49,14 @@
         <StackPanel Grid.Row="1">
             <themes:SettingLabel LabelContent="BACKGROUND OPACITY"></themes:SettingLabel>
             <Slider Maximum="100" x:Name="OpacitySliderInstance" Value="{Binding OpacitySliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
+
+            <themes:SettingLabel LabelContent="TyreAge"></themes:SettingLabel>
+            <themes:ToggleButton Toggled="{Binding TyreAgeVisible, Mode=TwoWay}" ></themes:ToggleButton>
+
+            <themes:SettingLabel LabelContent="TyreWear"></themes:SettingLabel>
+            <themes:ToggleButton Toggled="{Binding TyreWearVisible, Mode=TwoWay}" ></themes:ToggleButton>
+
         </StackPanel>
+
     </Grid>
-</src:BaseSettingView>
+</src:BaseSettingView >

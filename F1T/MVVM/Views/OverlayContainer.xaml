@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:F1T.MVVM.Views"
         mc:Ignorable="d"
-        Title="OverlayContainer" AllowsTransparency="True" Background="Transparent" WindowStyle="None">
+        Title="OverlayContainer" AllowsTransparency="True" Background="Transparent" WindowStyle="None"
+        WindowStartupLocation="Manual"
+        Left="{Binding Left}" Top="{Binding Top}">
     <Viewbox>
         <ContentControl Content="{Binding CurrentOverlay}">
         </ContentControl>

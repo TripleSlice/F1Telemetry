@@ -26,11 +26,13 @@ namespace F1T.MVVM.Views
         public OverlayContainerViewModel Model = new OverlayContainerViewModel();
 
 
-        public OverlayContainer(UserControl overlayView)
+        public OverlayContainer(UserControl overlayView, int top, int left)
         {
             InitializeComponent();
             this.DataContext = Model;
             Model.CurrentOverlay = overlayView;
+            Top = top;
+            Left = left;
         }
 
         public void Window_MouseDown(object sender, MouseButtonEventArgs e)

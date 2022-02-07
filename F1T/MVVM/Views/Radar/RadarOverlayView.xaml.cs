@@ -33,8 +33,7 @@ namespace F1T.MVVM.Views.Radar
 
 
         public RadarOverlayView()
-        {
-            
+        {      
             this.DataContext = Model;
 
             InitializeComponent();

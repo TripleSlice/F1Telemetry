@@ -15,10 +15,19 @@ namespace F1T.Core
         // Delegates
         public delegate void MotionDataReceiveDelegate(PacketMotionData packet);
         public delegate void CarTelemetryDataReceiveDelegate(PacketCarTelemetryData packet);
+        public delegate void CarStatusDataReceiveDelegate(PacketCarStatusData packet);
+        public delegate void CarDamageDataReceiveDelegate(PacketCarDamageData packet);
+        public delegate void LapDataReceiveDelegate(PacketLapData packet);
+        public delegate void ParticipantDataReceiveDelegate(PacketParticipantsData packet);
 
         // Packet events
         public event MotionDataReceiveDelegate OnMotionDataReceive;
         public event CarTelemetryDataReceiveDelegate OnCarTelemetryDataReceive;
+        public event CarStatusDataReceiveDelegate OnCarStatusDataReceive;
+        public event CarDamageDataReceiveDelegate OnCarDamageDataReceive;
+        public event LapDataReceiveDelegate OnLapDataReceive;
+        public event ParticipantDataReceiveDelegate OnPaticipantDataReceive;
+
 
 
         // === Singleton Instance with Thread Saftey ===
@@ -66,6 +75,26 @@ namespace F1T.Core
                 case PacketType.Motion:
                     PacketMotionData motionData = (PacketMotionData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketMotionData));
                     OnMotionDataReceive?.Invoke(motionData);
+                    break;
+
+                case PacketType.CarDamage:
+                    PacketCarDamageData damageData = (PacketCarDamageData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketCarDamageData));
+                    OnCarDamageDataReceive?.Invoke(damageData);
+                    break;
+
+                case PacketType.CarStatus:
+                    PacketCarStatusData statusData = (PacketCarStatusData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketCarStatusData));
+                    OnCarStatusDataReceive?.Invoke(statusData);
+                    break;
+
+                case PacketType.LapData:
+                    PacketLapData lapData = (PacketLapData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketLapData));
+                    OnLapDataReceive?.Invoke(lapData);
+                    break;
+
+                case PacketType.Participants:
+                    PacketParticipantsData participantData = (PacketParticipantsData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketParticipantsData));
+                    OnPaticipantDataReceive?.Invoke(participantData);
                     break;
             }
             Client.BeginReceive(new AsyncCallback(recv), null);

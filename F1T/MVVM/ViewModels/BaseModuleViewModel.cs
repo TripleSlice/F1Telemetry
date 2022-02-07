@@ -14,12 +14,18 @@ namespace F1T.MVVM.ViewModels
 
         public BaseModuleViewModel()
         {
+            Left = 0;
+            Top = 0;
+
             Height = Double.NaN;
             Width = Double.NaN;
 
             OpacitySliderValue = 50;
         }
 
+
+        public int Left;
+        public int Top;
 
         private bool _overlayVisible;
         public bool OverlayVisible

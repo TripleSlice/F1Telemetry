@@ -102,6 +102,16 @@
                         <ImageSource x:Key="ImageURI">/Images/radar.png</ImageSource>
                     </RadioButton.Resources>
                 </RadioButton>
+                <RadioButton Content="Tyre"
+                             Height="50"
+                             Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding TyreSettingViewCommand}"
+                             BorderBrush="{Binding TyreModel.Toggled, Converter={StaticResource ToggledColorConverter}}">
+                    <RadioButton.Resources>
+                        <ImageSource x:Key="ImageURI">/Images/tyre.png</ImageSource>
+                    </RadioButton.Resources>
+                </RadioButton>
             </StackPanel>
 
 

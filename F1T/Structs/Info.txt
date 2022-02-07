@@ -2,6 +2,7 @@
 uint8 -> byte (8 bit) (1 bytes)
 int16 -> short (16 bit) (2 bytes)
 uint16 -> ushort (16 bit) (2 bytes)
+uint32 -> uint (32 bit) (4 byes)
 float -> float (32 bit) (4 bytes)
 
 float[4] -> FloatQuad (128 bit) (16 bytes)

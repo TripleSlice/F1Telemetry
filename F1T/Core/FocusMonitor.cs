@@ -43,7 +43,7 @@ namespace F1T.Core
             foreach (KeyValuePair<BaseModuleViewModel, UserControl> entry in ViewModelAndOverlayView)
             {
                 // do something with entry.Value or entry.Key
-                Window display = new OverlayContainer(entry.Value);
+                Window display = new OverlayContainer(entry.Value, entry.Key.Top, entry.Key.Left);
                 display.Height = entry.Key.Height;
                 display.Width = entry.Key.Width;
                 ViewModelAndContainerWindows.Add(entry.Key, display);
@@ -173,9 +173,6 @@ namespace F1T.Core
                 HideOverlays();
                 F1Focused = false;
             }
-
-            Console.WriteLine(F1Focused);
-
         }
 
         private void CheckForF1Window(object state = null)
