@@ -22,31 +22,52 @@ namespace F1T.MVVM.Views
     /// </summary>
     public partial class CommonSettingUserControl : UserControl
     {
-        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(
-        "Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ToggleButton));
+        // BINDING FOR TOGGLING MODULE
+        public static readonly RoutedEvent ToggleModuleEvent = EventManager.RegisterRoutedEvent(
+        "ToggleModule", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CommonSettingUserControl));
 
-
-        public event RoutedEventHandler Click
+        public event RoutedEventHandler ToggleModule
         {
-            add { VisibilityButtonInstance.AddHandler(ClickEvent, value); }
-            remove { VisibilityButtonInstance.RemoveHandler(ClickEvent, value); }
+            add { VisibilityButtonInstance.AddHandler(ToggleModuleEvent, value); }
+            remove { VisibilityButtonInstance.RemoveHandler(ToggleModuleEvent, value); }
         }
 
-        void RaiseClickEvent()
+        void RaiseToggleModuleEvent()
         {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(ToggleButton.ClickEvent);
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(ToggleModuleEvent);
             RaiseEvent(newEventArgs);
         }
 
-        void OnClick()
+        void OnToggleModule()
         {
-            RaiseClickEvent();
+            RaiseToggleModuleEvent();
+        }
+
+
+        public static readonly DependencyProperty OpacitySliderValueProperty =
+            DependencyProperty.Register("OpacitySliderValue", typeof(int), typeof(CommonSettingUserControl),
+            new PropertyMetadata(0, OpacitySliderValuePropertyChanged));
+
+        public int OpacitySliderValue
+        {
+            get { return (int)GetValue(OpacitySliderValueProperty); }
+            set { SetValue(OpacitySliderValueProperty, value);}
+        }
+
+        private void OpacitySliderValuePropertyChanged(int val)
+        {
+            OpacitySliderValue = val;
+        }
+
+        private static void OpacitySliderValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((CommonSettingUserControl)d).OpacitySliderValuePropertyChanged((int)e.NewValue);
         }
 
         public CommonSettingUserControl()
         {
             InitializeComponent();
-            PreviewMouseLeftButtonUp += (sender, args) => OnClick();
+            PreviewMouseLeftButtonUp += (sender, args) => OnToggleModule();
         }
     }
 }

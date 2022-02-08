@@ -52,6 +52,16 @@ namespace F1T.MVVM.ViewModels
             }
         }
 
+        private float _opacity;
+        public float Opacity
+        {
+            get { return _opacity; }
+            set
+            {
+                SetField(ref _opacity, value, "Opacity");
+            }
+        }
+
         private int _framesPerSecond;
         public int FramesPerSecond
         {
@@ -64,15 +74,6 @@ namespace F1T.MVVM.ViewModels
 
         public int Frequency;
 
-        private float _opacity;
-        public float Opacity
-        {
-            get { return _opacity; }
-            set
-            {
-                SetField(ref _opacity, value, "Opacity");
-            }
-        }
 
         private double _width;
         public double Width

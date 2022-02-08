@@ -15,8 +15,6 @@ namespace F1T.MVVM.Views
     {
         // protected abstract meaning it must be overridden when we implement this class
         public abstract T Model { get; }
-        protected abstract ToggleButton VisibilityButton { get; }
-        protected abstract Slider OpacitySlider { get; }
 
         // Function logic for all SettingViews
         public void ToggleVisibilityButton_Click(object sender, RoutedEventArgs e)

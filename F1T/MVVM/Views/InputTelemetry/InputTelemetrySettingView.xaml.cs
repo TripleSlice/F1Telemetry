@@ -31,12 +31,5 @@ namespace F1T.MVVM.Views.InputTelemetry
 
         public override InputTelemetryViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
 
-        protected override ToggleButton VisibilityButton { get => VisibilityButtonInstance; }
-        protected override Slider OpacitySlider { get => OpacitySliderInstance; }
-
-
-        public void OnToggleVisibilityButton_Click(object sender, RoutedEventArgs e){}
-        public void ViewToggleVisibilityButton_Click(object sender, RoutedEventArgs e){ this.ToggleVisibilityButton_Click(sender, e); }
-
     }
 }

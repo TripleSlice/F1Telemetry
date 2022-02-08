@@ -27,9 +27,6 @@ namespace F1T.MVVM.Views.Tyre
             InitializeComponent();
             this.DataContext = Model;
         }
-
         public override TyreViewModel Model { get => TyreViewModel.GetInstance(); }
-        protected override ToggleButton VisibilityButton { get => VisibilityButtonInstance; }
-        protected override Slider OpacitySlider { get => OpacitySliderInstance; }
     }
 }

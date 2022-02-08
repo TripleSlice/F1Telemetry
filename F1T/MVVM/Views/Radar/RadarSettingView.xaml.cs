@@ -30,9 +30,5 @@ namespace F1T.MVVM.Views.Radar
         }
 
         public override RadarViewModel Model { get => RadarViewModel.GetInstance(); }
-
-        protected override ToggleButton VisibilityButton { get => VisibilityButtonInstance; }
-        protected override Slider OpacitySlider { get => OpacitySliderInstance; }
-
     }
 }
