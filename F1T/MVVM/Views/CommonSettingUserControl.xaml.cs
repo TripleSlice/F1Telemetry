@@ -24,23 +24,18 @@ namespace F1T.MVVM.Views
     {
         // BINDING FOR TOGGLING MODULE
         public static readonly RoutedEvent ToggleModuleEvent = EventManager.RegisterRoutedEvent(
-        "ToggleModule", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CommonSettingUserControl));
+        "ToggleModule", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ToggleButton));
 
         public event RoutedEventHandler ToggleModule
         {
-            add { VisibilityButtonInstance.AddHandler(ToggleModuleEvent, value); }
-            remove { VisibilityButtonInstance.RemoveHandler(ToggleModuleEvent, value); }
+            add { AddHandler(ToggleModuleEvent, value); }
+            remove { RemoveHandler(ToggleModuleEvent, value); }
         }
 
-        void RaiseToggleModuleEvent()
+        private void VisibilityButtonInstance_Click(object sender, RoutedEventArgs e)
         {
             RoutedEventArgs newEventArgs = new RoutedEventArgs(ToggleModuleEvent);
             RaiseEvent(newEventArgs);
-        }
-
-        void OnToggleModule()
-        {
-            RaiseToggleModuleEvent();
         }
 
 
@@ -67,7 +62,6 @@ namespace F1T.MVVM.Views
         public CommonSettingUserControl()
         {
             InitializeComponent();
-            PreviewMouseLeftButtonUp += (sender, args) => OnToggleModule();
         }
     }
 }

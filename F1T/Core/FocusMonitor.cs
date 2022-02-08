@@ -24,7 +24,7 @@ namespace F1T.Core
         private static bool F1Focused = false;
         private static bool ModulesDisplayed = false;
 
-        //
+        // Prevent from being garbage collected
         private Timer timer;
 
         public static void SetModelsAndViews(Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayView)
@@ -34,7 +34,6 @@ namespace F1T.Core
 
         public FocusMonitor(Dictionary<BaseModuleViewModel, UserControl> ViewModelAndOverlayView)
         {
-
             Dictionary<BaseModuleViewModel, Window> ViewModelAndContainerWindows = new Dictionary<BaseModuleViewModel, Window>();
 
             foreach (KeyValuePair<BaseModuleViewModel, UserControl> entry in ViewModelAndOverlayView)
@@ -52,6 +51,31 @@ namespace F1T.Core
         }
 
 
+        // TODO
+        // Find a way to call StartTimer() and StopTimer() from here...
+        private static void PerformHideAction(Window View, BaseModuleViewModel Model)
+        {
+            Application.Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                new Action(() => {
+                    View.Hide();
+                    View.Topmost = false;
+                    Model.OverlayVisible = false;
+                }));
+        }
+
+        private static void PerformDisplayAction(Window View, BaseModuleViewModel Model)
+        {
+            Application.Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                new Action(() => {
+                    View.Show();
+                    View.Topmost = true;
+                    Model.OverlayVisible = true;
+                }));
+        }
+
+
         public static void HideOverlay(BaseModuleViewModel Model)
         {
             Window View;
@@ -62,19 +86,14 @@ namespace F1T.Core
                 return;
             }
 
-            Application.Current.Dispatcher.BeginInvoke(
-            DispatcherPriority.Normal,
-            new Action(() => {
-                View.Hide();
-                View.Topmost = false;
-                Model.OverlayVisible = false;
-            }));
+            PerformHideAction(View, Model);
+
         }
 
         public static void DisplayOverlay(BaseModuleViewModel Model)
         {
 
-            #if RELEASE
+            #if DEBUG
                 Console.WriteLine("Overlay toggled regardless due to being in DEBUG mode..."); 
             #else
                 if (!F1Focused)
@@ -91,13 +110,7 @@ namespace F1T.Core
                 return;
             }
 
-            Application.Current.Dispatcher.BeginInvoke(
-            DispatcherPriority.Normal,
-            new Action(() => {
-                View.Show();
-                View.Topmost = true;
-                Model.OverlayVisible = true;
-            }));
+            PerformDisplayAction(View, Model);
         }
         private void DisplayOverlays()
         {
@@ -108,13 +121,7 @@ namespace F1T.Core
 
                 if (Model.Toggled && !Model.OverlayVisible)
                 {
-                    Application.Current.Dispatcher.BeginInvoke(
-                        DispatcherPriority.Normal,
-                        new Action(() => {
-                            View.Show();
-                            View.Topmost = true;
-                            Model.OverlayVisible = true;
-                        }));
+                    PerformDisplayAction(View, Model);
                 }
             }
         }
@@ -128,13 +135,7 @@ namespace F1T.Core
 
                 if (Model.OverlayVisible)
                 {
-                    Application.Current.Dispatcher.BeginInvoke(
-                        DispatcherPriority.Normal,
-                        new Action(() => {
-                            View.Hide();
-                            View.Topmost = false;
-                            Model.OverlayVisible = false;
-                        }));
+                    PerformHideAction(View, Model);
                 }
             }
         }

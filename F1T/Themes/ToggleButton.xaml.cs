@@ -52,7 +52,7 @@ namespace F1T.Themes
 
         void RaiseClickEvent()
         {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(ToggleButton.ClickEvent);
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(ClickEvent);
             RaiseEvent(newEventArgs);
         }
 
