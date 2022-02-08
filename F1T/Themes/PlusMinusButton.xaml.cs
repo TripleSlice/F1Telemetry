@@ -26,7 +26,7 @@ namespace F1T.Themes
         public PlusMinusButton()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DisplayTextBlock.DataContext = this;
         }
 
 
@@ -36,21 +36,21 @@ namespace F1T.Themes
             DependencyProperty.Register("Value", typeof(int), typeof(PlusMinusButton),
             new PropertyMetadata(0, ValuePropertyChanged));
 
-        public int Value
-        {
-            get { return (int)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
-        }
+            public int Value
+            {
+                get { return (int)GetValue(ValueProperty); }
+                set { SetValue(ValueProperty, value); }
+            }
 
-        private void ValuePropertyChanged(int n)
-        {
-            Value = n;
-        }
+            private void ValuePropertyChanged(int n)
+            {
+                Value = n;
+            }
 
-        private static void ValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((PlusMinusButton)d).ValuePropertyChanged((int)e.NewValue);
-        }
+            private static void ValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                ((PlusMinusButton)d).ValuePropertyChanged((int)e.NewValue);
+            }
 
 
 
@@ -58,21 +58,21 @@ namespace F1T.Themes
             DependencyProperty.Register("Max", typeof(int), typeof(PlusMinusButton),
             new PropertyMetadata(0, MaxPropertyChanged));
 
-        public int Max
-        {
-            get { return (int)GetValue(MaxProperty); }
-            set { SetValue(MaxProperty, value); }
-        }
+            public int Max
+            {
+                get { return (int)GetValue(MaxProperty); }
+                set { SetValue(MaxProperty, value); }
+            }
 
-        private void MaxPropertyChanged(int n)
-        {
-            Max = n;
-        }
+            private void MaxPropertyChanged(int n)
+            {
+                Max = n;
+            }
 
-        private static void MaxPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((PlusMinusButton)d).MaxPropertyChanged((int)e.NewValue);
-        }
+            private static void MaxPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                ((PlusMinusButton)d).MaxPropertyChanged((int)e.NewValue);
+            }
 
 
 
@@ -80,21 +80,21 @@ namespace F1T.Themes
             DependencyProperty.Register("Min", typeof(int), typeof(PlusMinusButton),
             new PropertyMetadata(0, MinPropertyChanged));
 
-        public int Min
-        {
-            get { return (int)GetValue(MinProperty); }
-            set { SetValue(MinProperty, value); }
-        }
+            public int Min
+            {
+                get { return (int)GetValue(MinProperty); }
+                set { SetValue(MinProperty, value); }
+            }
 
-        private void MinPropertyChanged(int n)
-        {
-            Min = n;
-        }
+            private void MinPropertyChanged(int n)
+            {
+                Min = n;
+            }
 
-        private static void MinPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((PlusMinusButton)d).MinPropertyChanged((int)e.NewValue);
-        }
+            private static void MinPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                ((PlusMinusButton)d).MinPropertyChanged((int)e.NewValue);
+            }
 
 
         private async void ValueDownButton_Click(object sender, RoutedEventArgs e)

@@ -6,6 +6,6 @@
              xmlns:local="clr-namespace:F1T.Themes"
              mc:Ignorable="d" >
     <StackPanel x:Name="StackPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-        <Label Content="{Binding LabelContent}" FontFamily="/Fonts/#Poppins" Foreground="White" FontSize="11"/>
+        <Label Content="{Binding LabelContent}" FontFamily="/Fonts/#Poppins" Foreground="White" FontSize="13" Background="Transparent"/>
     </StackPanel>
 </UserControl>

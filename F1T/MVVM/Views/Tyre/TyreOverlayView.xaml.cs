@@ -30,11 +30,13 @@ namespace F1T.MVVM.Views.Tyre
             this.DataContext = Model;
             InitializeComponent();
             UpdateValues();
+
+            StartTimer();
         }
 
         public override TyreViewModel Model { get => TyreViewModel.GetInstance(); }
 
-     
+
         protected override void UpdateValues(object state = null)
         {
             if (Model.OverlayVisible && Model.PlayerIndexCarStatus != -1 && Model.PlayerIndexCarDamage != -1 && Model.PlayerIndexLapData != -1)

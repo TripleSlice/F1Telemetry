@@ -56,6 +56,8 @@ namespace F1T.MVVM.Views.InputTelemetry
             InputTelemetryPlot.Plot.Title("");
             InputTelemetryPlot.Plot.Frameless();
             InputTelemetryPlot.Render();
+
+            StartTimer();
         }
 
 
@@ -73,13 +75,22 @@ namespace F1T.MVVM.Views.InputTelemetry
             InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
 
             timer = new Timer(UpdateValues, null, 0, Model.Frequency);
+            currentFrequency = Model.Frequency;
         }
 
         // Only update the values of the graph if
         // We have received PlayerCarTelemtryData and
         // If the Window is visible
+
         protected override void UpdateValues(object state = null)
         {
+            if (Model.Frequency != currentFrequency)
+            {
+                StopTimer();
+                StartTimer();
+            }
+
+
             if (Model.OverlayVisible && Model.PlayerIndex != -1)
             {
                 BrakeValues.Push(Model.PlayerCarTelemetryData.m_brake);

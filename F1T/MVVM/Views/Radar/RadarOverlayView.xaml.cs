@@ -31,6 +31,8 @@ namespace F1T.MVVM.Views.Radar
             this.DataContext = Model;
             InitializeComponent();
             UpdateValues();
+
+            StartTimer();
         }
 
 

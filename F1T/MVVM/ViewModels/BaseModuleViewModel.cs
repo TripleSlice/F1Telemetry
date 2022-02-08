@@ -1,8 +1,10 @@
 ﻿using F1T.Core;
+using F1T.MVVM.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace F1T.MVVM.ViewModels
@@ -21,6 +23,8 @@ namespace F1T.MVVM.ViewModels
             Width = Double.NaN;
 
             OpacitySliderValue = 50;
+
+            FramesPerSecond = 2;
         }
 
 
@@ -66,9 +70,9 @@ namespace F1T.MVVM.ViewModels
         public int FramesPerSecond
         {
             get { return _framesPerSecond; }
-            set { 
+            set {
                 SetField(ref _framesPerSecond, value, "FramesPerSecond");
-                Frequency = 100 / FramesPerSecond;
+                Frequency = 1000 / FramesPerSecond;
             }
         }
 

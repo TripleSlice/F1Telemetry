@@ -1,4 +1,5 @@
 ﻿using F1T.MVVM.Models;
+using F1T.MVVM.Views.Tyre;
 using F1T.Structs;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -8,6 +9,21 @@ namespace F1T.MVVM.ViewModels
 {
     public class TyreViewModel : BaseModuleViewModel
     {
+
+        // === BEGINING OF MODULE SETUP ===
+        // === Singleton Instance with Thread Saftey ===
+        private static TyreViewModel _instance = null;
+        private static object _singletonLock = new object();
+        public static TyreViewModel GetInstance()
+        {
+            lock (_singletonLock)
+            {
+                if (_instance == null) { _instance = new TyreViewModel(); }
+                return _instance;
+            }
+        }
+        // === END OF MODULE SETUP ===
+
         public int ViewWidth = 500;
         public int ViewHeight = 500;
 
@@ -26,17 +42,7 @@ namespace F1T.MVVM.ViewModels
         }
 
 
-        // === Singleton Instance with Thread Saftey ===
-        private static TyreViewModel _instance = null;
-        private static object _singletonLock = new object();
-        public static TyreViewModel GetInstance()
-        {
-            lock (_singletonLock)
-            {
-                if (_instance == null) { _instance = new TyreViewModel(); }
-                return _instance;
-            }
-        }
+
 
         public PacketCarStatusData CarStatusData;
         public PacketCarDamageData CarDamageData;
@@ -85,6 +91,8 @@ namespace F1T.MVVM.ViewModels
 
             TyreWearVisible = true;
             TyreAgeVisible = true;
+
+            FramesPerSecond = 10;
 
             udpConnection.OnCarStatusDataReceive += TyreAgeUpdate;
             udpConnection.OnCarDamageDataReceive += TyreWearUpdate;

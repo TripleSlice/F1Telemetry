@@ -34,8 +34,10 @@
 
             <Rectangle Grid.ColumnSpan="2" x:Name="Back" Fill="#1a1a1a " HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="136" Margin="2,2,0,0" RadiusY="14" RadiusX="14"/>
             <Rectangle Panel.ZIndex="100" Grid.ColumnSpan="2" x:Name="Pill" Fill="White" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Width="60" RadiusY="12" RadiusX="12" RenderTransformOrigin="0.5,0.5"/>
-            <TextBlock Panel.ZIndex="200" Grid.ColumnSpan="2" Foreground="Black" FontFamily="/Fonts/#Poppins" FontWeight="SemiBold"
-                       HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" Text="{Binding Value}"></TextBlock>
+            <TextBlock x:Name="DisplayTextBlock"
+                       Panel.ZIndex="200" Grid.ColumnSpan="2" Foreground="Black" FontFamily="/Fonts/#Poppins" FontWeight="SemiBold"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" Text="{Binding Value}">
+            </TextBlock>
 
 
             <Border Grid.Column="0" x:Name="ValueDownBorder" Background="Transparent" Opacity="0.5" 

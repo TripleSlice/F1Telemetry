@@ -57,8 +57,8 @@ namespace F1T.Themes
             {
                 // Create the tool tip
                 ToolTip toolTip = new ToolTip { Content = TooltipContent };
-                toolTip.Background = Brushes.Black;
-                toolTip.FontSize = 10;
+                toolTip.Background = new SolidColorBrush(Colors.Black) { Opacity = 0.8 };
+                toolTip.FontSize = 11;
                 toolTip.FontFamily = new FontFamily("/Fonts/#Poppins");
                 toolTip.Foreground = Brushes.White;
                 toolTip.BorderThickness = new Thickness(0);

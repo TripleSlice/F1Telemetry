@@ -24,21 +24,32 @@
             </Style>
         </Grid.Resources>
 
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="55"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0">
+        <Border Grid.Row="0" Grid.ColumnSpan="2">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
                 <Label Content="TOGGLE MODULE" HorizontalAlignment="Center" FontSize="18" FontFamily="/Fonts/#Poppins" Foreground="White"></Label>
                 <themes:ToggleButton x:Name="VisibilityButtonInstance" Toggled="False" Click="VisibilityButtonInstance_Click"></themes:ToggleButton>
             </StackPanel>
         </Border>
 
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Grid.Column="0">
             <themes:SettingLabel LabelContent="BACKGROUND OPACITY"></themes:SettingLabel>
             <Slider Maximum="100" x:Name="OpacitySliderInstance" Value="{Binding OpacitySliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <themes:SettingLabel LabelContent="FPS" TooltipContent="How many FPS the overlay will get&#x0a;&#x0a;(useful for if the program is laggy)" HorizontalAlignment="Center"></themes:SettingLabel>
+            <themes:PlusMinusButton x:Name="FPSButtonInstance" Max="{Binding MaxFPSValue}" Min="{Binding MinFPSValue}" Value="{Binding FPSValue, Mode=TwoWay}"></themes:PlusMinusButton>
         </StackPanel>
     </Grid>
 </UserControl>

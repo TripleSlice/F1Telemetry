@@ -17,8 +17,8 @@ namespace F1T.Core
     {
 
 
-        // A dictionary containing all Modules ViewModels and all Modules OverlayViews
-        public static Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayView = new Dictionary<BaseModuleViewModel, Window>();
+        // A dictionary containing all Modules ViewModels and associated Windows (which UserControls are contained)
+        public static Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayWindow = new Dictionary<BaseModuleViewModel, Window>();
 
         // Flags for states of application
         private static bool F1Focused = false;
@@ -27,17 +27,18 @@ namespace F1T.Core
         // Prevent from being garbage collected
         private Timer timer;
 
-        public static void SetModelsAndViews(Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayView)
+        public static void SetModelsAndViews(Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayWindow)
         {
-            FocusMonitor.ViewModelAndOverlayView = ViewModelAndOverlayView;
+            FocusMonitor.ViewModelAndOverlayWindow = ViewModelAndOverlayWindow;
         }
 
-        public FocusMonitor(Dictionary<BaseModuleViewModel, UserControl> ViewModelAndOverlayView)
+        public FocusMonitor(Dictionary<BaseModuleViewModel, UserControl> ViewModelAndOverlayUserControl)
         {
             Dictionary<BaseModuleViewModel, Window> ViewModelAndContainerWindows = new Dictionary<BaseModuleViewModel, Window>();
 
-            foreach (KeyValuePair<BaseModuleViewModel, UserControl> entry in ViewModelAndOverlayView)
+            foreach (KeyValuePair<BaseModuleViewModel, UserControl> entry in ViewModelAndOverlayUserControl)
             {
+
                 // do something with entry.Value or entry.Key
                 Window display = new OverlayContainer(entry.Value, entry.Key.Top, entry.Key.Left);
                 display.Height = entry.Key.Height;
@@ -79,7 +80,7 @@ namespace F1T.Core
         public static void HideOverlay(BaseModuleViewModel Model)
         {
             Window View;
-            ViewModelAndOverlayView.TryGetValue(Model, out View);
+            ViewModelAndOverlayWindow.TryGetValue(Model, out View);
 
             if (View == null)
             {
@@ -103,7 +104,7 @@ namespace F1T.Core
             #endif
 
             Window View;
-            ViewModelAndOverlayView.TryGetValue(Model, out View);
+            ViewModelAndOverlayWindow.TryGetValue(Model, out View);
 
             if (View == null)
             {
@@ -114,7 +115,7 @@ namespace F1T.Core
         }
         private void DisplayOverlays()
         {
-            foreach (KeyValuePair<BaseModuleViewModel, Window> entry in ViewModelAndOverlayView)
+            foreach (KeyValuePair<BaseModuleViewModel, Window> entry in ViewModelAndOverlayWindow)
             {
                 BaseModuleViewModel Model = entry.Key;
                 Window View = entry.Value;
@@ -128,7 +129,7 @@ namespace F1T.Core
 
         private void HideOverlays()
         {
-            foreach (KeyValuePair<BaseModuleViewModel, Window> entry in ViewModelAndOverlayView)
+            foreach (KeyValuePair<BaseModuleViewModel, Window> entry in ViewModelAndOverlayWindow)
             {
                 BaseModuleViewModel Model = entry.Key;
                 Window View = entry.Value;

@@ -1,4 +1,5 @@
-﻿using F1T.Structs;
+﻿using F1T.MVVM.Views.Radar;
+using F1T.Structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,20 @@ namespace F1T.MVVM.ViewModels
 {
     public class RadarViewModel : BaseModuleViewModel
     {
+
+        // === BEGINING OF MODULE SETUP ===
+        // === Singleton Instance with Thread Saftey ===
+        private static RadarViewModel _instance = null;
+        private static object _singletonLock = new object();
+        public static RadarViewModel GetInstance()
+        {
+            lock (_singletonLock)
+            {
+                if (_instance == null) { _instance = new RadarViewModel(); }
+                return _instance;
+            }
+        }
+        // === END OF MODULE SETUP ===
 
         private int _scale;
         public int Scale
@@ -77,18 +92,7 @@ namespace F1T.MVVM.ViewModels
         }
 
 
-        // === Singleton Instance with Thread Saftey ===
-        private static RadarViewModel _instance = null;
-        private static object _singletonLock = new object();
-        public static RadarViewModel GetInstance()
-        {
-            lock (_singletonLock)
-            {
-                if (_instance == null) { _instance = new RadarViewModel(); }
-                return _instance;
-            }
-        }
-
+       
 
         public PacketMotionData MotionData;
         public CarMotionData PlayerCarMotionData;
@@ -118,6 +122,8 @@ namespace F1T.MVVM.ViewModels
 
             DangerRadius = (int)Math.Round(2f * Scale);
             WarningRadius = (int)Math.Round(3.5f * Scale);
+
+            FramesPerSecond = 60;
 
             udpConnection.OnMotionDataReceive += RadarUpdate;
         }

@@ -1,4 +1,5 @@
 ﻿using F1T.MVVM.ViewModels;
+using F1T.MVVM.Views.InputTelemetry;
 using System;
 using System.Threading;
 using System.Windows;
@@ -14,12 +15,14 @@ namespace F1T.MVVM.Views
 
         protected Timer timer;
 
+        protected int currentFrequency;
 
         // Function logic for all OverlayViews
 
         public virtual void StartTimer()
         {
             timer = new Timer(UpdateValues, null, 0, Model.Frequency);
+            currentFrequency = Model.Frequency;
         }
 
         public void StopTimer()

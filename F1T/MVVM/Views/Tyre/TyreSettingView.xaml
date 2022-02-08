@@ -18,7 +18,11 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <src:CommonSettingUserControl ToggleModule="ToggleVisibilityButton_Click" OpacitySliderValue="{Binding OpacitySliderValue}"></src:CommonSettingUserControl>
+        <src:CommonSettingUserControl ToggleModule="ToggleVisibilityButton_Click" 
+                                      OpacitySliderValue="{Binding OpacitySliderValue}"
+                                      MaxFPSValue="60" MinFPSValue="1"
+                                      FPSValue="{Binding FramesPerSecond, Mode=TwoWay}"
+                                      ></src:CommonSettingUserControl>
 
         <StackPanel Grid.Row="1">
             <themes:SettingLabel LabelContent="TyreWear"></themes:SettingLabel>
