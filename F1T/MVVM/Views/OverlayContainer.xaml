@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="F1T - OverlayContainer" AllowsTransparency="True" Background="Transparent" WindowStyle="None"
         WindowStartupLocation="Manual"
-        Left="{Binding Left}" Top="{Binding Top}">
+        Left="{Binding Left, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}">
     <Viewbox>
-        <ContentControl Content="{Binding CurrentOverlay}">
+        <ContentControl x:Name="ContentHolder" Content="{Binding CurrentOverlay}">
         </ContentControl>
     </Viewbox>
 </Window>

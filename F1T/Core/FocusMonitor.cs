@@ -40,7 +40,7 @@ namespace F1T.Core
             {
 
                 // do something with entry.Value or entry.Key
-                Window display = new OverlayContainer(entry.Value, entry.Key.Top, entry.Key.Left);
+                Window display = new OverlayContainer(entry.Value, entry.Key);
                 display.Height = entry.Key.Height;
                 display.Width = entry.Key.Width;
                 ViewModelAndContainerWindows.Add(entry.Key, display);

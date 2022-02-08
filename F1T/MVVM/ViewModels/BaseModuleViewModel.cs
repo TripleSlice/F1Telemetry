@@ -28,8 +28,20 @@ namespace F1T.MVVM.ViewModels
         }
 
 
-        public int Left;
-        public int Top;
+        private int _left;
+        public int Left
+        {
+            get { return _left; }
+            set { SetField(ref _left, value, "Left"); }
+        }
+
+        private int _top;
+        public int Top
+        {
+            get { return _top; }
+            set { SetField(ref _top, value, "Top"); }
+        }
+
 
         private bool _overlayVisible;
         public bool OverlayVisible

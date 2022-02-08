@@ -17,20 +17,5 @@ namespace F1T.MVVM.ViewModels
             get { return _currentOverlay; }
             set { SetField(ref _currentOverlay, value, "CurrentOverlay"); }
         }
-
-        private int _top;
-        public int Top
-        {
-            get { return _top; }
-            set { SetField(ref _top, value, "Top"); }
-        }
-
-        private int _left;
-        public int Left
-        {
-            get { return _left; }
-            set { SetField(ref _left, value, "Left"); }
-        }
-
     }
 }

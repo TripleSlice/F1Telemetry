@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:F1T.MVVM.Views" xmlns:themes="clr-namespace:F1T.Themes"
-             mc:Ignorable="d" >
+             mc:Ignorable="d"
+             d:Width="850">
     <Grid>
         <Grid.Resources>
             <Style TargetType="{x:Type Border}">
@@ -27,29 +28,51 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="150"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
             <RowDefinition Height="55"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Grid.ColumnSpan="2">
+        <Border Grid.Row="0" Grid.ColumnSpan="3">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
                 <Label Content="TOGGLE MODULE" HorizontalAlignment="Center" FontSize="18" FontFamily="/Fonts/#Poppins" Foreground="White"></Label>
                 <themes:ToggleButton x:Name="VisibilityButtonInstance" Toggled="False" Click="VisibilityButtonInstance_Click"></themes:ToggleButton>
             </StackPanel>
         </Border>
 
-        <StackPanel Grid.Row="1" Grid.Column="0">
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <themes:SettingLabel LabelContent="BACKGROUND OPACITY"></themes:SettingLabel>
             <Slider Maximum="100" x:Name="OpacitySliderInstance" Value="{Binding OpacitySliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <themes:SettingLabel LabelContent="FPS" TooltipContent="How many FPS the overlay will get&#x0a;&#x0a;(useful for if the program is laggy)" HorizontalAlignment="Center"></themes:SettingLabel>
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <themes:SettingLabel LabelContent="FPS" TooltipContent="Changes the rate of which the overlay will get refreshed&#x0a;&#x0a;(useful for if the program is laggy)" HorizontalAlignment="Center"></themes:SettingLabel>
             <themes:PlusMinusButton x:Name="FPSButtonInstance" Max="{Binding MaxFPSValue}" Min="{Binding MinFPSValue}" Value="{Binding FPSValue, Mode=TwoWay}"></themes:PlusMinusButton>
         </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0">
+            <themes:SettingLabel LabelContent="OVERLAY POSITION" TooltipContent="The position of the overlay on the screen" HorizontalAlignment="Center" ></themes:SettingLabel>
+
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <StackPanel>
+                    <themes:SettingLabel LabelContent="X" HorizontalAlignment="Center"></themes:SettingLabel>
+                    <themes:PlusMinusButton x:Name="XButtonInstance" Value="{Binding Left, Mode=TwoWay}"></themes:PlusMinusButton>
+                </StackPanel>
+
+                <StackPanel>
+                    <themes:SettingLabel LabelContent="Y" HorizontalAlignment="Center"></themes:SettingLabel>
+                    <themes:PlusMinusButton x:Name="YButtonInstance" Value="{Binding Top, Mode=TwoWay}"></themes:PlusMinusButton>
+                </StackPanel>
+
+            </StackPanel>
+        </StackPanel>
+
+        
     </Grid>
 </UserControl>
