@@ -15,19 +15,16 @@ namespace F1T.Core
 {
     public class FocusMonitor
     {
-        [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
-        [DllImport("user32.dll")]
-        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
 
         // A dictionary containing all Modules ViewModels and all Modules OverlayViews
         public static Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayView = new Dictionary<BaseModuleViewModel, Window>();
 
-
-        // Checks if F1 or this app is focused
+        // Flags for states of application
         private static bool F1Focused = false;
+        private static bool ModulesDisplayed = false;
 
+        //
         private Timer timer;
 
         public static void SetModelsAndViews(Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayView)
@@ -49,30 +46,16 @@ namespace F1T.Core
                 ViewModelAndContainerWindows.Add(entry.Key, display);
             }
 
-            FocusMonitor.SetModelsAndViews(ViewModelAndContainerWindows);
-            AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
-            Automation.AddAutomationFocusChangedEventHandler(focusHandler);
-            // How long to check the title of the window
-            timer = new Timer(CheckForF1Window, null, 0, 5000);
+            SetModelsAndViews(ViewModelAndContainerWindows);
+            // TIMER BASED
+            timer = new Timer(CheckForF1Window, null, 0, 1000);
         }
 
-        private string GetActiveWindowTitle()
-        {
-            const int nChars = 256;
-            StringBuilder Buff = new StringBuilder(nChars);
-            IntPtr handle = GetForegroundWindow();
-
-            if (GetWindowText(handle, Buff, nChars) > 0)
-            {
-                return Buff.ToString();
-            }
-            return null;
-        }
 
         public static void HideOverlay(BaseModuleViewModel Model)
         {
             Window View;
-            FocusMonitor.ViewModelAndOverlayView.TryGetValue(Model, out View);
+            ViewModelAndOverlayView.TryGetValue(Model, out View);
 
             if (View == null)
             {
@@ -80,7 +63,7 @@ namespace F1T.Core
             }
 
             Application.Current.Dispatcher.BeginInvoke(
-            DispatcherPriority.Background,
+            DispatcherPriority.Normal,
             new Action(() => {
                 View.Hide();
                 View.Topmost = false;
@@ -91,7 +74,7 @@ namespace F1T.Core
         public static void DisplayOverlay(BaseModuleViewModel Model)
         {
 
-            #if DEBUG
+            #if RELEASE
                 Console.WriteLine("Overlay toggled regardless due to being in DEBUG mode..."); 
             #else
                 if (!F1Focused)
@@ -101,7 +84,7 @@ namespace F1T.Core
             #endif
 
             Window View;
-            FocusMonitor.ViewModelAndOverlayView.TryGetValue(Model, out View);
+            ViewModelAndOverlayView.TryGetValue(Model, out View);
 
             if (View == null)
             {
@@ -109,7 +92,7 @@ namespace F1T.Core
             }
 
             Application.Current.Dispatcher.BeginInvoke(
-            DispatcherPriority.Background,
+            DispatcherPriority.Normal,
             new Action(() => {
                 View.Show();
                 View.Topmost = true;
@@ -126,7 +109,7 @@ namespace F1T.Core
                 if (Model.Toggled && !Model.OverlayVisible)
                 {
                     Application.Current.Dispatcher.BeginInvoke(
-                        DispatcherPriority.Background,
+                        DispatcherPriority.Normal,
                         new Action(() => {
                             View.Show();
                             View.Topmost = true;
@@ -143,10 +126,10 @@ namespace F1T.Core
                 BaseModuleViewModel Model = entry.Key;
                 Window View = entry.Value;
 
-                if (Model.Toggled && Model.OverlayVisible)
+                if (Model.OverlayVisible)
                 {
                     Application.Current.Dispatcher.BeginInvoke(
-                        DispatcherPriority.Background,
+                        DispatcherPriority.Normal,
                         new Action(() => {
                             View.Hide();
                             View.Topmost = false;
@@ -156,45 +139,74 @@ namespace F1T.Core
             }
         }
 
-        private void HandleWindow(string currWindowName)
+        private bool IsF1Focussed(string currWindowName)
         {
-            if (currWindowName == null)
-            {
-                return;
-            }
-
-            if (!F1Focused && (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021") || currWindowName.StartsWith("F1T")))
-            {
-                DisplayOverlays();
-                F1Focused = true;
-            }
-            else if (F1Focused && !currWindowName.StartsWith("F1"))
-            {
-                HideOverlays();
-                F1Focused = false;
-            }
+            if (currWindowName == null) return false;
+            return (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021") || currWindowName.StartsWith("F1T"));
         }
 
         private void CheckForF1Window(object state = null)
         {
-            HandleWindow(GetActiveWindowTitle());
-        }
+            var res = IsF1Focussed(WindowHelper.GetActiveWindowTitle());
+            F1Focused = res;
 
-        private void OnFocusChanged(object sender, AutomationFocusChangedEventArgs e)
-        {
-            try
+            if (F1Focused && !ModulesDisplayed)
             {
-                AutomationElement focusedElement = sender as AutomationElement;
-                if (focusedElement != null)
-                {
-                    int processId = focusedElement.Current.ProcessId;
-                    using (Process process = Process.GetProcessById(processId))
-                    {
-                        HandleWindow(process.ProcessName);
-                    }
-                }
+                DisplayOverlays();
+                ModulesDisplayed = true;
             }
-            catch { }
+            else if(!F1Focused && ModulesDisplayed)
+            {
+                HideOverlays();
+                ModulesDisplayed = false;
+            }
         }
     }
+
+    public class WindowHelper
+    {
+        [DllImport("user32.dll")]
+        static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll")]
+        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+
+        public static string GetActiveWindowTitle()
+        {
+            const int nChars = 256;
+            StringBuilder Buff = new StringBuilder(nChars);
+            IntPtr handle = GetForegroundWindow();
+
+            if (GetWindowText(handle, Buff, nChars) > 0)
+            {
+                return Buff.ToString();
+            }
+            return null;
+        }
+
+    }
 }
+
+
+// FOCUS BASED CODE (SORTA YUCKY TO HAVE BOTH)
+/*
+AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
+Automation.AddAutomationFocusChangedEventHandler(focusHandler);
+
+private void OnFocusChanged(object sender, AutomationFocusChangedEventArgs e)
+{
+    try
+    {
+        AutomationElement focusedElement = sender as AutomationElement;
+        if (focusedElement != null)
+        {
+            int processId = focusedElement.Current.ProcessId;
+            using (Process process = Process.GetProcessById(processId))
+            {
+                HandleWindow(process.ProcessName);
+            }
+        }
+    }
+    catch { }
+}
+
+*/

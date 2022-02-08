@@ -12,7 +12,8 @@
         ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Title="F1T">
 
 
 
