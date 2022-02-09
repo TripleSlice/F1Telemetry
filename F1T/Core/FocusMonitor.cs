@@ -71,7 +71,10 @@ namespace F1T.Core
                 DispatcherPriority.Normal,
                 new Action(() => {
                     View.Show();
+                    // I know this seems pointless... But it drags it to the front and then
+                    // makes it so others can go ontop
                     View.Topmost = true;
+                    View.Topmost = false;
                     Model.OverlayVisible = true;
                 }));
         }
@@ -82,10 +85,7 @@ namespace F1T.Core
             Window View;
             ViewModelAndOverlayWindow.TryGetValue(Model, out View);
 
-            if (View == null)
-            {
-                return;
-            }
+            if (View == null) return;
 
             PerformHideAction(View, Model);
 
@@ -93,23 +93,10 @@ namespace F1T.Core
 
         public static void DisplayOverlay(BaseModuleViewModel Model)
         {
-
-            #if DEBUG
-                Console.WriteLine("Overlay toggled regardless due to being in DEBUG mode..."); 
-            #else
-                if (!F1Focused)
-                {
-                    return;
-                }
-            #endif
-
             Window View;
             ViewModelAndOverlayWindow.TryGetValue(Model, out View);
 
-            if (View == null)
-            {
-                return;
-            }
+            if (View == null) return;
 
             PerformDisplayAction(View, Model);
         }
@@ -120,10 +107,7 @@ namespace F1T.Core
                 BaseModuleViewModel Model = entry.Key;
                 Window View = entry.Value;
 
-                if (Model.Toggled && !Model.OverlayVisible)
-                {
-                    PerformDisplayAction(View, Model);
-                }
+                if (Model.Toggled && !Model.OverlayVisible) PerformDisplayAction(View, Model);
             }
         }
 
@@ -134,10 +118,7 @@ namespace F1T.Core
                 BaseModuleViewModel Model = entry.Key;
                 Window View = entry.Value;
 
-                if (Model.OverlayVisible)
-                {
-                    PerformHideAction(View, Model);
-                }
+                if (Model.OverlayVisible) PerformHideAction(View, Model);
             }
         }
 
@@ -178,13 +159,9 @@ namespace F1T.Core
             StringBuilder Buff = new StringBuilder(nChars);
             IntPtr handle = GetForegroundWindow();
 
-            if (GetWindowText(handle, Buff, nChars) > 0)
-            {
-                return Buff.ToString();
-            }
+            if (GetWindowText(handle, Buff, nChars) > 0) return Buff.ToString();
             return null;
         }
-
     }
 }
 

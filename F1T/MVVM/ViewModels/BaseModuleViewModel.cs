@@ -43,6 +43,8 @@ namespace F1T.MVVM.ViewModels
         }
 
 
+
+
         private bool _overlayVisible;
         public bool OverlayVisible
         {
@@ -90,6 +92,16 @@ namespace F1T.MVVM.ViewModels
 
         public int Frequency;
 
+        // TODO
+        // As we change the scale slider
+        // Change Width if its there
+        // Change Height if its there
+        private int _scaleSliderValue;
+        public int ScaleSliderValue
+        {
+            get { return _scaleSliderValue; }
+            set { SetField(ref _scaleSliderValue, value, "ScaleSliderValue"); }
+        }
 
         private double _width;
         public double Width

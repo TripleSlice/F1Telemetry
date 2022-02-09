@@ -73,6 +73,11 @@
             </StackPanel>
         </StackPanel>
 
-        
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <themes:SettingLabel LabelContent="SCALE" TooltipContent="The scale of the overlay Window"></themes:SettingLabel>
+            <Slider Maximum="100" x:Name="ScaleSliderInstance" Value="{Binding ScaleSliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
+        </StackPanel>
+
+
     </Grid>
 </UserControl>

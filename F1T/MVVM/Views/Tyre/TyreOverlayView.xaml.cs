@@ -108,18 +108,22 @@ namespace F1T.MVVM.Views.Tyre
 
                         Model.TyreInfoArr.Clear();
  
-                        int counter = 0;
 
                         for (int i = topIndex; i <= bottomIndex; i++)
                         {
-                            // Wear, Age
-                            int highestWear = AllCarDamageData[index[i]].m_tyresDamage.Max();
-                            int tyreAge = AllCarStatusData[index[i]].m_tyresAgeLaps;
-                            TyreInfo tyreInfo = new TyreInfo(highestWear, tyreAge);
-                            Model.TyreInfoArr.Add(tyreInfo);
-
-                            counter++;
-                        }
+                            try
+                            {
+                                // Wear, Age
+                                int highestWear = AllCarDamageData[index[i]].m_tyresDamage.Max();
+                                int tyreAge = AllCarStatusData[index[i]].m_tyresAgeLaps;
+                                TyreInfo tyreInfo = new TyreInfo(highestWear, tyreAge);
+                                Model.TyreInfoArr.Add(tyreInfo);
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                    }
 
 
                     }));
