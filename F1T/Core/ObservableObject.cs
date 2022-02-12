@@ -3,9 +3,13 @@ using System.ComponentModel;
 
 namespace F1T.Core
 {
+    /// <summary>
+    /// Provides an object which implements the <see cref="INotifyPropertyChanged"/> interface
+    /// </summary>
     public class ObservableObject : INotifyPropertyChanged
     {
         // boiler-plate
+        // https://stackoverflow.com/questions/1315621/implementing-inotifypropertychanged-does-a-better-way-exist
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {

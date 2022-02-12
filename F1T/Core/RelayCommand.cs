@@ -3,6 +3,9 @@ using System.Windows.Input;
 
 namespace F1T.Core
 {
+    /// <summary>
+    /// Provides a implementation of the <see cref="ICommand"/> interface
+    /// </summary>
     public class RelayCommand : ICommand
     {
         private Action<object> _execute;

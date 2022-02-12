@@ -6,7 +6,12 @@ using System.Runtime.InteropServices;
 
 namespace F1T.Core
 {
-    // https://github.com/thomz12/F12020-Telemetry
+
+    /// <summary>
+    /// Provides UDP information about the game
+    /// </summary>
+    /// https://github.com/thomz12/F12020-Telemetry
+    /// https://forums.codemasters.com/topic/80231-f1-2021-udp-specification/ (Need an account to get UDP Specs)
     public class UDPConnection
     {
         // == UDP Client ===
@@ -41,6 +46,7 @@ namespace F1T.Core
                 return _instance;
             }
         }
+        // === End of Singleton
 
 
         private UDPConnection()
@@ -55,8 +61,9 @@ namespace F1T.Core
         }
 
         // === Ingestion point of data from the game ===
-        // === We create packets, then observable objects ===
-        // === from the packets which we can use anywhere ===
+        // Cast the packet to its type
+        // Invoke any delegate functions
+        // These will then gen pushed to the events
         private void recv(IAsyncResult res)
         {
             // https://stackoverflow.com/questions/7266101/receive-messages-continuously-using-udpclient

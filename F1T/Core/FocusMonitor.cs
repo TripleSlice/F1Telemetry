@@ -13,11 +13,15 @@ using F1T.MVVM.Views;
 
 namespace F1T.Core
 {
+    /// <summary>
+    /// Provides methods and utilites to see what <see cref="Window"/> is focused
+    /// </summary>
+    /// This class is highly specific to this application
+    /// It would be a good idea to make a more generic FocusMonitor as
+    /// this breaks frequently in this application
     public class FocusMonitor
     {
-
-
-        // A dictionary containing all Modules ViewModels and associated Windows (which UserControls are contained)
+        // A dictionary containing all Modules ViewModels and associated Windows (which Module UserControls are contained)
         public static Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayWindow = new Dictionary<BaseModuleViewModel, Window>();
 
         // Flags for states of application
@@ -28,31 +32,46 @@ namespace F1T.Core
         // Prevent from being garbage collected
         private Timer timer;
 
+        /// <summary>
+        /// Statically set FocusMonitors ViewModel and OverlayWindow instances
+        /// </summary>
+        /// <param name="ViewModelAndOverlayWindow"></param>
         public static void SetModelsAndViews(Dictionary<BaseModuleViewModel, Window> ViewModelAndOverlayWindow)
         {
             FocusMonitor.ViewModelAndOverlayWindow = ViewModelAndOverlayWindow;
         }
-
+        /// <summary>
+        /// Initializes a new instance of <see cref="FocusMonitor"/> with the ViewModels and UserControls we might want to display
+        /// </summary>
+        /// <param name="ViewModelAndOverlayUserControl"></param>
         public FocusMonitor(Dictionary<BaseModuleViewModel, UserControl> ViewModelAndOverlayUserControl)
         {
+            // We are taking our ViewModels and UserControls
+            // And assigning all the UserControls to a "OverlayWindow"
+            // OverlayWindow is responsible for actually holding the UserControl
+            // and has some generic functionilty which all OverlayViews would want
             Dictionary<BaseModuleViewModel, Window> ViewModelAndContainerWindows = new Dictionary<BaseModuleViewModel, Window>();
 
             foreach (KeyValuePair<BaseModuleViewModel, UserControl> entry in ViewModelAndOverlayUserControl)
             {
-
-                // do something with entry.Value or entry.Key
+                // Create our Window instance and store it
                 Window display = new OverlayContainer(entry.Value, entry.Key);
                 ViewModelAndContainerWindows.Add(entry.Key, display);
             }
 
+            // Statically set our Windows
             SetModelsAndViews(ViewModelAndContainerWindows);
             // TIMER BASED
-            timer = new Timer(CheckForF1Window, null, 0, 1000);
+            // Check to see if a Window of interest is open on a timer
+            timer = new Timer(CheckActiveWindow, null, 0, 1000);
         }
 
-
-        // TODO
-        // Find a way to call StartTimer() and StopTimer() from here...
+        /// <summary>
+        /// <para> Performs the <see cref="Window.Hide"/> method and sets <see cref="Window.Topmost"/> to False on the <see cref="Window"/>. </para>
+        /// <para> Sets <see cref="BaseModuleViewModel.BaseModuleViewModel"/> to False on the <see cref="BaseModuleViewModel"/> specified. </para>
+        /// </summary>
+        /// <param name="View"></param>
+        /// <param name="Model"></param>
         private static void PerformHideAction(Window View, BaseModuleViewModel Model)
         {
             Application.Current.Dispatcher.BeginInvoke(
@@ -64,6 +83,12 @@ namespace F1T.Core
                 }));
         }
 
+        /// <summary>
+        /// <para> Performs the <see cref="Window.Show"/> method and sets <see cref="Window.Topmost"/> to True on the <see cref="Window"/>. </para>
+        /// <para> Sets <see cref="BaseModuleViewModel.BaseModuleViewModel"/> to True on the <see cref="BaseModuleViewModel"/> specified. </para>
+        /// </summary>
+        /// <param name="View"></param>
+        /// <param name="Model"></param>
         private static void PerformDisplayAction(Window View, BaseModuleViewModel Model)
         {
             Application.Current.Dispatcher.BeginInvoke(
@@ -78,19 +103,26 @@ namespace F1T.Core
                 }));
         }
 
-        private static void PerformDisplayActionRefresh(Window View, BaseModuleViewModel Model)
+        /// <summary>
+        /// Toggles the <see cref="Window.Topmost"/> to True and then False on the <see cref="Window"/>.
+        /// </summary>
+        /// <param name="View"></param>
+        private static void PerformDisplayActionRefresh(Window View)
         {
             Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Normal,
                 new Action(() => {
-                    // I know this seems pointless... But it drags it to the front and then
-                    // makes it so others can go ontop
+                    // I know this seems pointless...
+                    // But it drags it to the front and then makes it so others can go ontop
                     View.Topmost = true;
                     View.Topmost = false;
                 }));
         }
 
-
+        /// <summary>
+        /// Hides the Overlay corresponding with the specified <see cref="BaseModuleViewModel"/>
+        /// </summary>
+        /// <param name="Model"></param>
         public static void HideOverlay(BaseModuleViewModel Model)
         {
             Window View;
@@ -99,9 +131,11 @@ namespace F1T.Core
             if (View == null) return;
 
             PerformHideAction(View, Model);
-
         }
-
+        /// <summary>
+        /// Displays the Overlay corresponding with the specified <see cref="BaseModuleViewModel"/>
+        /// </summary>
+        /// <param name="Model"></param>
         public static void DisplayOverlay(BaseModuleViewModel Model)
         {
             Window View;
@@ -111,18 +145,20 @@ namespace F1T.Core
 
             PerformDisplayAction(View, Model);
         }
-
+        /// <summary>
+        /// Calls <see cref="PerformDisplayActionRefresh(Window)"/> on all <see cref="Window"/> located in <see cref="FocusMonitor.ViewModelAndOverlayWindow"/>
+        /// </summary>
         private void DisplayOverlaysRefresh()
         {
             foreach (KeyValuePair<BaseModuleViewModel, Window> entry in ViewModelAndOverlayWindow)
             {
-                BaseModuleViewModel Model = entry.Key;
                 Window View = entry.Value;
-
-                PerformDisplayActionRefresh(View, Model);
+                PerformDisplayActionRefresh(View);
             }
         }
-
+        /// <summary>
+        /// Calls <see cref="PerformDisplayAction(Window, BaseModuleViewModel)"/> on all <see cref="Window"/> located in <see cref="FocusMonitor.ViewModelAndOverlayWindow"/> if applicable
+        /// </summary>
         private void DisplayOverlays()
         {
             foreach (KeyValuePair<BaseModuleViewModel, Window> entry in ViewModelAndOverlayWindow)
@@ -133,7 +169,9 @@ namespace F1T.Core
                 if (Model.Toggled && !Model.OverlayVisible) PerformDisplayAction(View, Model);
             }
         }
-
+        /// <summary>
+        /// Calls <see cref="PerformHideAction(Window, BaseModuleViewModel)"/> on all <see cref="Window"/> located in <see cref="FocusMonitor.ViewModelAndOverlayWindow"/>
+        /// </summary>
         private void HideOverlays()
         {
             foreach (KeyValuePair<BaseModuleViewModel, Window> entry in ViewModelAndOverlayWindow)
@@ -145,13 +183,22 @@ namespace F1T.Core
             }
         }
 
+        /// <summary>
+        /// Returns a <see cref="Boolean"/> if a F1 related application is focused
+        /// </summary>
+        /// <param name="currWindowName"></param>
+        /// <returns></returns>
         private bool IsF1Focussed(string currWindowName)
         {
             if (currWindowName == null) return false;
             return (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021") || currWindowName.StartsWith("F1T"));
         }
 
-        private void CheckForF1Window(object state = null)
+        /// <summary>
+        /// Checks the active window and performs logic depending on which window is active
+        /// </summary>
+        /// <param name="state"></param>
+        private void CheckActiveWindow(object state = null)
         {
             var CurrWindow = WindowHelper.GetActiveWindowTitle();
             var res = IsF1Focussed(CurrWindow);
@@ -177,6 +224,9 @@ namespace F1T.Core
         }
     }
 
+    /// <summary>
+    /// Contains methods and functionalty to get the title of the active <see cref="Window"/>
+    /// </summary>
     public class WindowHelper
     {
         [DllImport("user32.dll")]
@@ -198,6 +248,7 @@ namespace F1T.Core
 
 
 // FOCUS BASED CODE (SORTA YUCKY TO HAVE BOTH)
+// Here incase need to switch
 /*
 AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
 Automation.AddAutomationFocusChangedEventHandler(focusHandler);
