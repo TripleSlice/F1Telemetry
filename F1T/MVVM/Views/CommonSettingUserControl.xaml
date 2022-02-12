@@ -29,7 +29,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="175"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
@@ -40,8 +40,8 @@
 
         <Border Grid.Row="0" Grid.ColumnSpan="3">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
-                <Label Content="TOGGLE MODULE" HorizontalAlignment="Center" FontSize="18" FontFamily="/Fonts/#Poppins" Foreground="White"></Label>
-                <themes:ToggleButton x:Name="VisibilityButtonInstance" Toggled="False" Click="VisibilityButtonInstance_Click"></themes:ToggleButton>
+                <themes:SettingLabel Content="TOGGLE MODULE" HorizontalAlignment="Center" FontSize="18" FontFamily="/Fonts/#Poppins" Foreground="White"></themes:SettingLabel>
+                <themes:ToggleButton x:Name="ToggleButtonInstance" Toggled="{Binding ToggledValue}" Click="VisibilityButtonInstance_Click"></themes:ToggleButton>
             </StackPanel>
         </Border>
 
@@ -51,6 +51,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="2">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <themes:SettingLabel LabelContent="AUTO TOGGLE MODULE" HorizontalAlignment="Center" TooltipContent="Auto toggle module on startup"></themes:SettingLabel>
+                <themes:ToggleButton x:Name="AutoToggleButtonInstance" Toggled="{Binding AutoToggledValue, Mode=TwoWay}"></themes:ToggleButton>
+            </StackPanel>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2" Grid.Column="2">
             <themes:SettingLabel LabelContent="FPS" TooltipContent="Changes the rate of which the overlay will get refreshed&#x0a;&#x0a;(useful for if the program is laggy)" HorizontalAlignment="Center"></themes:SettingLabel>
             <themes:PlusMinusButton x:Name="FPSButtonInstance" Max="{Binding MaxFPSValue}" Min="{Binding MinFPSValue}" Value="{Binding FPSValue, Mode=TwoWay}"></themes:PlusMinusButton>
         </StackPanel>

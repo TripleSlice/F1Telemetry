@@ -65,8 +65,7 @@ namespace F1T.Settings
             Width = Double.NaN;
             OpacitySliderValue = 50;
             FramesPerSecond = 20;
-
-   
+            AutoToggled = false;
         }
 
 
@@ -78,6 +77,13 @@ namespace F1T.Settings
         {
             get { return _toggled; }
             set { SetField(ref _toggled, value, "Toggled"); }
+        }
+
+        private bool _autoToggled;
+        public bool AutoToggled
+        {
+            get { return _autoToggled; }
+            set { SetField(ref _autoToggled, value, "AutoToggled"); }
         }
 
         private int _left;

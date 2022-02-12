@@ -33,5 +33,19 @@ namespace F1T.MVVM.ViewModels
     public abstract class BaseModuleViewModel<T> : BaseModuleViewModel where T : BaseSettings
     {
         public abstract T Settings { get; }
+
+        public BaseModuleViewModel()
+        {
+            if (Settings.AutoToggled)
+            {
+                Settings.Toggled = true;
+                Toggled = true;
+            }
+            else
+            {
+                Settings.Toggled = false;
+                Toggled = false;
+            }
+        }
     }
 }

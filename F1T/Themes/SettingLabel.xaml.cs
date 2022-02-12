@@ -83,6 +83,8 @@ namespace F1T.Themes
                 qMark.FontSize = 10;
                 qMark.FontWeight = FontWeight.FromOpenTypeWeight(500);
                 qMark.Margin = new Thickness(0, -1, 0, 0);
+                qMark.FontFamily = new FontFamily("/Fonts/#Poppins");
+                qMark.Foreground = Brushes.White;
 
                 qMarkBorder.Child = qMark;
                 StackPanel.Children.Add(qMarkBorder);

@@ -183,6 +183,46 @@ namespace F1T.MVVM.Views
             }
 
 
+        public static readonly DependencyProperty ToggledValueProperty =
+            DependencyProperty.Register("ToggledValue", typeof(bool), typeof(CommonSettingUserControl),
+            new PropertyMetadata(false, ToggledValuePropertyChanged));
+
+            public bool ToggledValue
+            {
+                get { return (bool)GetValue(ToggledValueProperty); }
+                set { SetValue(ToggledValueProperty, value); }
+            }
+
+            private void ToggledValuePropertyChanged(bool boolean)
+            {
+                ToggledValue = boolean;
+            }
+
+            private static void ToggledValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                ((CommonSettingUserControl)d).ToggledValuePropertyChanged((bool)e.NewValue);
+            }
+
+        public static readonly DependencyProperty AutoToggledValueProperty =
+            DependencyProperty.Register("AutoToggledValue", typeof(bool), typeof(CommonSettingUserControl),
+            new PropertyMetadata(false, AutoToggledValuePropertyChanged));
+
+            public bool AutoToggledValue
+            {
+                get { return (bool)GetValue(AutoToggledValueProperty); }
+                set { SetValue(AutoToggledValueProperty, value); }
+            }
+
+            private void AutoToggledValuePropertyChanged(bool boolean)
+            {
+                AutoToggledValue = boolean;
+            }
+
+            private static void AutoToggledValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                ((CommonSettingUserControl)d).AutoToggledValuePropertyChanged((bool)e.NewValue);
+            }
+
         public CommonSettingUserControl()
         {
             InitializeComponent();
@@ -191,6 +231,8 @@ namespace F1T.MVVM.Views
             // instead of doing this.Datacontext = this
             // because for whatever reason it does not work
             FPSButtonInstance.DataContext = this;
+            ToggleButtonInstance.DataContext = this;
+            AutoToggleButtonInstance.DataContext = this;
             OpacitySliderInstance.DataContext = this;
             ScaleSliderInstance.DataContext = this;
             XButtonInstance.DataContext = this;

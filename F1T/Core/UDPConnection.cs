@@ -45,6 +45,8 @@ namespace F1T.Core
 
         private UDPConnection()
         {
+            // TODO Gracefully exit with
+            // message if UDP port is in use...
             //Client uses as receive udp client
             Client = new UdpClient(20777);
 
