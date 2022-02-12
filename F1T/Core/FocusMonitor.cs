@@ -23,6 +23,7 @@ namespace F1T.Core
         // Flags for states of application
         private static bool F1Focused = false;
         private static bool ModulesDisplayed = false;
+        private string LastWindow = "";
 
         // Prevent from being garbage collected
         private Timer timer;
@@ -41,8 +42,6 @@ namespace F1T.Core
 
                 // do something with entry.Value or entry.Key
                 Window display = new OverlayContainer(entry.Value, entry.Key);
-                display.Height = entry.Key.Height;
-                display.Width = entry.Key.Width;
                 ViewModelAndContainerWindows.Add(entry.Key, display);
             }
 
@@ -79,6 +78,18 @@ namespace F1T.Core
                 }));
         }
 
+        private static void PerformDisplayActionRefresh(Window View, BaseModuleViewModel Model)
+        {
+            Application.Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                new Action(() => {
+                    // I know this seems pointless... But it drags it to the front and then
+                    // makes it so others can go ontop
+                    View.Topmost = true;
+                    View.Topmost = false;
+                }));
+        }
+
 
         public static void HideOverlay(BaseModuleViewModel Model)
         {
@@ -100,6 +111,18 @@ namespace F1T.Core
 
             PerformDisplayAction(View, Model);
         }
+
+        private void DisplayOverlaysRefresh()
+        {
+            foreach (KeyValuePair<BaseModuleViewModel, Window> entry in ViewModelAndOverlayWindow)
+            {
+                BaseModuleViewModel Model = entry.Key;
+                Window View = entry.Value;
+
+                PerformDisplayActionRefresh(View, Model);
+            }
+        }
+
         private void DisplayOverlays()
         {
             foreach (KeyValuePair<BaseModuleViewModel, Window> entry in ViewModelAndOverlayWindow)
@@ -130,10 +153,16 @@ namespace F1T.Core
 
         private void CheckForF1Window(object state = null)
         {
-            var res = IsF1Focussed(WindowHelper.GetActiveWindowTitle());
+            var CurrWindow = WindowHelper.GetActiveWindowTitle();
+            var res = IsF1Focussed(CurrWindow);
             F1Focused = res;
 
-            if (F1Focused && !ModulesDisplayed)
+            // This is here incase we switch from one F1 related window to the next
+            // It would disapear, but we make it re-appear :)
+            if(F1Focused && CurrWindow != LastWindow)
+            {
+                DisplayOverlaysRefresh();
+            }else if (F1Focused && !ModulesDisplayed)
             {
                 DisplayOverlays();
                 ModulesDisplayed = true;
@@ -143,6 +172,8 @@ namespace F1T.Core
                 HideOverlays();
                 ModulesDisplayed = false;
             }
+
+            LastWindow = WindowHelper.GetActiveWindowTitle();
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using F1T.MVVM.ViewModels;
+using F1T.Settings;
 using F1T.Themes;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace F1T.MVVM.Views.Radar
     /// <summary>
     /// Interaction logic for RadarSettingView.xaml
     /// </summary>
-    public partial class RadarSettingView : BaseSettingView<RadarViewModel>
+    public partial class RadarSettingView : BaseSettingView<RadarViewModel, RadarSettings>
     {
         public RadarSettingView()
         {

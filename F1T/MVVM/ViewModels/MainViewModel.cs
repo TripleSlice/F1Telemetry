@@ -5,6 +5,9 @@ using System.Windows.Controls;
 using F1T.MVVM.Views.Home;
 using F1T.MVVM.Views.Radar;
 using F1T.MVVM.Views.Tyre;
+using F1T.Settings;
+using F1T.MVVM.Views;
+using System;
 
 namespace F1T.MVVM.ViewModels
 {
@@ -41,13 +44,15 @@ namespace F1T.MVVM.ViewModels
         // === View Models Associated with Views
         public InputTelemetryViewModel InputTelemetryModel { get { return InputTelemetryViewModel.GetInstance(); } }
         public RadarViewModel RadarModel { get { return RadarViewModel.GetInstance(); } }   
-        public TyreViewModel TyreModel { get { return TyreViewModel.GetInstance(); } }   
+        public TyreViewModel TyreModel { get { return TyreViewModel.GetInstance(); } }
+
 
 
         // Dict of ViewModel and OverlayView
         Dictionary<BaseModuleViewModel, UserControl> ViewModelAndOverlayView = new Dictionary<BaseModuleViewModel, UserControl>();
         // Dict of ViewModel and SettingView
         Dictionary<BaseModuleViewModel, UserControl> ViewModelAndSettingView = new Dictionary<BaseModuleViewModel, UserControl>();
+
 
         private void Init()
         {
@@ -70,7 +75,12 @@ namespace F1T.MVVM.ViewModels
             TyreSettingViewCommand = new RelayCommand(obj => { CurrentView = TyreSetting; });
         }
 
-
+        public void SaveSettings()
+        {
+            InputTelemetryModel.Settings.Save<InputTelemetrySettings>();
+            RadarModel.Settings.Save<RadarSettings>();
+            TyreModel.Settings.Save<TyreSettings>();
+        }
 
 
         // === Singleton Instance with Thread Saftey ===

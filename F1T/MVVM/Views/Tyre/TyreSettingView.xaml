@@ -1,7 +1,8 @@
 ﻿<src:BaseSettingView 
-    x:TypeArguments="src1:TyreViewModel"
+    x:TypeArguments="vm:TyreViewModel, settings:TyreSettings"
     xmlns:src="clr-namespace:F1T.MVVM.Views"
-    xmlns:src1="clr-namespace:F1T.MVVM.ViewModels"
+    xmlns:vm="clr-namespace:F1T.MVVM.ViewModels" 
+    xmlns:settings="clr-namespace:F1T.Settings" 
     xmlns:themes="clr-namespace:F1T.Themes"
     x:Class="F1T.MVVM.Views.Tyre.TyreSettingView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -19,17 +20,18 @@
         </Grid.RowDefinitions>
 
         <src:CommonSettingUserControl ToggleModule="ToggleVisibilityButton_Click" 
-                                      OpacitySliderValue="{Binding OpacitySliderValue}"
+                                      OpacitySliderValue="{Binding Settings.OpacitySliderValue, Mode=TwoWay}"
                                       MaxFPSValue="60" MinFPSValue="1"
-                                      FPSValue="{Binding FramesPerSecond, Mode=TwoWay}"
+                                      FPSValue="{Binding Settings.FramesPerSecond, Mode=TwoWay}"
+                                      Top="{Binding Settings.Top, Mode=TwoWay}" Left="{Binding Settings.Left, Mode=TwoWay}"
                                       ></src:CommonSettingUserControl>
 
         <StackPanel Grid.Row="1">
             <themes:SettingLabel LabelContent="TyreWear"></themes:SettingLabel>
-            <themes:ToggleButton Toggled="{Binding TyreWearVisible, Mode=TwoWay}" ></themes:ToggleButton>
+            <themes:ToggleButton Toggled="{Binding Settings.TyreWearVisible, Mode=TwoWay}" ></themes:ToggleButton>
 
             <themes:SettingLabel LabelContent="TyreAge"></themes:SettingLabel>
-            <themes:ToggleButton Toggled="{Binding TyreAgeVisible, Mode=TwoWay}" ></themes:ToggleButton>
+            <themes:ToggleButton Toggled="{Binding Settings.TyreAgeVisible, Mode=TwoWay}" ></themes:ToggleButton>
         </StackPanel>
 
     </Grid>

@@ -176,6 +176,10 @@
     <Compile Include="MVVM\Views\Tyre\TyreSettingView.xaml.cs">
       <DependentUpon>TyreSettingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\BaseSettings.cs" />
+    <Compile Include="Settings\InputTelemetrySettings.cs" />
+    <Compile Include="Settings\RadarSettings.cs" />
+    <Compile Include="Settings\TyreSettings.cs" />
     <Compile Include="Structs\CustomTypes.cs" />
     <Compile Include="Structs\PacketCarDamageData.cs" />
     <Compile Include="Structs\PacketCarStatusData.cs" />

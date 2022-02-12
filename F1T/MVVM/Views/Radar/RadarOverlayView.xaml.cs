@@ -1,4 +1,5 @@
 ﻿using F1T.MVVM.ViewModels;
+using F1T.Settings;
 using F1T.Structs;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace F1T.MVVM.Views.Radar
     /// <summary>
     /// Interaction logic for RadarOverlayView.xaml
     /// </summary>
-    public partial class RadarOverlayView : BaseOverlayView<RadarViewModel>
+    public partial class RadarOverlayView : BaseOverlayView<RadarViewModel, RadarSettings>
     {
         // === ViewModel ===
         public override RadarViewModel Model { get => RadarViewModel.GetInstance(); }
@@ -35,7 +36,6 @@ namespace F1T.MVVM.Views.Radar
             StartTimer();
         }
 
-
         private bool isInsideSquare(double X, double Y, int radius)
         {
             return Math.Abs(X) < (Model.CarWidth / 2) + radius  && Math.Abs(Y) < (Model.CarHeight / 2) + radius * 2f;
@@ -44,6 +44,11 @@ namespace F1T.MVVM.Views.Radar
 
         protected override void UpdateValues(object state = null)
         {
+            if (Model.Settings.Frequency != currentFrequency)
+            {
+                StopTimer();
+                StartTimer();
+            }
 
             if (Model.OverlayVisible && Model.PlayerIndex != -1)
             {

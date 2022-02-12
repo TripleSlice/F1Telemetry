@@ -22,5 +22,10 @@ namespace F1T.DataStructures
         {
             return items;
         }
+
+        public int Count()
+        {
+            return items.Length;
+        }
     }
 }

@@ -59,6 +59,26 @@ namespace F1T.MVVM.Views
                 ((CommonSettingUserControl)d).OpacitySliderValuePropertyChanged((int)e.NewValue);
             }
 
+        public static readonly DependencyProperty ScaleSliderValueProperty =
+            DependencyProperty.Register("ScaleSliderValue", typeof(int), typeof(CommonSettingUserControl),
+            new PropertyMetadata(0, ScaleSliderValuePropertyChanged));
+
+            public int ScaleSliderValue
+            {
+                get { return (int)GetValue(ScaleSliderValueProperty); }
+                set { SetValue(ScaleSliderValueProperty, value); }
+            }
+
+            private void ScaleSliderValuePropertyChanged(int val)
+            {
+                ScaleSliderValue = val;
+            }
+
+            private static void ScaleSliderValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                ((CommonSettingUserControl)d).ScaleSliderValuePropertyChanged((int)e.NewValue);
+            }
+
         public static readonly DependencyProperty MaxFPSValueProperty =
             DependencyProperty.Register("MaxFPSValue", typeof(int), typeof(CommonSettingUserControl),
             new PropertyMetadata(0, MaxFPSValuePropertyChanged));
@@ -122,12 +142,59 @@ namespace F1T.MVVM.Views
             }
 
 
+        public static readonly DependencyProperty LeftProperty =
+            DependencyProperty.Register("Left", typeof(int), typeof(CommonSettingUserControl),
+            new PropertyMetadata(0, LeftPropertyChanged));
+
+            public int Left
+            {
+                get { return (int)GetValue(LeftProperty); }
+                set { SetValue(LeftProperty, value); }
+            }
+
+            private void LeftPropertyChanged(int val)
+            {
+                Left = val;
+            }
+
+            private static void LeftPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                ((CommonSettingUserControl)d).LeftPropertyChanged((int)e.NewValue);
+            }
+
+        public static readonly DependencyProperty TopProperty =
+            DependencyProperty.Register("Top", typeof(int), typeof(CommonSettingUserControl),
+            new PropertyMetadata(0, TopPropertyChanged));
+
+            public int Top
+            {
+                get { return (int)GetValue(TopProperty); }
+                set { SetValue(TopProperty, value); }
+            }
+
+            private void TopPropertyChanged(int val)
+            {
+                Top = val;
+            }
+
+            private static void TopPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                ((CommonSettingUserControl)d).TopPropertyChanged((int)e.NewValue);
+            }
 
 
         public CommonSettingUserControl()
         {
             InitializeComponent();
+
+            // I don't know why I have to INIT each one of these
+            // instead of doing this.Datacontext = this
+            // because for whatever reason it does not work
             FPSButtonInstance.DataContext = this;
+            OpacitySliderInstance.DataContext = this;
+            ScaleSliderInstance.DataContext = this;
+            XButtonInstance.DataContext = this;
+            YButtonInstance.DataContext = this;
         }
     }
 }

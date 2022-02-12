@@ -1,4 +1,5 @@
 ﻿using F1T.MVVM.Views.Radar;
+using F1T.Settings;
 using F1T.Structs;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace F1T.MVVM.ViewModels
 {
-    public class RadarViewModel : BaseModuleViewModel
+    public class RadarViewModel : BaseModuleViewModel<RadarSettings>
     {
 
         // === BEGINING OF MODULE SETUP ===
@@ -24,6 +25,9 @@ namespace F1T.MVVM.ViewModels
                 return _instance;
             }
         }
+
+        private RadarSettings _settings = new RadarSettings().Read<RadarSettings>();
+        public override RadarSettings Settings { get => _settings; }
         // === END OF MODULE SETUP ===
 
         private int _scale;
@@ -114,16 +118,11 @@ namespace F1T.MVVM.ViewModels
             CarWidth = 1.9f * Scale;
             CarHeight = 5.35f * Scale;
 
-            Width = 500;
-            Height = 500;
-
-            PlayerCarLeft = (int)Width / 2 - CarWidth / 2;
-            PlayerCarTop = (int)Height / 2 - CarHeight / 2;
+            PlayerCarLeft = (int)Settings.Width / 2 - CarWidth / 2;
+            PlayerCarTop = (int)Settings.Height / 2 - CarHeight / 2;
 
             DangerRadius = (int)Math.Round(2f * Scale);
             WarningRadius = (int)Math.Round(3.5f * Scale);
-
-            FramesPerSecond = 60;
 
             udpConnection.OnMotionDataReceive += RadarUpdate;
         }

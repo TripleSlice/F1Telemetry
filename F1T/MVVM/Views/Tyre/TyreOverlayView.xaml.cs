@@ -1,5 +1,6 @@
 ﻿using F1T.MVVM.Models;
 using F1T.MVVM.ViewModels;
+using F1T.Settings;
 using F1T.Structs;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace F1T.MVVM.Views.Tyre
     /// <summary>
     /// Interaction logic for TyreOverlayView.xaml
     /// </summary>
-    public partial class TyreOverlayView : BaseOverlayView<TyreViewModel>
+    public partial class TyreOverlayView : BaseOverlayView<TyreViewModel, TyreSettings>
     {
         public TyreOverlayView()
         {
@@ -34,11 +35,19 @@ namespace F1T.MVVM.Views.Tyre
             StartTimer();
         }
 
+
         public override TyreViewModel Model { get => TyreViewModel.GetInstance(); }
 
 
         protected override void UpdateValues(object state = null)
         {
+
+            if (Model.Settings.Frequency != currentFrequency)
+            {
+                StopTimer();
+                StartTimer();
+            }
+
             if (Model.OverlayVisible && Model.PlayerIndexCarStatus != -1 && Model.PlayerIndexCarDamage != -1 && Model.PlayerIndexLapData != -1)
             {
 

@@ -1,4 +1,5 @@
 ﻿using F1T.MVVM.ViewModels;
+using F1T.Settings;
 using F1T.Themes;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace F1T.MVVM.Views.Tyre
     /// <summary>
     /// Interaction logic for TyreSettingView.xaml
     /// </summary>
-    public partial class TyreSettingView : BaseSettingView<TyreViewModel>
+    public partial class TyreSettingView : BaseSettingView<TyreViewModel, TyreSettings>
     {
         public TyreSettingView()
         {

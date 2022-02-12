@@ -1,11 +1,10 @@
-﻿using F1T.Core;
-using F1T.MVVM.Views;
-using F1T.MVVM.Views.InputTelemetry;
+﻿using F1T.Settings;
 using F1T.Structs;
+using System;
 
 namespace F1T.MVVM.ViewModels
 {
-    public class InputTelemetryViewModel : BaseModuleViewModel
+    public class InputTelemetryViewModel : BaseModuleViewModel<InputTelemetrySettings>
     {
         // === BEGINING OF MODULE SETUP ===
         // === Singleton Instance with Thread Saftey ===
@@ -19,6 +18,9 @@ namespace F1T.MVVM.ViewModels
                 return _instance;
             }
         }
+
+        private InputTelemetrySettings _settings = new InputTelemetrySettings().Read<InputTelemetrySettings>();
+        public override InputTelemetrySettings Settings { get => _settings; }
         // === END OF MODULE SETUP ===
 
         public PacketCarTelemetryData CarTelemetryData;
@@ -65,10 +67,6 @@ namespace F1T.MVVM.ViewModels
         private InputTelemetryViewModel() : base()
         {
             udpConnection.OnCarTelemetryDataReceive += TelemetryUpdate;
-
-            Height = 125;
-
-            FramesPerSecond = 30;
         }
     }
 }

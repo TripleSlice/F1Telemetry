@@ -1,5 +1,6 @@
 ﻿using F1T.MVVM.Models;
 using F1T.MVVM.Views.Tyre;
+using F1T.Settings;
 using F1T.Structs;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -7,7 +8,7 @@ using System.Windows.Controls;
 
 namespace F1T.MVVM.ViewModels
 {
-    public class TyreViewModel : BaseModuleViewModel
+    public class TyreViewModel : BaseModuleViewModel<TyreSettings>
     {
 
         // === BEGINING OF MODULE SETUP ===
@@ -22,25 +23,10 @@ namespace F1T.MVVM.ViewModels
                 return _instance;
             }
         }
+
+        private TyreSettings _settings = new TyreSettings().Read<TyreSettings>();
+        public override TyreSettings Settings { get => _settings; }
         // === END OF MODULE SETUP ===
-
-        public int ViewWidth = 500;
-        public int ViewHeight = 500;
-
-        private bool _tyreWearVisibile;
-        public bool TyreWearVisible
-        {
-            get { return _tyreWearVisibile; }
-            set { SetField(ref _tyreWearVisibile, value, "TyreWearVisible"); }
-        }
-
-        private bool _tyreAgeVisibile;
-        public bool TyreAgeVisible
-        {
-            get { return _tyreAgeVisibile; }
-            set { SetField(ref _tyreAgeVisibile, value, "TyreAgeVisible"); }
-        }
-
 
 
 
@@ -79,9 +65,6 @@ namespace F1T.MVVM.ViewModels
         // Load/Set Defaults of this Module
         private TyreViewModel() : base()
         {
-            Height = 170;
-
-
             TyreInfoArr = new ObservableCollection<TyreInfo>();
             TyreInfoArr.Add(new TyreInfo(1, 2));
             TyreInfoArr.Add(new TyreInfo(3, 4));
@@ -89,10 +72,7 @@ namespace F1T.MVVM.ViewModels
             TyreInfoArr.Add(new TyreInfo(0, 0));
             TyreInfoArr.Add(new TyreInfo(0, 0));
 
-            TyreWearVisible = true;
-            TyreAgeVisible = true;
 
-            FramesPerSecond = 10;
 
             udpConnection.OnCarStatusDataReceive += TyreAgeUpdate;
             udpConnection.OnCarDamageDataReceive += TyreWearUpdate;

@@ -14,6 +14,7 @@ using System.Threading;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
+using F1T.Settings;
 
 namespace F1T
 {
@@ -47,6 +48,8 @@ namespace F1T
 
             var path = assemblyName.Name + ".dll";
 
+            if (assemblyName.CultureInfo == null) return null;
+
             if (assemblyName.CultureInfo.Equals(CultureInfo.InvariantCulture) == false) path = String.Format(@"{0}\{1}", assemblyName.CultureInfo, path);
 
             using (Stream stream = executingAssembly.GetManifestResourceStream(path))
@@ -67,14 +70,14 @@ namespace F1T
         {
             InitializeComponent();
             Closing += OnWindowclose;
-
             // set our model to our current datacontext
             this.DataContext = Model;
         }
 
- 
+
         private void OnWindowclose(object sender, EventArgs e)
         {
+            Model.SaveSettings();
             Environment.Exit(Environment.ExitCode); // Prevent memory leak
             System.Windows.Application.Current.Shutdown(); // Not sure if needed
         }

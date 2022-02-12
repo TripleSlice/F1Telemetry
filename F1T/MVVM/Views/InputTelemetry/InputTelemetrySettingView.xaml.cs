@@ -15,13 +15,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using F1T.Themes;
+using F1T.Settings;
 
 namespace F1T.MVVM.Views.InputTelemetry
 {
     /// <summary>
     /// Interaction logic for InputTelemetrySettingView.xaml
     /// </summary>
-    public partial class InputTelemetrySettingView : BaseSettingView<InputTelemetryViewModel>
+    public partial class InputTelemetrySettingView : BaseSettingView<InputTelemetryViewModel, InputTelemetrySettings>
     {
         public InputTelemetrySettingView()
         {

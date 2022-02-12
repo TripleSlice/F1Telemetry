@@ -88,7 +88,7 @@
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding InputTelemetrySettingViewCommand}"
-                             BorderBrush="{Binding InputTelemetryModel.Toggled, Converter={StaticResource ToggledColorConverter}}">
+                             BorderBrush="{Binding InputTelemetryModel.Settings.Toggled, Converter={StaticResource ToggledColorConverter}}">
                     <RadioButton.Resources>
                         <ImageSource x:Key="ImageURI">/Images/inputtelemetry.png</ImageSource>
                     </RadioButton.Resources>
@@ -98,7 +98,7 @@
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding RadarSettingViewCommand}"
-                             BorderBrush="{Binding RadarModel.Toggled, Converter={StaticResource ToggledColorConverter}}">
+                             BorderBrush="{Binding RadarModel.Settings.Toggled, Converter={StaticResource ToggledColorConverter}}">
                     <RadioButton.Resources>
                         <ImageSource x:Key="ImageURI">/Images/radar.png</ImageSource>
                     </RadioButton.Resources>
@@ -108,7 +108,7 @@
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding TyreSettingViewCommand}"
-                             BorderBrush="{Binding TyreModel.Toggled, Converter={StaticResource ToggledColorConverter}}">
+                             BorderBrush="{Binding TyreModel.Settings.Toggled, Converter={StaticResource ToggledColorConverter}}">
                     <RadioButton.Resources>
                         <ImageSource x:Key="ImageURI">/Images/tyre.png</ImageSource>
                     </RadioButton.Resources>
