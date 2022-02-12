@@ -66,8 +66,8 @@ namespace F1T.MVVM.ViewModels
         private TyreViewModel() : base()
         {
             TyreInfoArr = new ObservableCollection<TyreInfo>();
-            TyreInfoArr.Add(new TyreInfo(1, 2));
-            TyreInfoArr.Add(new TyreInfo(3, 4));
+            TyreInfoArr.Add(new TyreInfo(0, 0));
+            TyreInfoArr.Add(new TyreInfo(0, 0));
             TyreInfoArr.Add(new TyreInfo(0, 0));
             TyreInfoArr.Add(new TyreInfo(0, 0));
             TyreInfoArr.Add(new TyreInfo(0, 0));
