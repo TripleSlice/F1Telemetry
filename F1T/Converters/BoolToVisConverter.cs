@@ -5,6 +5,10 @@ using System.Windows.Data;
 
 namespace F1T.Converters
 {
+
+    /// <summary>
+    /// Provides methods to convert from a <see cref="Boolean"/> value to a <see cref="Visibility"/> value
+    /// </summary>
     public class BoolToVisConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -16,6 +20,8 @@ namespace F1T.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            Visibility vis = (Visibility)value;
+            if (vis == Visibility.Visible) return true;
             return false;
         }
     }

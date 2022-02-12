@@ -9,10 +9,12 @@ using System.Windows.Media.Imaging;
 
 namespace F1T.Converters
 {
+    /// <summary>
+    /// Provides methods to convert from a <see cref="string"/> (fullpath) to a <see cref="BitmapImage"/> 
+    /// </summary>
     public class StringToImageConverter : IValueConverter
     {
-        public object Convert(
-            object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             object result = null;
             var path = value as string;
