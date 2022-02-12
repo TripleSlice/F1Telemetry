@@ -60,12 +60,7 @@
             <Border>
                 <StackPanel>
                     <TextBlock FontWeight="Medium" Margin="10" Foreground="White" FontSize="24" FontFamily="/Fonts/#Poppins">Setup / FAQ</TextBlock>
-                    <TextBlock Margin="10,0,10,10" Foreground="White" FontSize="16" FontFamily="/Fonts/#Poppins" TextWrapping="Wrap">Click 
-                <Hyperlink Foreground="White"
-                NavigateUri="https://github.com/ryanabaker/F1T#how-to-use"
-                RequestNavigate="Hyperlink_RequestNavigate">
-                    here
-                </Hyperlink>  to see steps required in order for this application to work and frequently asked questions about the application</TextBlock>
+                    <TextBlock Margin="10,0,10,10" Foreground="White" FontSize="16" FontFamily="/Fonts/#Poppins" TextWrapping="Wrap">Go over to the Setup tab to find out important information on how to setup and use this application!</TextBlock>
                 </StackPanel>
             </Border>
         </StackPanel>

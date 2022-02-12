@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace F1T.MVVM.ViewModels
 {
-    public class HomeViewModel
+    public class SetupViewModel
     {
 
     }

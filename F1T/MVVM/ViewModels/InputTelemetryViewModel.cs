@@ -29,7 +29,7 @@ namespace F1T.MVVM.ViewModels
 
 
         private float _brakeValue;
-        public float BrakeValue
+        public float BrakeValue 
         {
             get { return _brakeValue; }
             set { SetField(ref _brakeValue, value, "BrakeValue"); }

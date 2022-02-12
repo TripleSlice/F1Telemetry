@@ -8,6 +8,7 @@ using F1T.MVVM.Views.Tyre;
 using F1T.Settings;
 using F1T.MVVM.Views;
 using System;
+using F1T.MVVM.Views.Setup;
 
 namespace F1T.MVVM.ViewModels
 {
@@ -25,10 +26,12 @@ namespace F1T.MVVM.ViewModels
         public RelayCommand FlagSettingViewCommand { get; set; }
         public RelayCommand RadarSettingViewCommand { get; set; }
         public RelayCommand TyreSettingViewCommand { get; set; }
+        public RelayCommand SetupViewCommand { get; set; }
 
         // === VIEWS ===
-        // === HomeView Instance ===
+        // === HomeView/SetupView Instance ===
         HomeView Home = new HomeView();
+        SetupView Setup = new SetupView();
         // === SettingView Instances ===
         InputTelemetrySettingView InputTelemetrySetting = new InputTelemetrySettingView();
         RadarSettingView RadarSetting = new RadarSettingView();
@@ -73,6 +76,9 @@ namespace F1T.MVVM.ViewModels
             ViewModelAndOverlayView.Add(TyreModel, TyreOverlay);
             ViewModelAndSettingView.Add(TyreModel, TyreSetting);
             TyreSettingViewCommand = new RelayCommand(obj => { CurrentView = TyreSetting; });
+
+            // == SETUP MODULE ==
+            SetupViewCommand = new RelayCommand(obj => { CurrentView = Setup; });
         }
 
         public void SaveSettings()
