@@ -20,6 +20,8 @@ namespace F1T.MVVM.Views
     /// <summary>
     /// Interaction logic for CommonSettingUserControl.xaml
     /// </summary>
+    /// We make properties available on a CommonSettingUserControl that way they
+    /// can be "passed along" to the desired modules ViewModel
     public partial class CommonSettingUserControl : UserControl
     {
         // BINDING FOR TOGGLING MODULE
@@ -38,7 +40,7 @@ namespace F1T.MVVM.Views
                 RaiseEvent(newEventArgs);
             }
 
-
+        // BINDING FOR OPACITY SLIDER
         public static readonly DependencyProperty OpacitySliderValueProperty =
             DependencyProperty.Register("OpacitySliderValue", typeof(int), typeof(CommonSettingUserControl),
             new PropertyMetadata(0, OpacitySliderValuePropertyChanged));
@@ -59,6 +61,7 @@ namespace F1T.MVVM.Views
                 ((CommonSettingUserControl)d).OpacitySliderValuePropertyChanged((int)e.NewValue);
             }
 
+        // BINDING FOR SCALE SLIDER
         public static readonly DependencyProperty ScaleSliderValueProperty =
             DependencyProperty.Register("ScaleSliderValue", typeof(int), typeof(CommonSettingUserControl),
             new PropertyMetadata(0, ScaleSliderValuePropertyChanged));
@@ -79,6 +82,7 @@ namespace F1T.MVVM.Views
                 ((CommonSettingUserControl)d).ScaleSliderValuePropertyChanged((int)e.NewValue);
             }
 
+        // BINDING FOR MAX FPS
         public static readonly DependencyProperty MaxFPSValueProperty =
             DependencyProperty.Register("MaxFPSValue", typeof(int), typeof(CommonSettingUserControl),
             new PropertyMetadata(0, MaxFPSValuePropertyChanged));
@@ -100,6 +104,7 @@ namespace F1T.MVVM.Views
             }
 
 
+        // BINIDNG FOR MIN FPS
         public static readonly DependencyProperty MinFPSValueProperty =
             DependencyProperty.Register("MinFPSValue", typeof(int), typeof(CommonSettingUserControl),
             new PropertyMetadata(0, MinFPSValuePropertyChanged));
@@ -120,7 +125,7 @@ namespace F1T.MVVM.Views
                 ((CommonSettingUserControl)d).MinFPSValuePropertyChanged((int)e.NewValue);
             }
 
-
+        // BINDING FOR FPS
         public static readonly DependencyProperty FPSValueProperty =
             DependencyProperty.Register("FPSValue", typeof(int), typeof(CommonSettingUserControl),
             new PropertyMetadata(0, FPSValuePropertyChanged));
@@ -141,7 +146,7 @@ namespace F1T.MVVM.Views
                 ((CommonSettingUserControl)d).FPSValuePropertyChanged((int)e.NewValue);
             }
 
-
+        // BINDING FOR LEFT
         public static readonly DependencyProperty LeftProperty =
             DependencyProperty.Register("Left", typeof(int), typeof(CommonSettingUserControl),
             new PropertyMetadata(0, LeftPropertyChanged));
@@ -162,6 +167,7 @@ namespace F1T.MVVM.Views
                 ((CommonSettingUserControl)d).LeftPropertyChanged((int)e.NewValue);
             }
 
+        // BINDING FOR TOP
         public static readonly DependencyProperty TopProperty =
             DependencyProperty.Register("Top", typeof(int), typeof(CommonSettingUserControl),
             new PropertyMetadata(0, TopPropertyChanged));
@@ -182,7 +188,7 @@ namespace F1T.MVVM.Views
                 ((CommonSettingUserControl)d).TopPropertyChanged((int)e.NewValue);
             }
 
-
+        // BINDING FOR TOGGLED
         public static readonly DependencyProperty ToggledValueProperty =
             DependencyProperty.Register("ToggledValue", typeof(bool), typeof(CommonSettingUserControl),
             new PropertyMetadata(false, ToggledValuePropertyChanged));
@@ -203,6 +209,7 @@ namespace F1T.MVVM.Views
                 ((CommonSettingUserControl)d).ToggledValuePropertyChanged((bool)e.NewValue);
             }
 
+        // BINDING FOR AUTO TOGGLED
         public static readonly DependencyProperty AutoToggledValueProperty =
             DependencyProperty.Register("AutoToggledValue", typeof(bool), typeof(CommonSettingUserControl),
             new PropertyMetadata(false, AutoToggledValuePropertyChanged));

@@ -9,8 +9,12 @@ using System.Windows.Input;
 
 namespace F1T.MVVM.Views
 {
+    /// <summary>
+    /// Abstract class which provides common functionality to all OverlayViews
+    /// </summary>
     public abstract class BaseOverlayView : UserControl
     {
+        // Relating to the "refresh rate" of the OverlayView
         protected Timer timer;
         protected int currentFrequency;
 
@@ -22,18 +26,25 @@ namespace F1T.MVVM.Views
 
         public void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            // TODO
+            // Remove try catch and handle this properly
+            // Sometimes when moving the window, and error occurs
             try
             {
                 // Get window associated with object being clicked
                 DependencyObject element = (DependencyObject)sender;
                 Window window = Window.GetWindow(element);
 
-                if (e.ChangedButton == MouseButton.Left)
-                    window.DragMove();
+                if (e.ChangedButton == MouseButton.Left) window.DragMove();
             }
             catch (Exception) { }
         }
     }
+    /// <summary>
+    /// Abstract class which provides commmon functionality to all OverlayViews that require a <see cref="BaseModuleViewModel"/> and a <see cref="BaseSettings"/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="S"></typeparam>
     public abstract class BaseOverlayView<T, S> : BaseOverlayView where T : BaseModuleViewModel<S> where S : BaseSettings
     {
         // protected abstract meaning it must be overridden when we implement this class

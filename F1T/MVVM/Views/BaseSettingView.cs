@@ -12,19 +12,26 @@ using System.Windows.Controls;
 
 namespace F1T.MVVM.Views
 {
+    /// <summary>
+    /// Abstract class which provides common functionality to all SettingViews
+    /// </summary>
     public abstract class BaseSettingView : UserControl
     {
 
     }
+    /// <summary>
+    /// Abstract class which provides commmon functionality to all SettingViews that require a <see cref="BaseModuleViewModel"/> and a <see cref="BaseSettings"/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="S"></typeparam>
     public abstract class BaseSettingView<T, S> : BaseSettingView where T : BaseModuleViewModel<S> where S : BaseSettings
     {
-        // protected abstract meaning it must be overridden when we implement this class
+        // ViewModel for each 
         public abstract T Model { get; }
 
         // Function logic for all SettingViews
         public void ToggleVisibilityButton_Click(object sender, RoutedEventArgs e)
         {
-
             if (Model.Settings.Toggled) FocusMonitor.HideOverlay(Model); 
             else FocusMonitor.DisplayOverlay(Model); 
 

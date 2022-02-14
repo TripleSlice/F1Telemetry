@@ -1,4 +1,6 @@
-﻿int8 -> sbyte (8 bit) (1 bytes)
+﻿Contains some basic info regarding translating CodeMasters structs to F1T structs
+
+int8 -> sbyte (8 bit) (1 bytes)
 uint8 -> byte (8 bit) (1 bytes)
 int16 -> short (16 bit) (2 bytes)
 uint16 -> ushort (16 bit) (2 bytes)

@@ -22,9 +22,10 @@ namespace F1T.MVVM.Views
     /// <summary>
     /// Interaction logic for OverlayContainer.xaml
     /// </summary>
+    /// The OverlayContainer will hold the OverlayView (UserControl) inside of it
     public partial class OverlayContainer : Window, INotifyPropertyChanged
     {
-
+        // boiler-plate
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -39,17 +40,16 @@ namespace F1T.MVVM.Views
             return true;
         }
 
-
+        // This ViewModel
         public OverlayContainerViewModel Model = new OverlayContainerViewModel();
 
-
+        // ViewModel of the OverlayView
         private BaseModuleViewModel _viewModel;
         public BaseModuleViewModel ViewModel
         {
             get { return _viewModel; }
             set { SetField(ref _viewModel, value, "ViewModel"); }
         }
-
 
         public OverlayContainer(UserControl overlayView, BaseModuleViewModel vm)
         {
@@ -58,20 +58,6 @@ namespace F1T.MVVM.Views
             this.DataContext = vm;
             ContentHolder.DataContext = Model;
             Model.CurrentOverlay = overlayView;
-        }
-
-        public void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                // Get window associated with object being clicked
-                DependencyObject element = (DependencyObject)sender;
-                Window window = Window.GetWindow(element);
-
-                if (e.ChangedButton == MouseButton.Left)
-                    window.DragMove();
-            }
-            catch (Exception) { }
         }
     }
 }
