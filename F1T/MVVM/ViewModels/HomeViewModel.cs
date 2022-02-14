@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace F1T.MVVM.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the <see cref="HomeView"/>
+    /// </summary>
     public class HomeViewModel
     {
-
     }
 }

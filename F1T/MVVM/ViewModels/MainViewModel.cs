@@ -12,6 +12,9 @@ using F1T.MVVM.Views.Setup;
 
 namespace F1T.MVVM.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the MainWindow
+    /// </summary>
     public class MainViewModel : ObservableObject
     {
 

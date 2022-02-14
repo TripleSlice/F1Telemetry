@@ -4,10 +4,13 @@ using System;
 
 namespace F1T.MVVM.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the InputTelemetryOverlayView and InputTelemetrySettingView
+    /// </summary>
     public class InputTelemetryViewModel : BaseModuleViewModel<InputTelemetrySettings>
     {
         // === BEGINING OF MODULE SETUP ===
-        // === Singleton Instance with Thread Saftey ===
+        // Singleton Instance with Thread Safety
         private static InputTelemetryViewModel _instance = null;
         private static object _singletonLock = new object();
         public static InputTelemetryViewModel GetInstance()
@@ -18,11 +21,12 @@ namespace F1T.MVVM.ViewModels
                 return _instance;
             }
         }
-
+        // Settings
         private InputTelemetrySettings _settings = new InputTelemetrySettings().Read<InputTelemetrySettings>();
         public override InputTelemetrySettings Settings { get => _settings; }
         // === END OF MODULE SETUP ===
 
+        // Required packets for module to function
         public PacketCarTelemetryData CarTelemetryData;
         public CarTelemetryData PlayerCarTelemetryData;
         public int PlayerIndex = -1;
@@ -49,8 +53,6 @@ namespace F1T.MVVM.ViewModels
             set { SetField(ref _steerValue, value, "SteerValue"); }
         }
 
-
-
         private void TelemetryUpdate(PacketCarTelemetryData packet)
         {
             CarTelemetryData = packet;
@@ -62,8 +64,6 @@ namespace F1T.MVVM.ViewModels
             SteerValue = PlayerCarTelemetryData.m_steer;
         }
 
-        // TODO
-        // Load/Set Defaults of this Module
         private InputTelemetryViewModel() : base()
         {
             udpConnection.OnCarTelemetryDataReceive += TelemetryUpdate;

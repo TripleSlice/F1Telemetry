@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace F1T.MVVM.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the OverlayContainer
+    /// </summary>
     public class OverlayContainerViewModel : ObservableObject
     {
 

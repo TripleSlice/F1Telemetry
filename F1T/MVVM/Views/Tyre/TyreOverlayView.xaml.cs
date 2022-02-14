@@ -132,7 +132,7 @@ namespace F1T.MVVM.Views.Tyre
                             {
                                 continue;
                             }
-                    }
+                        }
 
 
                     }));

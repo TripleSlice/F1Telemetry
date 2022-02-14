@@ -8,6 +8,9 @@ using System.Windows.Controls;
 
 namespace F1T.MVVM.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the TyreOverlayView and TyreSettingView
+    /// </summary>
     public class TyreViewModel : BaseModuleViewModel<TyreSettings>
     {
 
@@ -23,7 +26,7 @@ namespace F1T.MVVM.ViewModels
                 return _instance;
             }
         }
-
+        // Settings
         private TyreSettings _settings = new TyreSettings().Read<TyreSettings>();
         public override TyreSettings Settings { get => _settings; }
         // === END OF MODULE SETUP ===
@@ -61,8 +64,7 @@ namespace F1T.MVVM.ViewModels
             PlayerCarLapData = LapData.m_lapData[PlayerIndexLapData];
         }
 
-        // TODO
-        // Load/Set Defaults of this Module
+
         private TyreViewModel() : base()
         {
             TyreInfoArr = new ObservableCollection<TyreInfo>();

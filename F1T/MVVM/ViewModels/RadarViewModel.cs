@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace F1T.MVVM.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the RadarOverlayView and RadarSettingView
+    /// </summary>
     public class RadarViewModel : BaseModuleViewModel<RadarSettings>
     {
 
@@ -25,7 +28,7 @@ namespace F1T.MVVM.ViewModels
                 return _instance;
             }
         }
-
+        // Settings
         private RadarSettings _settings = new RadarSettings().Read<RadarSettings>();
         public override RadarSettings Settings { get => _settings; }
         // === END OF MODULE SETUP ===
@@ -34,30 +37,21 @@ namespace F1T.MVVM.ViewModels
         public int Scale
         {
             get { return _scale; }
-            set
-            {
-                SetField(ref _scale, value, "Scale");
-            }
+            set { SetField(ref _scale, value, "Scale"); }
         }
 
         private float _carWidth;
         public float CarWidth
         {
             get { return _carWidth; }
-            set
-            {
-                SetField(ref _carWidth, value, "CarWidth");
-            }
+            set { SetField(ref _carWidth, value, "CarWidth"); }
         }
 
         private float _carHeight;
         public float CarHeight
         {
             get { return _carHeight; }
-            set
-            {
-                SetField(ref _carHeight, value, "CarHeight");
-            }
+            set { SetField(ref _carHeight, value, "CarHeight"); }
         }
 
 
@@ -65,20 +59,14 @@ namespace F1T.MVVM.ViewModels
         public float PlayerCarLeft
         {
             get { return _playerCarLeft; }
-            set
-            {
-                SetField(ref _playerCarLeft, value, "PlayerCarLeft");
-            }
+            set { SetField(ref _playerCarLeft, value, "PlayerCarLeft"); }
         }
 
         private float _playerCarTop;
         public float PlayerCarTop
         {
             get { return _playerCarTop; }
-            set
-            {
-                SetField(ref _playerCarTop, value, "PlayerCarTop");
-            }
+            set { SetField(ref _playerCarTop, value, "PlayerCarTop"); }
         }
 
         private int _dangerRadius;
@@ -109,13 +97,13 @@ namespace F1T.MVVM.ViewModels
             PlayerCarMotionData = packet.m_carMotionData[packet.m_header.m_playerCarIndex];
         }
 
-        // TODO
-        // Load/Set Defaults of this Module
+
         private RadarViewModel() : base()
         {
             Scale = 20;
 
             CarWidth = 1.9f * Scale;
+            // https://github.com/ryanabaker/F1T/issues/18
             CarHeight = 5.35f * Scale;
 
             PlayerCarLeft = (int)Settings.Width / 2 - CarWidth / 2;

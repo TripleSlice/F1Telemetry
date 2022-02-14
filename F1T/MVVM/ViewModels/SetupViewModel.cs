@@ -6,9 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace F1T.MVVM.ViewModels
-{
+{    /// <summary>
+     /// ViewModel for the SetupView
+     /// </summary>
     public class SetupViewModel
     {
-
     }
 }
