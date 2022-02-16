@@ -26,6 +26,9 @@ namespace F1T.MVVM.Views.Tyre
     /// </summary>
     public partial class TyreOverlayView : BaseOverlayView<TyreViewModel, TyreSettings>
     {
+
+        private int[] IndexToPositionArr = new int[22];
+
         public TyreOverlayView()
         {
             this.DataContext = Model;
@@ -38,6 +41,61 @@ namespace F1T.MVVM.Views.Tyre
 
         public override TyreViewModel Model { get => TyreViewModel.GetInstance(); }
 
+        /// <summary>
+        /// Get how many cars are left in the race
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private int GetActiveCarCount(LapData[] data)
+        {
+            // Count how many active cars there are
+            // Result status - 0 = invalid, 1 = inactive, 2 = active
+            // 3 = finished, 4 = didnotfinish, 5 = disqualified
+            int carCount = 22;
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i].m_resultStatus == 0 || data[i].m_resultStatus == 1)
+                {
+                    carCount -= 1;
+                    continue;
+                }
+            }
+            return carCount;
+        }
+
+        /// <summary>
+        /// Translates the <see cref="LapData"/> array into a int[] with indexs which point to the position in the UDP arrays
+        /// <para> Example [2,4,3,0,1] means LapData[2] is in first, Lapdata[1] is in last... etc</para>
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="carCount"></param>
+        /// <returns></returns>
+        private void UpdatePositionArray(LapData[] data)
+        {
+            // Sort the cars in the order that they are on track
+            for (int i = 0; i < data.Length; i++)
+            {
+                // Result status - 0 = invalid, 1 = inactive, 2 = active
+                // 3 = finished, 4 = didnotfinish, 5 = disqualified
+                if (data[i].m_resultStatus == 0 || data[i].m_resultStatus == 1)
+                {
+                    continue;
+                }
+
+                var trueIndex = data[i].m_carPosition - 1;
+
+                // For some reason a DNF'ed car is still considered active...
+                try
+                {
+                    IndexToPositionArr[trueIndex] = i;
+                }catch (Exception) { }
+            }
+        }
+
+        private T GetByRealPosition<T>(T[] data, int[] indexArr, int position)
+        {
+            return data[indexArr[position - 1]];
+        }
 
         protected override void UpdateValues(object state = null)
         {
@@ -62,44 +120,9 @@ namespace F1T.MVVM.Views.Tyre
                         CarDamageData[] AllCarDamageData = Model.CarDamageData.m_carDamageData;
                         CarStatusData[] AllCarStatusData = Model.CarStatusData.m_carStatusData;
 
-                        // Count how many active cars there are
-                        // Result status - 0 = invalid, 1 = inactive, 2 = active
-                        int carCount = 22;
-                        for (int i = 0; i < AllCarLapData.Length; i++)
-                        {
-                            if (AllCarLapData[i].m_resultStatus != 2)
-                            {
-                                carCount -= 1;
-                                continue;
-                            }
-                        }
+                        UpdatePositionArray(AllCarLapData);
 
-                        LapData[] AllCarLapDataSorted = new LapData[carCount];
-                        int[] index = new int[carCount];
-
-                        // Sort the cars in the order that they are on track
-                        for (int i = 0; i < AllCarLapData.Length; i++)
-                        {
-                            // Check if the car is still in the race
-                            // Result status - 0 = invalid, 1 = inactive, 2 = active
-                            if (AllCarLapData[i].m_resultStatus != 2)
-                            {
-                                continue;
-                            }
-
-
-                            try
-                            {
-                                var trueIndex = AllCarLapData[i].m_carPosition - 1;
-                                AllCarLapDataSorted[trueIndex] = AllCarLapData[i];
-                                index[trueIndex] = i;
-                            }
-                            catch (Exception)
-                            {
-                                continue;
-                            }
-                        }
-
+                        var carCount = GetActiveCarCount(AllCarLapData);
                         int carIndex = PlayerCar.m_carPosition - 1;
                         int topIndex = carIndex - 2;
                         int bottomIndex = carIndex + 2;
@@ -114,28 +137,34 @@ namespace F1T.MVVM.Views.Tyre
                             bottomIndex = topIndex + 4;
                         }
 
+                        if (carCount < bottomIndex) bottomIndex = carCount - 1;
 
-                        Model.TyreInfoArr.Clear();
- 
+                        // Causing memory leaks
+                        //Model.TyreInfoArr.Clear();
+
+                        var count = 0;
 
                         for (int i = topIndex; i <= bottomIndex; i++)
                         {
-                            try
-                            {
-                                // Wear, Age
-                                int highestWear = AllCarDamageData[index[i]].m_tyresDamage.Max();
-                                int tyreAge = AllCarStatusData[index[i]].m_tyresAgeLaps;
-                                TyreInfo tyreInfo = new TyreInfo(highestWear, tyreAge);
-                                Model.TyreInfoArr.Add(tyreInfo);
-                            }
-                            catch (Exception)
-                            {
-                                continue;
-                            }
+                            // Wear, Age
+                            int highestWear = GetByRealPosition(AllCarDamageData, IndexToPositionArr, i + 1).m_tyresDamage.Max();
+                            int tyreAge = GetByRealPosition(AllCarStatusData, IndexToPositionArr, i + 1).m_tyresAgeLaps;
+                            TyreInfo tyreInfo = new TyreInfo(highestWear, tyreAge);
+                            Model.TyreInfoArr[count] = tyreInfo;
+                            // This was causing memory leaks
+                            //Model.TyreInfoArr.Add(tyreInfo);
+                            count++;
                         }
 
+                        for(int i = count; i< 5; i++)
+                        {
+                            TyreInfo tyreInfo = new TyreInfo(0, 0);
+                            Model.TyreInfoArr[count] = tyreInfo;
+                            count++;
+                        }
 
                     }));
+
             }
         }
     }

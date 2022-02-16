@@ -11,7 +11,7 @@
     xmlns:local="clr-namespace:F1T.MVVM.Views.Tyre" xmlns:converters="clr-namespace:F1T.Converters"
     mc:Ignorable="d" 
     Background="Transparent"
-    MouseDown="Window_MouseDown">
+    MouseDown="Window_MouseDown" Height="125">
 
     <UserControl.Resources>
 
