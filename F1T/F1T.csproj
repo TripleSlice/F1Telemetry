@@ -192,6 +192,7 @@
     <Compile Include="Structs\PacketCarDamageData.cs" />
     <Compile Include="Structs\PacketCarStatusData.cs" />
     <Compile Include="Structs\PacketCarTelemetryData.cs" />
+    <Compile Include="Structs\PacketEventData.cs" />
     <Compile Include="Structs\PacketHeader.cs" />
     <Compile Include="Structs\PacketLapData.cs" />
     <Compile Include="Structs\PacketMotionData.cs" />

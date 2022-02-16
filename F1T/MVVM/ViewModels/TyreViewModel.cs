@@ -2,6 +2,7 @@
 using F1T.MVVM.Views.Tyre;
 using F1T.Settings;
 using F1T.Structs;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -64,7 +65,6 @@ namespace F1T.MVVM.ViewModels
             PlayerCarLapData = LapData.m_lapData[PlayerIndexLapData];
         }
 
-
         private TyreViewModel() : base()
         {
             TyreInfoArr = new ObservableCollection<TyreInfo>();
@@ -74,12 +74,9 @@ namespace F1T.MVVM.ViewModels
             TyreInfoArr.Add(new TyreInfo(0, 0));
             TyreInfoArr.Add(new TyreInfo(0, 0));
 
-
-
             udpConnection.OnCarStatusDataReceive += TyreAgeUpdate;
             udpConnection.OnCarDamageDataReceive += TyreWearUpdate;
             udpConnection.OnLapDataReceive += PositionUpdate;
         }
-
     }
 }
