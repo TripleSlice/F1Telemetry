@@ -21,7 +21,7 @@ namespace F1T.Settings
         /// <typeparam name="T"></typeparam>
         public void Save<T>()
         {
-            Directory.CreateDirectory(SettingsPath + Filename);
+            Directory.CreateDirectory(SettingsPath);
 
             using (StreamWriter sw = new StreamWriter(SettingsPath + Filename))
             {
