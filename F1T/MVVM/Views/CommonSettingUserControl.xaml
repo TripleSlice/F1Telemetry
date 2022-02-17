@@ -40,7 +40,7 @@
 
         <Border Grid.Row="0" Grid.ColumnSpan="3">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
-                <themes:SettingLabel Content="TOGGLE MODULE" HorizontalAlignment="Center" FontSize="18" FontFamily="/Fonts/#Poppins" Foreground="White"></themes:SettingLabel>
+                <themes:SettingLabel Content="TOGGLE MODULE" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="/Fonts/#Poppins" Foreground="White"></themes:SettingLabel>
                 <themes:ToggleButton x:Name="ToggleButtonInstance" Toggled="{Binding ToggledValue}" Click="VisibilityButtonInstance_Click"></themes:ToggleButton>
             </StackPanel>
         </Border>
