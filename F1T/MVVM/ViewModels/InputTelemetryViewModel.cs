@@ -1,6 +1,8 @@
 ﻿using F1T.Settings;
 using F1T.Structs;
 using System;
+using System.IO;
+using System.Windows.Forms;
 
 namespace F1T.MVVM.ViewModels
 {
@@ -30,7 +32,6 @@ namespace F1T.MVVM.ViewModels
         public PacketCarTelemetryData CarTelemetryData;
         public CarTelemetryData PlayerCarTelemetryData;
         public int PlayerIndex = -1;
-
 
         private float _brakeValue;
         public float BrakeValue 
