@@ -20,6 +20,8 @@ namespace F1T.Settings
             ThrottleChartVisible = true;
             BrakeChartVisible = true;
             GearChartVisible = false;
+
+            WheelName = "/Images/wheel.png";
         }
 
 
@@ -42,6 +44,13 @@ namespace F1T.Settings
         {
             get { return _gearChartVisible; }
             set { SetField(ref _gearChartVisible, value, "GearChartVisible"); }
+        }
+
+        private string _wheelName;
+        public string WheelName
+        {
+            get { return _wheelName; }
+            set { SetField(ref _wheelName, value, "WheelName"); }
         }
     }
 }

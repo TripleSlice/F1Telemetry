@@ -30,10 +30,8 @@ namespace F1T.MVVM.Views.InputTelemetry
             InitializeComponent();
             this.DataContext = Model;
 
-
             // This is here because if we do not call updatevalues atleast once
             UpdateValues();
-
 
             InputTelemetryPlot.Plot.Style(figureBackground: System.Drawing.Color.Transparent);
             InputTelemetryPlot.Plot.Style(dataBackground: System.Drawing.Color.Transparent);
