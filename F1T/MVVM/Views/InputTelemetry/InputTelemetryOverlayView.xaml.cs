@@ -19,6 +19,7 @@ namespace F1T.MVVM.Views.InputTelemetry
         private static int dummyInput = 50;
         private FixedSizeQueue<double> ThrottleValues = new FixedSizeQueue<double>(dummyInput);
         private FixedSizeQueue<double> BrakeValues = new FixedSizeQueue<double>(dummyInput);
+        private FixedSizeQueue<double> GearValues = new FixedSizeQueue<double>(dummyInput);
 
         // === ViewModel ===
         public override InputTelemetryViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
@@ -59,11 +60,17 @@ namespace F1T.MVVM.Views.InputTelemetry
 
             ThrottleValues = new FixedSizeQueue<double>(calculatedArraySize);
             BrakeValues = new FixedSizeQueue<double>(calculatedArraySize);
+            GearValues = new FixedSizeQueue<double>(calculatedArraySize);
 
             InputTelemetryPlot.Plot.Clear();
 
+
+            // Lower has priority over everything
+            // Throttle will display overtop of gear... etc
+            InputTelemetryPlot.Plot.PlotSignal(GearValues.ToArray(), 1, 0, 0, System.Drawing.Color.Gray, 3);
             InputTelemetryPlot.Plot.PlotSignal(ThrottleValues.ToArray(), 1, 0, 0, System.Drawing.Color.LimeGreen, 3);
             InputTelemetryPlot.Plot.PlotSignal(BrakeValues.ToArray(), 1, 0, 0, System.Drawing.Color.Red, 3);
+
             InputTelemetryPlot.Plot.SetAxisLimits(0, calculatedArraySize, -0.01, 1.01);
             InputTelemetryPlot.Plot.SetOuterViewLimits(0, calculatedArraySize, -0.01, 1.01);
             InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
@@ -109,9 +116,16 @@ namespace F1T.MVVM.Views.InputTelemetry
 
             if (Model.OverlayVisible && Model.PlayerIndex != -1)
             {
-                BrakeValues.Push(Model.PlayerCarTelemetryData.m_brake);
-                ThrottleValues.Push(Model.PlayerCarTelemetryData.m_throttle);
+                if (Model.Settings.BrakeChartVisible) { BrakeValues.Push(Model.PlayerCarTelemetryData.m_brake); }
+                else { BrakeValues.Push(-1); }
 
+                if (Model.Settings.ThrottleChartVisible) { ThrottleValues.Push(Model.PlayerCarTelemetryData.m_throttle); }
+                else { ThrottleValues.Push(-1); }
+
+                if (Model.Settings.GearChartVisible) { GearValues.Push(Model.PlayerCarTelemetryData.m_gear / 8f); }
+                else { GearValues.Push(-1); }
+                
+                
                 Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Normal,
                 new Action(() => {

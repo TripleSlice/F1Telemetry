@@ -132,6 +132,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisConverter.cs" />
+    <Compile Include="Converters\GearConverter.cs" />
     <Compile Include="Converters\PercentageConverter.cs" />
     <Compile Include="Converters\SteeringConverter.cs" />
     <Compile Include="Converters\StringToImageConverter.cs" />

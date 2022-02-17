@@ -19,7 +19,8 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
 
         <src:CommonSettingUserControl ToggleModule="ToggleVisibilityButton_Click" 
@@ -29,6 +30,33 @@
                                       Top="{Binding Settings.Top, Mode=TwoWay}" Left="{Binding Settings.Left, Mode=TwoWay}"
                                       ToggledValue="{Binding Settings.Toggled, Mode=TwoWay}" AutoToggledValue="{Binding Settings.AutoToggled, Mode=TwoWay}"
                                       ></src:CommonSettingUserControl>
-        
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel>
+                <themes:SettingLabel LabelContent="THROTTLE LINE" HorizontalAlignment="Center"></themes:SettingLabel>
+                <themes:ToggleButton Toggled="{Binding Settings.ThrottleChartVisible, Mode=TwoWay}"></themes:ToggleButton>
+            </StackPanel>
+            <StackPanel>
+                <themes:SettingLabel LabelContent="BRAKE LINE" HorizontalAlignment="Center"></themes:SettingLabel>
+                <themes:ToggleButton Toggled="{Binding Settings.BrakeChartVisible, Mode=TwoWay}"></themes:ToggleButton>
+            </StackPanel>
+            <StackPanel>
+                <themes:SettingLabel LabelContent="GEAR LINE" HorizontalAlignment="Center"></themes:SettingLabel>
+                <themes:ToggleButton Toggled="{Binding Settings.GearChartVisible, Mode=TwoWay}"></themes:ToggleButton>
+            </StackPanel>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel>
+                <themes:SettingLabel LabelContent="THROTTLE BAR" HorizontalAlignment="Center"></themes:SettingLabel>
+                <themes:ToggleButton></themes:ToggleButton>
+            </StackPanel>
+            <StackPanel>
+                <themes:SettingLabel LabelContent="BRAKE BAR" HorizontalAlignment="Center"></themes:SettingLabel>
+                <themes:ToggleButton></themes:ToggleButton>
+            </StackPanel>
+        </StackPanel>
+
     </Grid>
 </src:BaseSettingView>
