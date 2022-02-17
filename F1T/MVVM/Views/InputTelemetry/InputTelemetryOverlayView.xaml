@@ -89,7 +89,8 @@
 
 		<Image Grid.Column="6" Width="100" Height="100" RenderTransformOrigin="0.5,0.5"
                 RenderOptions.BitmapScalingMode="HighQuality"
-			    Source="{Binding Path=Settings.WheelName, Converter={StaticResource StringToImageConverter}}">
+			    Source="{Binding Path=Settings.WheelName, Converter={StaticResource StringToImageConverter}}"
+                d:Source="/Images/wheel.png">
 			<Image.RenderTransform>
 				<RotateTransform Angle="{Binding Path=SteerValue, Converter={StaticResource SteeringConverter}}" />
 			</Image.RenderTransform>
