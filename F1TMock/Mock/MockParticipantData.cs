@@ -14,13 +14,18 @@ namespace F1TMock.Mock
         {
             ParticipantData participantData = new ParticipantData();
             participantData.m_aiControlled = 1;
-            participantData.m_driverId = 255;
+            participantData.m_driverId = DriverID.Unknown;
             participantData.m_networkId = 2;
-            participantData.m_teamId = 2;
+            participantData.m_teamId = TeamID.Mclaren;
             participantData.m_myTeam = 0;
             participantData.m_raceNumber = 2;
             participantData.m_nationality = 1;
-            participantData.m_name = "MockCar".ToCharArray();
+            char[] charArray = new char[48];
+            charArray[0] = 'M';
+            charArray[1] = 'o';
+            charArray[2] = 'c';
+            charArray[3] = 'k';
+            participantData.m_name = charArray;
             participantData.m_yourTelemetry = 1;
             return participantData;
         }
@@ -28,19 +33,20 @@ namespace F1TMock.Mock
         private PacketParticipantsData GetRandomPacketParticipantsData()
         {
             PacketParticipantsData packetParticipantsData = new PacketParticipantsData();
-            packetParticipantsData.m_header = GetPacketHeader(PacketType.Participants);
-            packetParticipantsData.m_numverActiveCars = 20;
+            packetParticipantsData.m_header = MockHeader.GetPacketHeader(PacketType.Participants);
+            packetParticipantsData.m_numverActiveCars = 22;
             ParticipantData[] participantDatas = new ParticipantData[22];
             for (int i = 0; i < participantDatas.Length; i++)
             {
                 participantDatas[i] = GetRandomParticipantData();
             }
+            packetParticipantsData.m_participants = participantDatas;
             return packetParticipantsData;
         }
 
-        public byte[] getBytesParticipantData()
+        public byte[] GetBytesParticipantData()
         {
-            var packet = GetRandomPacketParticipantsData();
+            PacketParticipantsData packet = GetRandomPacketParticipantsData();
             int size = Marshal.SizeOf(packet);
             byte[] arr = new byte[size];
 

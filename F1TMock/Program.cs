@@ -14,29 +14,33 @@ public class UDPServer
         MockParticipantData mockParticipantData = new MockParticipantData();
         MockMotionData mockMotionData = new MockMotionData();
         MockLapData mockLapData = new MockLapData();
-        MockHeader mockHeader = new MockHeader();
-        MockEventData mockEventData = new MockEventData();
+        //MockEventData mockEventData = new MockEventData();
         MockCarTelemetryData mockCarTelemetryData = new MockCarTelemetryData();
         MockCarStatusData mockCarStatusData = new MockCarStatusData();
         MockCarDamageData mockCarDamageData = new MockCarDamageData();
 
         UdpClient udpClient = new UdpClient();
-        udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, PORT));
-
-        IPEndPoint from = new IPEndPoint(0, 0);
 
         void sendData(byte[] data)
         {
-            udpClient.Send(data, data.Length, "255.255.255.255", PORT);
+            udpClient.Send(data, data.Length, "127.0.0.1", PORT);
         }
 
         while (true)
         {
-            byte[] data = mockParticipantData.getBytesParticipantData();
+            byte[] data = mockParticipantData.GetBytesParticipantData();
             sendData(data);
-            data = mockMotionData.getBytesMotionData();
+            data = mockMotionData.GetBytesMotionData();
             sendData(data);
-            Thread.Sleep(1000);
+            data = mockLapData.GetBytesLapData();
+            sendData(data);
+            data = mockCarTelemetryData.GetBytesCarTelemetryData();
+            sendData(data);
+            data = mockCarStatusData.GetBytesCarStatusData();
+            sendData(data);
+            data = mockCarDamageData.GetBytesCarDamageData();
+            sendData(data);
+            Thread.Sleep(100);
         }
     }
 

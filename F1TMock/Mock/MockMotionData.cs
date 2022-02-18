@@ -43,6 +43,7 @@ namespace F1TMock.Mock
             {
                 carMotionDatas[i] = GetRandomCarMotionData();
             }
+            packetMotionData.m_carMotionData = carMotionDatas;
             float[] testData = { 1.0f, 1.0f, 1.0f, 1.0f };
             packetMotionData.m_suspensionPosition = testData;
             packetMotionData.m_suspensionVelocity = testData;
@@ -62,7 +63,7 @@ namespace F1TMock.Mock
             return packetMotionData;
         }
 
-        public byte[] getBytesMotionData()
+        public byte[] GetBytesMotionData()
         {
             var packet = GetRandomPacketMotionData();
             int size = Marshal.SizeOf(packet);

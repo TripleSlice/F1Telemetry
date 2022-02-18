@@ -1,63 +1,56 @@
 ﻿using F1T.Structs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace F1TMock.Mock
 {
-    class MockParticipantData
+    class MockLapData
     {
-        private static ParticipantData GetRandomParticipantData()
+        private LapData GetRandomLapData()
         {
-            ParticipantData participantData = new ParticipantData();
-            participantData.m_aiControlled = 1;
-            participantData.m_driverId = 255;
-            participantData.m_networkId = 2;
-            participantData.m_teamId = 2;
-            participantData.m_myTeam = 0;
-            participantData.m_raceNumber = 2;
-            participantData.m_nationality = 1;
-            participantData.m_name = "MockCar".ToCharArray();
-            participantData.m_yourTelemetry = 1;
-            return participantData;
+            LapData data = new LapData();
+            data.m_lastLapTimeInMS = 100000;
+            data.m_currentLapTimeInMS = 2000;
+            data.m_sector1TimeInMS = 1999;
+            data.m_sector2TimeInMS = 5000;
+            data.m_lapDistance = 5000;
+            data.m_totalDistance = 25000;
+            data.m_safetyCarDelta = 1000;
+            data.m_carPosition = 1;
+            data.m_currentLapNum = 20;
+            data.m_pitStatus = PitStatus.None;
+            data.m_numPitStops = 0;
+            data.m_sector = Sector.SectorOne;
+            data.m_currentLapInvalid = 0;
+            data.m_penalties = 0;
+            data.m_warnings = 0;
+            data.m_numUnservedDriveThroughPens = 0;
+            data.m_numUnservedStopGoPens = 0;
+            data.m_gridPosition = 1;
+            data.m_driverStatus = DriverStatus.OnTrack;
+            data.m_resultStatus = ResultStatus.Active;
+            data.m_pitLaneTimerActive = PitLaneTimerActive.InActive;
+            data.m_pitLaneTimeInLaneInMS = 0;
+            data.m_pitStopTimerInMS = 0;
+            data.m_pitStopShouldServePen = 0;
+            return data;
         }
 
-        private static PacketParticipantsData GetRandomPacketParticipantsData()
+        private PacketLapData GetRandomPacketLapData()
         {
-            PacketParticipantsData packetParticipantsData = new PacketParticipantsData();
-            packetParticipantsData.m_header = GetPacketHeader(PacketType.Participants);
-            packetParticipantsData.m_numverActiveCars = 20;
-            ParticipantData[] participantDatas = new ParticipantData[22];
-            for (int i = 0; i < participantDatas.Length; i++)
+            PacketLapData data = new PacketLapData();
+            data.m_header = MockHeader.GetPacketHeader(PacketType.LapData);
+            LapData[] laps = new LapData[22];
+            for (int i = 0; i < laps.Length; i++)
             {
-                participantDatas[i] = GetRandomParticipantData();
+                laps[i] = GetRandomLapData();
             }
-            return packetParticipantsData;
+            data.m_lapData = laps;
+            return data;
         }
 
-        private static PacketHeader GetPacketHeader(PacketType packetType)
+        public byte[] GetBytesLapData()
         {
-            PacketHeader header = new PacketHeader();
-            header.m_packetFormat = 2021;
-            header.m_gameMajorVersion = 1;
-            header.m_gameMinorVersion = 12;
-            header.m_packetVersion = 1;
-            header.m_packetId = packetType;
-            header.m_sessionUID = 1;
-            header.m_sessionUID = 1;
-            header.m_sessionTime = 1.0f;
-            header.m_frameIdentifier = 1;
-            header.m_playerCarIndex = 1;
-            header.m_secondaryPlayerCarIndex = 2;
-            return header;
-        }
-
-        public static byte[] getBytesParticipantData()
-        {
-            var packet = GetRandomPacketParticipantsData();
+            var packet = GetRandomPacketLapData();
             int size = Marshal.SizeOf(packet);
             byte[] arr = new byte[size];
 

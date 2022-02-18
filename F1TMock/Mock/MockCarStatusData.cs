@@ -8,56 +8,53 @@ using System.Threading.Tasks;
 
 namespace F1TMock.Mock
 {
-    class MockParticipantData
+    class MockCarStatusData
     {
-        private static ParticipantData GetRandomParticipantData()
+        private CarStatusData GetRandomCarStatusData()
         {
-            ParticipantData participantData = new ParticipantData();
-            participantData.m_aiControlled = 1;
-            participantData.m_driverId = 255;
-            participantData.m_networkId = 2;
-            participantData.m_teamId = 2;
-            participantData.m_myTeam = 0;
-            participantData.m_raceNumber = 2;
-            participantData.m_nationality = 1;
-            participantData.m_name = "MockCar".ToCharArray();
-            participantData.m_yourTelemetry = 1;
-            return participantData;
+            CarStatusData data = new CarStatusData();
+            data.m_tractionControl = TractionControl.Off;
+            data.m_antiLockBrakes = AntiLockBrakes.On;
+            data.m_fuelMix = FuelMix.Rich;
+            data.m_frontBrakeBias = 50;
+            data.m_pitLimiterStatus = PitLimiterStatus.On;
+            data.m_fuelInTank = 20.0f;
+            data.m_fuelCapacity = 40.0f;
+            data.m_fuelRemainingLaps = 10.0f;
+            data.m_maxRPM = 12000;
+            data.m_idleRPM = 2000;
+            data.m_maxGears = 8;
+            data.m_drsAllowed = 0;
+            data.m_drsActivationDistance = 0;
+            data.m_actualTyreCompound = ActualTyreCompund.C4;
+            data.m_visualTyreCompound = VisualTyreCompound.Medium;
+            data.m_tyresAgeLaps = 2;
+            data.m_vehicleFiaFlags = VehicleFiaFlags.None;
+            data.m_ersStoreEnergy = 10.0f;
+            data.m_ersDeployMode = ERSDeployMode.None;
+            data.m_ersHarvestedThisLapMGUK = 1.0f;
+            data.m_ersHarvestedThisLapMGUH = 1.0f;
+            data.m_ersDeployedThisLap = 0.0f;
+            data.m_networkPaused = 0;
+            return data;
         }
 
-        private static PacketParticipantsData GetRandomPacketParticipantsData()
+        private PacketCarStatusData GetRandomPacketCarStatusData()
         {
-            PacketParticipantsData packetParticipantsData = new PacketParticipantsData();
-            packetParticipantsData.m_header = GetPacketHeader(PacketType.Participants);
-            packetParticipantsData.m_numverActiveCars = 20;
-            ParticipantData[] participantDatas = new ParticipantData[22];
-            for (int i = 0; i < participantDatas.Length; i++)
+            PacketCarStatusData data = new PacketCarStatusData();
+            data.m_header = MockHeader.GetPacketHeader(PacketType.CarStatus);
+            CarStatusData[] cars = new CarStatusData[22];
+            for (int i = 0; i < cars.Length; i++)
             {
-                participantDatas[i] = GetRandomParticipantData();
+                cars[i] = GetRandomCarStatusData();
             }
-            return packetParticipantsData;
+            data.m_carStatusData = cars;
+            return data;
         }
 
-        private static PacketHeader GetPacketHeader(PacketType packetType)
+        public byte[] GetBytesCarStatusData()
         {
-            PacketHeader header = new PacketHeader();
-            header.m_packetFormat = 2021;
-            header.m_gameMajorVersion = 1;
-            header.m_gameMinorVersion = 12;
-            header.m_packetVersion = 1;
-            header.m_packetId = packetType;
-            header.m_sessionUID = 1;
-            header.m_sessionUID = 1;
-            header.m_sessionTime = 1.0f;
-            header.m_frameIdentifier = 1;
-            header.m_playerCarIndex = 1;
-            header.m_secondaryPlayerCarIndex = 2;
-            return header;
-        }
-
-        public static byte[] getBytesParticipantData()
-        {
-            var packet = GetRandomPacketParticipantsData();
+            var packet = GetRandomPacketCarStatusData();
             int size = Marshal.SizeOf(packet);
             byte[] arr = new byte[size];
 
