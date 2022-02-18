@@ -21,6 +21,7 @@ namespace F1T.Settings
             BrakeChartVisible = true;
             GearChartVisible = false;
 
+            RotationAngle = 360;
             WheelName = "/Images/wheel.png";
         }
 
@@ -51,6 +52,13 @@ namespace F1T.Settings
         {
             get { return _wheelName; }
             set { SetField(ref _wheelName, value, "WheelName"); }
+        }
+
+        private int _rotationAngle;
+        public int RotationAngle
+        {
+            get { return _rotationAngle; }
+            set { SetField(ref _rotationAngle, value, "RotationAngle"); }
         }
     }
 }

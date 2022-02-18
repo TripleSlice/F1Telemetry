@@ -72,6 +72,8 @@
 					HorizontalAlignment="Center"
 					Background="Transparent"></Label>
 				<Button Style="{StaticResource ButtonTheme}" Padding="0,2,0,2" Content="Browse" Click="UploadWheel"></Button>
+				<themes:SettingLabel LabelContent="MAX ROTATION" HorizontalAlignment="Center" Padding="0,5,0,0"></themes:SettingLabel>
+				<themes:PlusMinusButton Value="{Binding Settings.RotationAngle, Mode=TwoWay}" Min="180" Max="900"></themes:PlusMinusButton>
 			</StackPanel>
 		</StackPanel>
 
