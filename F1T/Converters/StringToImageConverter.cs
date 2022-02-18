@@ -19,6 +19,11 @@ namespace F1T.Converters
             object result = null;
             var path = value as string;
 
+            if (path == "/Images/wheel.png")
+            {
+                return new Uri(path, UriKind.Relative);
+            }
+
             if (!string.IsNullOrEmpty(path))
             {
                 var image = new BitmapImage();

@@ -14,16 +14,26 @@
     mc:Ignorable="d" 
     d:DesignHeight="450" d:DesignWidth="800">
 
+	<UserControl.Resources>
+		<converters:StringToImageConverter x:Key="StringToImageConverter"/>
+		<converters:UriLabelConverter x:Key="UriLabelConverter"/>
+	</UserControl.Resources>
 
-    <Grid>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition ></RowDefinition>
-            <RowDefinition ></RowDefinition>
-        </Grid.RowDefinitions>
+	<Grid>
 
-        <src:CommonSettingUserControl ToggleModule="ToggleVisibilityButton_Click" 
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition ></RowDefinition>
+			<RowDefinition ></RowDefinition>
+		</Grid.RowDefinitions>
+		
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"></ColumnDefinition>
+			<ColumnDefinition></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+
+		<src:CommonSettingUserControl Grid.ColumnSpan="2" ToggleModule="ToggleVisibilityButton_Click" 
                                       OpacitySliderValue="{Binding Settings.OpacitySliderValue, Mode=TwoWay}"
                                       MaxFPSValue="60" MinFPSValue="1"
                                       FPSValue="{Binding Settings.FramesPerSecond, Mode=TwoWay}"
@@ -31,32 +41,52 @@
                                       ToggledValue="{Binding Settings.Toggled, Mode=TwoWay}" AutoToggledValue="{Binding Settings.AutoToggled, Mode=TwoWay}"
                                       ></src:CommonSettingUserControl>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <StackPanel>
-                <themes:SettingLabel LabelContent="THROTTLE LINE" HorizontalAlignment="Center"></themes:SettingLabel>
-                <themes:ToggleButton Toggled="{Binding Settings.ThrottleChartVisible, Mode=TwoWay}"></themes:ToggleButton>
-            </StackPanel>
-            <StackPanel>
-                <themes:SettingLabel LabelContent="BRAKE LINE" HorizontalAlignment="Center"></themes:SettingLabel>
-                <themes:ToggleButton Toggled="{Binding Settings.BrakeChartVisible, Mode=TwoWay}"></themes:ToggleButton>
-            </StackPanel>
-            <StackPanel>
-                <themes:SettingLabel LabelContent="GEAR LINE" HorizontalAlignment="Center"></themes:SettingLabel>
-                <themes:ToggleButton Toggled="{Binding Settings.GearChartVisible, Mode=TwoWay}"></themes:ToggleButton>
-            </StackPanel>
-        </StackPanel>
+		<StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+			<StackPanel>
+				<themes:SettingLabel LabelContent="THROTTLE LINE" HorizontalAlignment="Center"></themes:SettingLabel>
+				<themes:ToggleButton Toggled="{Binding Settings.ThrottleChartVisible, Mode=TwoWay}"></themes:ToggleButton>
+			</StackPanel>
+			<StackPanel>
+				<themes:SettingLabel LabelContent="BRAKE LINE" HorizontalAlignment="Center"></themes:SettingLabel>
+				<themes:ToggleButton Toggled="{Binding Settings.BrakeChartVisible, Mode=TwoWay}"></themes:ToggleButton>
+			</StackPanel>
+			<StackPanel>
+				<themes:SettingLabel LabelContent="GEAR LINE" HorizontalAlignment="Center"></themes:SettingLabel>
+				<themes:ToggleButton Toggled="{Binding Settings.GearChartVisible, Mode=TwoWay}"></themes:ToggleButton>
+			</StackPanel>
+		</StackPanel>
 
+		<StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
+			<StackPanel>
+				<themes:SettingLabel LabelContent="CUSTOM WHEEL" HorizontalAlignment="Center"></themes:SettingLabel>
+				<Button Style="{StaticResource ButtonTheme}" Padding="0,2,0,2" Content="Reset" Click="SetDefaultWheel"></Button>
+				<Image Width="80" Height="80" Margin="0,5,0,5"
+					   d:Source="/Images/wheel.png"
+				       Source="{Binding Settings.WheelName, Converter={StaticResource StringToImageConverter}}"/>
+				<Label 
+					d:Content="wheel.png"
+					Content="{Binding Settings.WheelName, Converter={StaticResource UriLabelConverter}}"
+					FontFamily="/Fonts/#Poppins"
+					Foreground="White"
+					FontSize="11"
+					HorizontalAlignment="Center"
+					Background="Transparent"></Label>
+				<Button Style="{StaticResource ButtonTheme}" Padding="0,2,0,2" Content="Browse" Click="UploadWheel"></Button>
+				<themes:SettingLabel LabelContent="MAX ROTATION" HorizontalAlignment="Center" Padding="0,5,0,0"></themes:SettingLabel>
+				<themes:PlusMinusButton Value="{Binding Settings.RotationAngle, Mode=TwoWay}" Min="180" Max="900"></themes:PlusMinusButton>
+			</StackPanel>
+		</StackPanel>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <StackPanel>
-                <themes:SettingLabel LabelContent="THROTTLE BAR" HorizontalAlignment="Center"></themes:SettingLabel>
-                <themes:ToggleButton></themes:ToggleButton>
-            </StackPanel>
-            <StackPanel>
-                <themes:SettingLabel LabelContent="BRAKE BAR" HorizontalAlignment="Center"></themes:SettingLabel>
-                <themes:ToggleButton></themes:ToggleButton>
-            </StackPanel>
-        </StackPanel>
+		<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+			<StackPanel>
+				<themes:SettingLabel LabelContent="THROTTLE BAR" HorizontalAlignment="Center"></themes:SettingLabel>
+				<themes:ToggleButton></themes:ToggleButton>
+			</StackPanel>
+			<StackPanel>
+				<themes:SettingLabel LabelContent="BRAKE BAR" HorizontalAlignment="Center"></themes:SettingLabel>
+				<themes:ToggleButton></themes:ToggleButton>
+			</StackPanel>
+		</StackPanel>
 
-    </Grid>
+	</Grid>
 </src:BaseSettingView>

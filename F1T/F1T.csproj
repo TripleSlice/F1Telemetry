@@ -132,6 +132,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisConverter.cs" />
+    <Compile Include="Converters\UriLabelConverter.cs" />
     <Compile Include="Converters\GearConverter.cs" />
     <Compile Include="Converters\PercentageConverter.cs" />
     <Compile Include="Converters\SteeringConverter.cs" />
@@ -264,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\BrakeBarTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
