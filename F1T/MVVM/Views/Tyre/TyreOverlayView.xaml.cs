@@ -49,12 +49,10 @@ namespace F1T.MVVM.Views.Tyre
         private int GetActiveCarCount(LapData[] data)
         {
             // Count how many active cars there are
-            // Result status - 0 = invalid, 1 = inactive, 2 = active
-            // 3 = finished, 4 = didnotfinish, 5 = disqualified
             int carCount = 22;
             for (int i = 0; i < data.Length; i++)
             {
-                if (data[i].m_resultStatus == 0 || data[i].m_resultStatus == 1)
+                if (data[i].m_resultStatus == ResultStatus.Invalid || data[i].m_resultStatus == ResultStatus.Inactive)
                 {
                     carCount -= 1;
                     continue;
@@ -75,9 +73,7 @@ namespace F1T.MVVM.Views.Tyre
             // Sort the cars in the order that they are on track
             for (int i = 0; i < data.Length; i++)
             {
-                // Result status - 0 = invalid, 1 = inactive, 2 = active
-                // 3 = finished, 4 = didnotfinish, 5 = disqualified
-                if (data[i].m_resultStatus == 0 || data[i].m_resultStatus == 1)
+                if (data[i].m_resultStatus == ResultStatus.Invalid || data[i].m_resultStatus == ResultStatus.Inactive)
                 {
                     continue;
                 }
@@ -108,8 +104,6 @@ namespace F1T.MVVM.Views.Tyre
 
             if (Model.OverlayVisible && Model.PlayerIndexCarStatus != -1 && Model.PlayerIndexCarDamage != -1 && Model.PlayerIndexLapData != -1)
             {
-
-
                 // Must start this here, or else we could be dealing with de-sync between values of Model and this code...
                 Application.Current.Dispatcher.BeginInvoke(
                     DispatcherPriority.Normal,
