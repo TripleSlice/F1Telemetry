@@ -24,6 +24,22 @@ namespace F1T.MVVM.Views
     /// can be "passed along" to the desired modules ViewModel
     public partial class CommonSettingUserControl : UserControl
     {
+
+        private int _maxScalePercentage = 200;
+        public int MaxScalePercentage
+        {
+            get { return _maxScalePercentage; }
+            set { _maxScalePercentage = value; }
+        }
+
+
+        private int _minScalePercentage = 25;
+        public int MinScalePercentage
+        {
+            get { return _minScalePercentage; }
+            set { _minScalePercentage = value; }
+        }
+
         // BINDING FOR TOGGLING MODULE
         public static readonly RoutedEvent ToggleModuleEvent = EventManager.RegisterRoutedEvent(
             "ToggleModule", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ToggleButton));
@@ -74,7 +90,24 @@ namespace F1T.MVVM.Views
 
             private void ScaleSliderValuePropertyChanged(int val)
             {
-                ScaleSliderValue = val;
+                if(MaxScalePercentage < ScaleSliderValue) ScaleSliderValue = MaxScalePercentage;
+                else if (MinScalePercentage > ScaleSliderValue) ScaleSliderValue = MinScalePercentage;
+                else ScaleSliderValue = val;
+
+                var plusTen = true;
+                var plusOne = true;
+                var minusOne = true;
+                var minusTen = true;
+
+                if(ScaleSliderValue + 10 > MaxScalePercentage) plusTen = false;
+                if(ScaleSliderValue + 1 > MaxScalePercentage) plusOne = false;
+                if(ScaleSliderValue - 1 < MinScalePercentage) minusOne = false;
+                if(ScaleSliderValue - 10 < MinScalePercentage) minusTen = false;
+
+                PlusTenButton.IsEnabled = plusTen;
+                MinusTenButton.IsEnabled = minusTen;
+                PlusOneButton.IsEnabled = plusOne;
+                MinusOneButton.IsEnabled = minusOne;
             }
 
             private static void ScaleSliderValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -244,6 +277,13 @@ namespace F1T.MVVM.Views
             ScaleSliderInstance.DataContext = this;
             XButtonInstance.DataContext = this;
             YButtonInstance.DataContext = this;
+        }
+
+        private void ScaleButton_Click(object sender, RoutedEventArgs e)
+        {
+            var val = Int32.Parse(((Button)sender).Tag.ToString());
+
+            ScaleSliderValue += val;
         }
     }
 }

@@ -8,7 +8,7 @@
         Title="F1T - OverlayContainer" AllowsTransparency="True" Background="Transparent" WindowStyle="None"
         WindowStartupLocation="Manual"
         Left="{Binding Settings.Left, Mode=TwoWay}" Top="{Binding Settings.Top, Mode=TwoWay}"
-        Width="{Binding Settings.Width, Mode=TwoWay}" Height="{Binding Settings.Height, Mode=TwoWay}">
+        Width="{Binding Settings.ScaledWidth, Mode=TwoWay}" Height="{Binding Settings.ScaledHeight, Mode=TwoWay}">
     <Viewbox>
         <ContentControl x:Name="ContentHolder" Content="{Binding CurrentOverlay}">
         </ContentControl>
