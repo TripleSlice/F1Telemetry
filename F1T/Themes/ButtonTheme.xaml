@@ -7,16 +7,18 @@
         <Setter Property="FontWeight" Value="SemiBold"></Setter>
         <Setter Property="FontSize" Value="14"></Setter>
         <Setter Property="Height" Value="25"></Setter>
+
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="3">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="3" CornerRadius="12">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        
+
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#828282"/>
@@ -25,9 +27,5 @@
                 <Setter Property="Background" Value="#323232"/>
             </Trigger>
         </Style.Triggers>
-    </Style>
-
-    <Style TargetType="Border">
-        <Setter Property="CornerRadius" Value="12"/>
     </Style>
 </ResourceDictionary>

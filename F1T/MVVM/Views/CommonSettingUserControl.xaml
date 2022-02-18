@@ -82,7 +82,20 @@
 
         <StackPanel Grid.Row="2" Grid.Column="1">
             <themes:SettingLabel LabelContent="SCALE" TooltipContent="The scale of the overlay Window"></themes:SettingLabel>
-            <Slider Maximum="100" x:Name="ScaleSliderInstance" Value="{Binding ScaleSliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
+            <Slider Minimum="{Binding MinScalePercentage}" Maximum="{Binding MaxScalePercentage}" x:Name="ScaleSliderInstance" Value="{Binding ScaleSliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="MinusTenButton" Grid.Column="0" Style="{StaticResource ButtonTheme}" Margin="0,5,5,5" Click="ScaleButton_Click" Tag="-10">-10</Button>
+                <Button x:Name="MinusOneButton" Grid.Column="1" Style="{StaticResource ButtonTheme}" Margin="0,5,2.5,5" Click="ScaleButton_Click" Tag="-1">-1</Button>
+                <Button x:Name="PlusOneButton" Grid.Column="2" Style="{StaticResource ButtonTheme}" Margin="2.5,5,0,5" Click="ScaleButton_Click" Tag="+1">+1</Button>
+                <Button x:Name="PlusTenButton" Grid.Column="3" Style="{StaticResource ButtonTheme}" Margin="5,5,0,5" Click="ScaleButton_Click" Tag="+10">+10</Button>
+            </Grid>
+
         </StackPanel>
 
 
