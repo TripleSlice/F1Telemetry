@@ -263,6 +263,28 @@ namespace F1T.MVVM.Views
                 ((CommonSettingUserControl)d).AutoToggledValuePropertyChanged((bool)e.NewValue);
             }
 
+
+        // BINDING FOR LOCKED
+        public static readonly DependencyProperty LockedValueProperty =
+            DependencyProperty.Register("LockedValue", typeof(bool), typeof(CommonSettingUserControl),
+            new PropertyMetadata(false, LockedValuePropertyChanged));
+
+            public bool LockedValue
+            {
+                get { return (bool)GetValue(LockedValueProperty); }
+                set { SetValue(LockedValueProperty, value); }
+            }
+
+            private void LockedValuePropertyChanged(bool boolean)
+            {
+                LockedValue = boolean;
+            }
+
+            private static void LockedValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                ((CommonSettingUserControl)d).LockedValuePropertyChanged((bool)e.NewValue);
+            }
+
         public CommonSettingUserControl()
         {
             InitializeComponent();
@@ -277,6 +299,7 @@ namespace F1T.MVVM.Views
             ScaleSliderInstance.DataContext = this;
             XButtonInstance.DataContext = this;
             YButtonInstance.DataContext = this;
+            LockedToggleButtonInstance.DataContext= this;
         }
 
         private void ScaleButton_Click(object sender, RoutedEventArgs e)

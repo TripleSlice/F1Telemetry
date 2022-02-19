@@ -69,6 +69,7 @@ namespace F1T.Settings
             FramesPerSecond = 20;
             AutoToggled = false;
             ScaleSliderValue = 100;
+            Locked = false;
         }
 
 
@@ -169,6 +170,14 @@ namespace F1T.Settings
             get { return _opacity; }
             set { SetField(ref _opacity, value, "Opacity"); }
         }
+
+        private bool _locked;
+        public bool Locked
+        {
+            get { return _locked; }
+            set { SetField(ref _locked, value, "Locked"); }
+        }
+
 
 
         private int _scaleSliderValue;
