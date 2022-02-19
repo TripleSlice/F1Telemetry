@@ -8,70 +8,36 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:F1T.MVVM.Views.Tyre" xmlns:converters="clr-namespace:F1T.Converters"
+    xmlns:local="clr-namespace:F1T.MVVM.Views.Tyre" xmlns:converters="clr-namespace:F1T.Converters" xmlns:core="clr-namespace:F1T.Core"
     mc:Ignorable="d" 
     Background="Transparent"
     MouseDown="Window_MouseDown" Height="125">
 
     <UserControl.Resources>
-
         <converters:BoolToVisConverter x:Key="BoolToVisConverter"/>
-
-
-        <Style TargetType="{x:Type DataGrid}">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="AlternationCount" Value="2" />
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-
-        <Style TargetType="{x:Type DataGridRow}">
-            <Setter Property="IsHitTestVisible" Value="False"/>
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-
-        
-        <Style TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="Height" Value="35" />
-            <Setter Property="Padding" Value="5" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontFamily" Value="/Fonts/#Poppins" />
-            <Setter Property="FontWeight" Value="Medium" />
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="IsHitTestVisible" Value="False"/>
-        </Style>
     </UserControl.Resources>
 
     <Grid MouseDown="Window_MouseDown">
+  
+        <Rectangle Fill="Black" Opacity="{Binding Path=Settings.Opacity}"></Rectangle>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-
-
-        <Rectangle Fill="Black" Opacity="{Binding Path=Settings.Opacity}" Grid.ColumnSpan="2"></Rectangle>
-
-        <DataGrid Grid.Column="0" Visibility="{Binding Settings.TyreWearVisible, Converter={StaticResource BoolToVisConverter}}"
-                  ItemsSource="{Binding Path=TyreInfoArr}" IsReadOnly="True"
+        <DataGrid ItemsSource="{Binding Path=TyreInfoArr}" IsReadOnly="True"
                   AutoGenerateColumns="False" RowHeaderWidth="0" MouseDown="Window_MouseDown"
-                  GridLinesVisibility="None">
+                  GridLinesVisibility="None"
+                  Style="{StaticResource DataGridTheme}">
+            <DataGrid.Resources>
+                <core:BindingProxy x:Key="proxy" Data="{Binding Settings}"/>
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding TyreWear, StringFormat='{}{0}%'}" Header="Wear"/>
+                <DataGridTextColumn Binding="{Binding TyreWear, StringFormat='{}{0}%'}" Header="Wear" 
+                                    Visibility="{Binding Data.TyreWearVisible, 
+                                                Converter={StaticResource BoolToVisConverter},
+                                                Source={StaticResource proxy}}"/>
+                <DataGridTextColumn Binding="{Binding TyreAge, StringFormat='{}{0}L'}" Header="Laps" 
+                                    Visibility="{Binding Data.TyreAgeVisible, 
+                                                Converter={StaticResource BoolToVisConverter},
+                                                Source={StaticResource proxy}}"/>
             </DataGrid.Columns>
         </DataGrid>
-
-        <DataGrid Grid.Column="1" Visibility="{Binding Settings.TyreAgeVisible, Converter={StaticResource BoolToVisConverter}}"
-                  ItemsSource="{Binding Path=TyreInfoArr}" IsReadOnly="True"
-                  AutoGenerateColumns="False" RowHeaderWidth="0" MouseDown="Window_MouseDown"
-                  GridLinesVisibility="None">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding TyreAge, StringFormat='{}{0}L'}" Header="Laps"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-
-
     </Grid>
 </src:BaseOverlayView>
