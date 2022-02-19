@@ -1,14 +1,9 @@
-﻿using F1T.Core;
-using F1T.DataStructures;
+﻿using F1T.DataStructures;
 using F1T.MVVM.ViewModels;
 using F1T.Settings;
-using ScottPlot.Plottable;
 using System;
-using System.Diagnostics;
-using System.Drawing;
 using System.Threading;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace F1T.MVVM.Views.InputTelemetry
@@ -44,6 +39,8 @@ namespace F1T.MVVM.Views.InputTelemetry
             InputTelemetryPlot.Plot.Grid(false);
             InputTelemetryPlot.Plot.Title("");
             InputTelemetryPlot.Plot.Frameless();
+            InputTelemetryPlot.RightClicked -= InputTelemetryPlot.DefaultRightClickEvent;
+
             InputTelemetryPlot.Render();
 
             StartTimer();
@@ -130,6 +127,11 @@ namespace F1T.MVVM.Views.InputTelemetry
                     InputTelemetryPlot.Render();
                 }));
             }
+        }
+
+        private void InputTelemetryPlot_PreviewMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }
