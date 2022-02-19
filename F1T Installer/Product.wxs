@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="F1T_Installer" Language="1033" Version="1.0.0.0" Manufacturer="F1T" UpgradeCode="a46a6d50-c65d-4477-b347-e56bf3a90b49">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<!--Program Files Folder-->
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="APPLICATIONROOTDIRECTORY" Name="F1T"/>
+			</Directory>
+			<!--Program Menu Folder-->
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ApplicationProgramsFolder" Name="F1T"/>
+			</Directory>
+		</Directory>
+
+		<DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+			<Component Id="F1T.exe" Guid="{1EA92207-EF17-4572-AE0F-7E3CF258CD50}">
+				<File Id="F1T.exe" Source="$(var.F1T.TargetPath)" KeyPath="yes" Checksum="yes"/>
+			</Component>
+		</DirectoryRef>
+
+		<DirectoryRef Id="ApplicationProgramsFolder">
+			<Component Id="ApplicationShortcut" Guid="{08770784-EA50-46C7-B14A-41B57E48F3F4}">
+				<Shortcut Id="ApplicationStartMenuShortcut"
+						  Name="F1T"
+						  Description="A F1 telemetry client"
+						  Target="[#F1T.exe]"
+                          WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+				<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+				<RegistryValue Root="HKCU" Key="Software\F1Telemetry\F1T" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+			</Component>
+		</DirectoryRef>
+
+		<Feature Id="MainApplication" Title="F1T_Installer" Level="1">
+			<ComponentRef Id="F1T.exe" />
+			<ComponentRef Id="ApplicationShortcut" />
+		</Feature>
+	</Product>
+</Wix>
