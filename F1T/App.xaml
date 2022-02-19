@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="./Themes/ComboBoxTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/SocialButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/ButtonTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="./Themes/DataGridTheme.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
