@@ -36,6 +36,7 @@
             <RowDefinition Height="55"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Grid.ColumnSpan="3">
@@ -50,14 +51,19 @@
             <Slider Maximum="100" x:Name="OpacitySliderInstance" Value="{Binding OpacitySliderValue}" Style="{StaticResource PercentageSliderTheme}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <themes:SettingLabel LabelContent="AUTO TOGGLE MODULE" HorizontalAlignment="Center" TooltipContent="Auto toggle module on startup"></themes:SettingLabel>
-                <themes:ToggleButton x:Name="AutoToggleButtonInstance" Toggled="{Binding AutoToggledValue, Mode=TwoWay}"></themes:ToggleButton>
-            </StackPanel>
+    
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2">
+            <themes:SettingLabel LabelContent="AUTO TOGGLE MODULE" HorizontalAlignment="Center" TooltipContent="Auto toggle module on startup"></themes:SettingLabel>
+            <themes:ToggleButton x:Name="AutoToggleButtonInstance" Toggled="{Binding AutoToggledValue, Mode=TwoWay}"></themes:ToggleButton>
         </StackPanel>
-        
-        <StackPanel Grid.Row="2" Grid.Column="2">
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2">
+            <themes:SettingLabel LabelContent="LOCK MODULE" HorizontalAlignment="Center" TooltipContent="Lock module so it can not be moved by the mouse"></themes:SettingLabel>
+            <themes:ToggleButton x:Name="LockedToggleButtonInstance" Toggled="{Binding LockedValue, Mode=TwoWay}"></themes:ToggleButton>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="3" Grid.Column="2">
             <themes:SettingLabel LabelContent="FPS" TooltipContent="Changes the rate of which the overlay will get refreshed&#x0a;&#x0a;(useful for if the program is laggy)" HorizontalAlignment="Center"></themes:SettingLabel>
             <themes:PlusMinusButton x:Name="FPSButtonInstance" Max="{Binding MaxFPSValue}" Min="{Binding MinFPSValue}" Value="{Binding FPSValue, Mode=TwoWay}"></themes:PlusMinusButton>
         </StackPanel>

@@ -24,21 +24,6 @@ namespace F1T.MVVM.Views
         }
         protected abstract void UpdateValues(object state = null);
 
-        public void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            // TODO
-            // Remove try catch and handle this properly
-            // Sometimes when moving the window, and error occurs
-            try
-            {
-                // Get window associated with object being clicked
-                DependencyObject element = (DependencyObject)sender;
-                Window window = Window.GetWindow(element);
-
-                if (e.ChangedButton == MouseButton.Left) window.DragMove();
-            }
-            catch (Exception) { }
-        }
     }
     /// <summary>
     /// Abstract class which provides commmon functionality to all OverlayViews that require a <see cref="BaseModuleViewModel"/> and a <see cref="BaseSettings"/>
@@ -55,6 +40,25 @@ namespace F1T.MVVM.Views
         {
             timer = new Timer(UpdateValues, null, 0, Model.Settings.Frequency);
             currentFrequency = Model.Settings.Frequency;
+        }
+
+        public void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // TODO
+            // Remove try catch and handle this properly
+            // Sometimes when moving the window, and error occurs
+
+            if (Model.Settings.Locked) return;
+
+            try
+            {
+                // Get window associated with object being clicked
+                DependencyObject element = (DependencyObject)sender;
+                Window window = Window.GetWindow(element);
+
+                if (e.ChangedButton == MouseButton.Left) window.DragMove();
+            }
+            catch (Exception) { }
         }
     }
 }
