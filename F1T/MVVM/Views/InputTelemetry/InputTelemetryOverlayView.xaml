@@ -50,7 +50,8 @@
         </TextBlock>
 
 
-        <WpfPlot Grid.Column="2" x:Name="InputTelemetryPlot" Width="400" HorizontalAlignment="Left"/>
+        <WpfPlot Grid.Column="2" x:Name="InputTelemetryPlot" Width="400" HorizontalAlignment="Left"
+                 PreviewMouseDoubleClick="InputTelemetryPlot_PreviewMouseDoubleClick"/>
 
 
 
