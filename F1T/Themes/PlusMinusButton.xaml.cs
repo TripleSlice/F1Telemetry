@@ -79,7 +79,7 @@ namespace F1T.Themes
 
         public static readonly DependencyProperty MinProperty =
             DependencyProperty.Register("Min", typeof(int), typeof(PlusMinusButton),
-            new PropertyMetadata(0, MinPropertyChanged));
+            new PropertyMetadata(int.MinValue, MinPropertyChanged));
 
         public int Min
         {

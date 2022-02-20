@@ -1,0 +1,58 @@
+﻿<src:BaseOverlayView 
+    x:TypeArguments="vm:RelativeInfoViewModel, settings:RelativeInfoSettings"
+    xmlns:src="clr-namespace:F1T.MVVM.Views"
+    xmlns:vm="clr-namespace:F1T.MVVM.ViewModels" 
+    xmlns:settings="clr-namespace:F1T.Settings" 
+    x:Class="F1T.MVVM.Views.RelativeInfo.RelativeInfoOverlayView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:F1T.MVVM.Views.RelativeInfo" xmlns:converters="clr-namespace:F1T.Converters" xmlns:core="clr-namespace:F1T.Core"
+    mc:Ignorable="d" 
+    Background="Transparent"
+    MouseDown="Window_MouseDown" Height="125">
+
+    <UserControl.Resources>
+        <converters:BoolToVisConverter x:Key="BoolToVisConverter"/>
+        <converters:MilisecondToStringConverter x:Key="MilisecondToStringConverter"/>
+    </UserControl.Resources>
+
+    <Grid MouseDown="Window_MouseDown">
+  
+        <Rectangle Fill="Black" Opacity="{Binding Path=Settings.Opacity}"
+                   RenderOptions.EdgeMode="Aliased"></Rectangle>
+
+        <DataGrid ItemsSource="{Binding Path=RelativeInfoArr}" IsReadOnly="True"
+                  AutoGenerateColumns="False" RowHeaderWidth="0" MouseDown="Window_MouseDown"
+                  GridLinesVisibility="None"
+                  Style="{StaticResource DataGridTheme}">
+            <DataGrid.Resources>
+                <core:BindingProxy x:Key="proxy" Data="{Binding Settings}"/>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding TyreWear, StringFormat='{}{0}%'}"
+                                    Header="Wear" 
+                                    Visibility="{Binding Data.TyreWearVisible, 
+                                                Converter={StaticResource BoolToVisConverter},
+                                                Source={StaticResource proxy}}"/>
+                <DataGridTextColumn Binding="{Binding TyreAge, StringFormat='{}{0}L'}"
+                                    Header="Laps" 
+                                    Visibility="{Binding Data.TyreAgeVisible, 
+                                                Converter={StaticResource BoolToVisConverter},
+                                                Source={StaticResource proxy}}"/>
+                <DataGridTextColumn Binding="{Binding FastestLapTime, Converter={StaticResource MilisecondToStringConverter}}"
+                                    Header="Fastest Lap" 
+                                    Visibility="{Binding Data.FastestLapVisible, 
+                                                Converter={StaticResource BoolToVisConverter},
+                                                Source={StaticResource proxy}}"/>
+                <DataGridTextColumn Binding="{Binding LastLapTime, Converter={StaticResource MilisecondToStringConverter}}"
+                                    Header="Last Lap" 
+                                    Visibility="{Binding Data.LastLapVisible, 
+                                                Converter={StaticResource BoolToVisConverter},
+                                                Source={StaticResource proxy}}"/>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</src:BaseOverlayView>

@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using F1T.MVVM.Views.Home;
 using F1T.MVVM.Views.Radar;
-using F1T.MVVM.Views.Tyre;
+using F1T.MVVM.Views.Setup;
+using F1T.MVVM.Views.RelativeInfo;
 using F1T.Settings;
 using F1T.MVVM.Views;
 using System;
-using F1T.MVVM.Views.Setup;
+
 
 namespace F1T.MVVM.ViewModels
 {
@@ -28,7 +29,7 @@ namespace F1T.MVVM.ViewModels
         public RelayCommand InputTelemetrySettingViewCommand { get; set; }
         public RelayCommand FlagSettingViewCommand { get; set; }
         public RelayCommand RadarSettingViewCommand { get; set; }
-        public RelayCommand TyreSettingViewCommand { get; set; }
+        public RelayCommand RelativeInfoSettingViewCommand { get; set; }
         public RelayCommand SetupViewCommand { get; set; }
 
         // === VIEWS ===
@@ -38,20 +39,19 @@ namespace F1T.MVVM.ViewModels
         // === SettingView Instances ===
         InputTelemetrySettingView InputTelemetrySetting = new InputTelemetrySettingView();
         RadarSettingView RadarSetting = new RadarSettingView();
-        TyreSettingView TyreSetting = new TyreSettingView();
+        RelativeInfoSettingView RelativeInfoSetting = new RelativeInfoSettingView();
 
         // === OverlayView Instances ===
         InputTelemetryOverlayView InputTelemetryOverlay = new InputTelemetryOverlayView();
         RadarOverlayView RadarOverlay = new RadarOverlayView();
-        TyreOverlayView TyreOverlay = new TyreOverlayView();
+        RelativeInfoOverlayView RelativeInfoOverlay = new RelativeInfoOverlayView();
 
 
         // === VIEW MODELS ===
         // === View Models Associated with Views
         public InputTelemetryViewModel InputTelemetryModel { get { return InputTelemetryViewModel.GetInstance(); } }
         public RadarViewModel RadarModel { get { return RadarViewModel.GetInstance(); } }   
-        public TyreViewModel TyreModel { get { return TyreViewModel.GetInstance(); } }
-
+        public RelativeInfoViewModel RelativeInfoModel { get { return RelativeInfoViewModel.GetInstance(); } }
 
 
         // Dict of ViewModel and OverlayView
@@ -75,10 +75,10 @@ namespace F1T.MVVM.ViewModels
             ViewModelAndSettingView.Add(RadarModel, RadarSetting);
             RadarSettingViewCommand = new RelayCommand(obj => { CurrentView = RadarSetting; });
 
-            // == RADAR MODULE ==
-            ViewModelAndOverlayView.Add(TyreModel, TyreOverlay);
-            ViewModelAndSettingView.Add(TyreModel, TyreSetting);
-            TyreSettingViewCommand = new RelayCommand(obj => { CurrentView = TyreSetting; });
+            // == RELATIVE INFO MODULE ==
+            ViewModelAndOverlayView.Add(RelativeInfoModel, RelativeInfoOverlay);
+            ViewModelAndSettingView.Add(RelativeInfoModel, RelativeInfoSetting);
+            RelativeInfoSettingViewCommand = new RelayCommand(obj => { CurrentView = RelativeInfoSetting; });
 
             // == SETUP MODULE ==
             SetupViewCommand = new RelayCommand(obj => { CurrentView = Setup; });
@@ -88,7 +88,7 @@ namespace F1T.MVVM.ViewModels
         {
             InputTelemetryModel.Settings.Save<InputTelemetrySettings>();
             RadarModel.Settings.Save<RadarSettings>();
-            TyreModel.Settings.Save<TyreSettings>();
+            RelativeInfoModel.Settings.Save<RelativeInfoSettings>();
         }
 
 

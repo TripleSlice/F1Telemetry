@@ -1,8 +1,5 @@
 ﻿using F1T.Settings;
 using F1T.Structs;
-using System;
-using System.IO;
-using System.Windows.Forms;
 
 namespace F1T.MVVM.ViewModels
 {
