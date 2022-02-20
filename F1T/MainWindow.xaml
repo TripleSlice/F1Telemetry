@@ -104,14 +104,14 @@
                         <ImageSource x:Key="ImageURI">/Images/radar.png</ImageSource>
                     </RadioButton.Resources>
                 </RadioButton>
-                <RadioButton Content="Tyre" GroupName="SideBarButtons"
+                <RadioButton Content="Relative Info" GroupName="SideBarButtons"
                              Height="50"
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding TyreSettingViewCommand}"
-                             BorderBrush="{Binding TyreModel.Settings.Toggled, Converter={StaticResource ToggledColorConverter}}">
+                             Command="{Binding RelativeInfoSettingViewCommand}"
+                             BorderBrush="{Binding RelativeInfoModel.Settings.Toggled, Converter={StaticResource ToggledColorConverter}}">
                     <RadioButton.Resources>
-                        <ImageSource x:Key="ImageURI">/Images/tyre.png</ImageSource>
+                        <ImageSource x:Key="ImageURI">/Images/relative.png</ImageSource>
                     </RadioButton.Resources>
                 </RadioButton>
             </StackPanel>

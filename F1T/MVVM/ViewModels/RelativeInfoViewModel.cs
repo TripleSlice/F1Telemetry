@@ -1,8 +1,8 @@
 ﻿using F1T.MVVM.Models;
-using F1T.MVVM.Views.Tyre;
 using F1T.Settings;
 using F1T.Structs;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,24 +12,24 @@ namespace F1T.MVVM.ViewModels
     /// <summary>
     /// ViewModel for the TyreOverlayView and TyreSettingView
     /// </summary>
-    public class TyreViewModel : BaseModuleViewModel<TyreSettings>
+    public class RelativeInfoViewModel : BaseModuleViewModel<RelativeInfoSettings>
     {
 
         // === BEGINING OF MODULE SETUP ===
         // === Singleton Instance with Thread Saftey ===
-        private static TyreViewModel _instance = null;
+        private static RelativeInfoViewModel _instance = null;
         private static object _singletonLock = new object();
-        public static TyreViewModel GetInstance()
+        public static RelativeInfoViewModel GetInstance()
         {
             lock (_singletonLock)
             {
-                if (_instance == null) { _instance = new TyreViewModel(); }
+                if (_instance == null) { _instance = new RelativeInfoViewModel(); }
                 return _instance;
             }
         }
         // Settings
-        private TyreSettings _settings = new TyreSettings().Read<TyreSettings>();
-        public override TyreSettings Settings { get => _settings; }
+        private RelativeInfoSettings _settings = new RelativeInfoSettings().Read<RelativeInfoSettings>();
+        public override RelativeInfoSettings Settings { get => _settings; }
         // === END OF MODULE SETUP ===
 
 
@@ -38,13 +38,15 @@ namespace F1T.MVVM.ViewModels
         public PacketCarDamageData CarDamageData;
         public PacketLapData LapData;
 
+        public Dictionary<int, PacketSessionHistoryData> SessionHistoryData = new Dictionary<int, PacketSessionHistoryData>();
+
         public int PlayerIndexCarStatus = -1;
         public int PlayerIndexCarDamage = -1;
         public int PlayerIndexLapData = -1;
 
         public LapData PlayerCarLapData;
 
-        public ObservableCollection<TyreInfo> TyreInfoArr { get; set; } 
+        public ObservableCollection<RelativeInfo> RelativeInfoArr { get; set; } 
 
         private void TyreAgeUpdate(PacketCarStatusData packet)
         {
@@ -65,18 +67,24 @@ namespace F1T.MVVM.ViewModels
             PlayerCarLapData = LapData.m_lapData[PlayerIndexLapData];
         }
 
-        private TyreViewModel() : base()
+        private void SessionHistoryUpdate(PacketSessionHistoryData packet)
         {
-            TyreInfoArr = new ObservableCollection<TyreInfo>();
-            TyreInfoArr.Add(new TyreInfo(0, 0));
-            TyreInfoArr.Add(new TyreInfo(0, 0));
-            TyreInfoArr.Add(new TyreInfo(0, 0));
-            TyreInfoArr.Add(new TyreInfo(0, 0));
-            TyreInfoArr.Add(new TyreInfo(0, 0));
+            SessionHistoryData[packet.m_carIdx] = packet;
+        }
+
+        private RelativeInfoViewModel() : base()
+        {
+            RelativeInfoArr = new ObservableCollection<RelativeInfo>();
+            RelativeInfoArr.Add(new RelativeInfo());
+            RelativeInfoArr.Add(new RelativeInfo());
+            RelativeInfoArr.Add(new RelativeInfo());
+            RelativeInfoArr.Add(new RelativeInfo());
+            RelativeInfoArr.Add(new RelativeInfo());
 
             udpConnection.OnCarStatusDataReceive += TyreAgeUpdate;
             udpConnection.OnCarDamageDataReceive += TyreWearUpdate;
             udpConnection.OnLapDataReceive += PositionUpdate;
+            udpConnection.OnSessionHistoryDataReceive += SessionHistoryUpdate;
         }
     }
 }

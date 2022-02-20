@@ -2,24 +2,24 @@
 
 F1T is a open source telemetry client for F1 2021!
 
-<img src="https://github.com/ryanabaker/F1T/blob/main/READMEimages/home.png" width="600px">
+<img src="https://github.com/F1Telemetry/F1T/blob/main/READMEimages/home.png" width="600px">
 
 ## Features
 
 #### Radar
 Allows you to see other cars!
 
-<img src="https://github.com/ryanabaker/F1T/blob/main/READMEimages/radar.png" width="600px">
+<img src="https://github.com/F1Telemetry/F1T/blob/main/READMEimages/radar.png" width="600px">
 
 #### Input Telemetry
 Creates a graph of your inputs!
 
-<img src="https://github.com/ryanabaker/F1T/blob/main/READMEimages/inputtelemetry.png" width="600px">
+<img src="https://github.com/F1Telemetry/F1T/blob/main/READMEimages/inputtelemetry.png" width="600px">
 
 ## How to use?
 
 #### Download or Compile executable
-Download the latest release from [here](https://github.com/ryanabaker/F1T/releases "Releases"), or clone the project and compile it yourself.
+Download the latest release from [here](https://github.com/F1Telemetry/F1T/releases "Releases"), or clone the project and compile it yourself.
 
 #### Required F1 2021 Settings
 
@@ -43,7 +43,7 @@ To do this, go into **Settings** -> **Telemetry Settings** and ensure you have t
 
 
 ## How to contribute?
-Head on over to the [issues page](https://github.com/ryanabaker/F1T/issues "Issues") and find an issue!
+Head on over to the [issues page](https://github.com/F1Telemetry/F1T/issues "Issues") and find an issue!
 
 
 Feel free to create new issues with new features you would like. I can't guarantee it will be possible/I will have time for it, but it doesn't hurt to ask. 
@@ -75,12 +75,12 @@ Short answer, you can't. You can't trust anything, so I don't blame you. Source 
 #### Will there ever be premium features or a paid version?
 No. I have no interest in making this paid. Will most likely always be open source. This is a side/passion project, not a business
 #### I have an idea for a feature, but I can't code it...
-Suggest it on the [issues page](https://github.com/ryanabaker/F1T/issues "Issues"). There is 0 guarentee that it will ever get looked at or completed, but it is worth a shot
+Suggest it on the [issues page](https://github.com/F1Telemetry/F1T/issues "Issues"). There is 0 guarentee that it will ever get looked at or completed, but it is worth a shot
 #### Does this work for UNIX/OS X systems?
 Not currently
 
 ## Help
-Create a issue on the [issues page](https://github.com/ryanabaker/F1T/issues "Issues") or join the [Discord](https://discord.gg/2dzTJ9Rnuz)
+Create a issue on the [issues page](https://github.com/F1Telemetry/F1T/issues "Issues") or join the [Discord](https://discord.gg/2dzTJ9Rnuz)
 
 ## Upcoming Features
 - Flags Modules

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--http://www.dizzymonkeydesign.com/blog/misc/adding-and-customizing-dlgs-in-wix-3/-->
+<!--https://stackoverflow.com/questions/4658220/create-shortcut-checkbox-->
+<!--https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html-->
+<!--https://stackoverflow.com/questions/11868499/create-shortcut-to-desktop-using-wix-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="F1T_Installer" Language="1033" Version="1.0.0.0" Manufacturer="F1T" UpgradeCode="a46a6d50-c65d-4477-b347-e56bf3a90b49">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<!--Optional Desktop Shortcut-->
+		<Property Id="INSTALLDESKTOPSHORTCUT" Value="1"/>
+
+		<!--Create UI for checkbox-->
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER"/>
+		<UIRef Id="MyWixUI_InstallDir" />
+
+		<!--Bundle everything and actually do it-->
+		<Feature Id="ProductFeature" Title="F1T_Installer" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+		<Feature Id="DesktopShortCut" Title="F1T_Installer" Level="1">
+			<ComponentGroupRef Id="DesktopShortcut" />
+		</Feature>
+		<Feature Id="AppProgramsShortCut" Title="F1T_Installer" Level="1">
+			<ComponentGroupRef Id="ProgramsShortcut" />
+		</Feature>		
+	</Product>
+
+	<!--Fragment containing directory structure-->
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<!--Program Files Folder-->
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="F1T"/>
+			</Directory>
+			<!--Program Menu Folder-->
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ApplicationProgramsFolder" Name="F1T"/>
+			</Directory>
+			<!--Desktop-->
+			<Directory Id="DesktopFolder" Name="Desktop"/>
+		</Directory>
+	</Fragment>
+
+
+	<Fragment>
+		<!--Desktop Shortcut-->
+		<ComponentGroup Id="DesktopShortcut" Directory="DesktopFolder">
+			<Component Id="ApplicationShortcutDesktop" Guid="{60266EBB-D797-46B2-9736-CFE9E736B3F8}">
+				<!--Makes this portion of the code conditonal-->
+				<Condition>INSTALLDESKTOPSHORTCUT</Condition>
+				<Shortcut Id="ApplicationDesktopShortcut"
+						  Directory="DesktopFolder"
+						  Name="F1T"
+						  Description="A F1 telemetry client"
+						  Target="[INSTALLFOLDER]F1T.exe"
+						  WorkingDirectory="INSTALLFOLDER"/>
+				<RemoveFolder Id="DesktopFolder" On="uninstall"/>
+				<RegistryValue Root="HKCU" Key="Software\F1T" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+			</Component>
+		</ComponentGroup>
+
+		<!--Start Menu Folder Shortcut-->
+		<ComponentGroup Id="ProgramsShortcut" Directory="ApplicationProgramsFolder">
+			<Component Id="ApplicationShortcut" Guid="{08770784-EA50-46C7-B14A-41B57E48F3F4}">
+				<Shortcut Id="ApplicationStartMenuShortcut"
+						  Name="F1T"
+						  Description="A F1 telemetry client"
+						  Target="[INSTALLFOLDER]F1T.exe"
+                          WorkingDirectory="INSTALLFOLDER"/>
+				<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+				<RegistryValue Root="HKCU" Key="Software\F1T" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+			</Component>
+		</ComponentGroup>
+		
+		<!--Program Files Folder-->
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<Component Id="F1T.exe" Guid="{1EA92207-EF17-4572-AE0F-7E3CF258CD50}">
+				<File Id="F1T.exe" Source="$(var.F1T.TargetPath)" KeyPath="yes" Checksum="yes"/>
+			</Component>
+		</ComponentGroup>		
+	</Fragment>
+
+</Wix>

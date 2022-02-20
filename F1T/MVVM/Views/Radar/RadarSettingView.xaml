@@ -23,7 +23,10 @@
                                       MaxFPSValue="60" MinFPSValue="1"
                                       FPSValue="{Binding Settings.FramesPerSecond, Mode=TwoWay}"
                                       Top="{Binding Settings.Top, Mode=TwoWay}" Left="{Binding Settings.Left, Mode=TwoWay}"
-                                      ToggledValue="{Binding Settings.Toggled, Mode=TwoWay}" AutoToggledValue="{Binding Settings.AutoToggled, Mode=TwoWay}"
+                                      ToggledValue="{Binding Settings.Toggled, Mode=TwoWay}" 
+                                      AutoToggledValue="{Binding Settings.AutoToggled, Mode=TwoWay}"
+                                      LockedValue="{Binding Settings.Locked, Mode=TwoWay}"
+                                      ScaleSliderValue="{Binding Settings.ScaleSliderValue, Mode=TwoWay}"
                                       ></src:CommonSettingUserControl>
     </Grid>
 </src:BaseSettingView>

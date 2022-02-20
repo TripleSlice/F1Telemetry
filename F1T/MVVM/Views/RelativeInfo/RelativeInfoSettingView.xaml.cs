@@ -16,18 +16,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace F1T.MVVM.Views.Tyre
+namespace F1T.MVVM.Views.RelativeInfo
 {
     /// <summary>
     /// Interaction logic for TyreSettingView.xaml
     /// </summary>
-    public partial class TyreSettingView : BaseSettingView<TyreViewModel, TyreSettings>
+    public partial class RelativeInfoSettingView : BaseSettingView<RelativeInfoViewModel, RelativeInfoSettings>
     {
-        public TyreSettingView()
+        public RelativeInfoSettingView()
         {
             InitializeComponent();
             this.DataContext = Model;
         }
-        public override TyreViewModel Model { get => TyreViewModel.GetInstance(); }
+        public override RelativeInfoViewModel Model { get => RelativeInfoViewModel.GetInstance(); }
     }
 }

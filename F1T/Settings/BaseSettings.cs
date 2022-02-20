@@ -68,6 +68,8 @@ namespace F1T.Settings
             OpacitySliderValue = 50;
             FramesPerSecond = 20;
             AutoToggled = false;
+            ScaleSliderValue = 100;
+            Locked = false;
         }
 
 
@@ -118,6 +120,21 @@ namespace F1T.Settings
         }
 
 
+        private double _scaledWidth;
+        public double ScaledWidth
+        {
+            get { return _scaledWidth; }
+            set { SetField(ref _scaledWidth, value, "ScaledWidth"); }
+        }
+
+        private double _scaledHeight;
+        public double ScaledHeight
+        {
+            get { return _scaledHeight; }
+            set { SetField(ref _scaledHeight, value, "ScaledHeight"); }
+        }
+
+
         private int _framesPerSecond;
         public int FramesPerSecond
         {
@@ -154,13 +171,13 @@ namespace F1T.Settings
             set { SetField(ref _opacity, value, "Opacity"); }
         }
 
-
-        private float _uiScale;
-        public float UIScale
+        private bool _locked;
+        public bool Locked
         {
-            get { return _uiScale; }
-            set { SetField(ref _uiScale, value, "UIScale"); }
+            get { return _locked; }
+            set { SetField(ref _locked, value, "Locked"); }
         }
+
 
 
         private int _scaleSliderValue;
@@ -170,7 +187,8 @@ namespace F1T.Settings
             set
             {
                 SetField(ref _scaleSliderValue, value, "ScaleSliderValue");
-                UIScale = ScaleSliderValue / 100f;
+                ScaledHeight = Height * (ScaleSliderValue / 100f);
+                ScaledWidth = Width * (ScaleSliderValue / 100f);
             }
         }
     }
