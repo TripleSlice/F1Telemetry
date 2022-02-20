@@ -1,0 +1,69 @@
+﻿<src:BaseSettingView 
+    x:TypeArguments="vm:RelativeInfoViewModel, settings:RelativeInfoSettings"
+    xmlns:src="clr-namespace:F1T.MVVM.Views"
+    xmlns:vm="clr-namespace:F1T.MVVM.ViewModels" 
+    xmlns:settings="clr-namespace:F1T.Settings" 
+    xmlns:themes="clr-namespace:F1T.Themes"
+    x:Class="F1T.MVVM.Views.RelativeInfo.RelativeInfoSettingView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:F1T.MVVM.Views.RelativeInfo"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <src:CommonSettingUserControl ToggleModule="ToggleVisibilityButton_Click" 
+                                      OpacitySliderValue="{Binding Settings.OpacitySliderValue, Mode=TwoWay}"
+                                      MaxFPSValue="60" MinFPSValue="1"
+                                      FPSValue="{Binding Settings.FramesPerSecond, Mode=TwoWay}"
+                                      Top="{Binding Settings.Top, Mode=TwoWay}" Left="{Binding Settings.Left, Mode=TwoWay}"
+                                      ToggledValue="{Binding Settings.Toggled, Mode=TwoWay}" 
+                                      AutoToggledValue="{Binding Settings.AutoToggled, Mode=TwoWay}"
+                                      LockedValue="{Binding Settings.Locked, Mode=TwoWay}"
+                                      ScaleSliderValue="{Binding Settings.ScaleSliderValue, Mode=TwoWay}"
+                                      Grid.ColumnSpan="2"></src:CommonSettingUserControl>
+
+        <StackPanel Grid.Row="2" Grid.Column="0">
+            <themes:SettingLabel LabelContent="TYRE" HorizontalAlignment="Center" ></themes:SettingLabel>
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel>
+                    <themes:SettingLabel LabelContent="TYRE WEAR" HorizontalAlignment="Center"></themes:SettingLabel>
+                    <themes:ToggleButton Toggled="{Binding Settings.TyreWearVisible, Mode=TwoWay}" ></themes:ToggleButton>
+                </StackPanel>
+                <StackPanel>
+                    <themes:SettingLabel LabelContent="TYRE AGE" HorizontalAlignment="Center"></themes:SettingLabel>
+                    <themes:ToggleButton Toggled="{Binding Settings.TyreAgeVisible, Mode=TwoWay}" ></themes:ToggleButton>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <themes:SettingLabel LabelContent="LAP" HorizontalAlignment="Center" ></themes:SettingLabel>
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel>
+                    <themes:SettingLabel LabelContent="FASTEST LAP" HorizontalAlignment="Center"></themes:SettingLabel>
+                    <themes:ToggleButton Toggled="{Binding Settings.FastestLapVisible, Mode=TwoWay}" ></themes:ToggleButton>
+                </StackPanel>
+                <StackPanel>
+                    <themes:SettingLabel LabelContent="LAST LAP" HorizontalAlignment="Center"></themes:SettingLabel>
+                    <themes:ToggleButton Toggled="{Binding Settings.LastLapVisible, Mode=TwoWay}" ></themes:ToggleButton>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+
+    </Grid>
+</src:BaseSettingView >
+
+

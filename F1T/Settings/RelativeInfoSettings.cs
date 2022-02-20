@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace F1T.Settings
 {
     [Serializable]
-    public class TyreSettings : BaseSettings
+    public class RelativeInfoSettings : BaseSettings
     {
-        protected override string Filename => "TyreSettings.config";
-        public TyreSettings() : base()
+        protected override string Filename => "RelativeInfoSettings.config";
+        public RelativeInfoSettings() : base()
         {
             // OVERRIDE DEFAULT SETTINGS
             Height = 170;
@@ -19,6 +19,8 @@ namespace F1T.Settings
             // MODULE DEFAULT SETTINGS
             TyreWearVisible = false;
             TyreAgeVisible = true;
+            FastestLapVisible = true;
+            LastLapVisible = true;
         }
 
 
@@ -36,5 +38,18 @@ namespace F1T.Settings
             set { SetField(ref _tyreAgeVisibile, value, "TyreAgeVisible"); }
         }
 
+        private bool _lastLapVisible;
+        public bool LastLapVisible
+        {
+            get { return _lastLapVisible; }
+            set { SetField(ref _lastLapVisible, value, "LastLapVisible"); }
+        }
+
+        private bool _fastestLapVisible;
+        public bool FastestLapVisible
+        {
+            get { return _fastestLapVisible; }
+            set { SetField(ref _fastestLapVisible, value, "FastestLapVisible"); }
+        }
     }
 }

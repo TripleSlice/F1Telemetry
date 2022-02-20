@@ -132,6 +132,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisConverter.cs" />
+    <Compile Include="Converters\MilisecondToStringConverter.cs" />
     <Compile Include="Converters\UriLabelConverter.cs" />
     <Compile Include="Converters\GearConverter.cs" />
     <Compile Include="Converters\PercentageConverter.cs" />
@@ -144,14 +145,14 @@
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Core\UDPConnection.cs" />
     <Compile Include="DataStructures\FixedSizeQueue.cs" />
-    <Compile Include="MVVM\Models\TyreInfo.cs" />
+    <Compile Include="MVVM\Models\RelativeInfo.cs" />
     <Compile Include="MVVM\ViewModels\BaseModuleViewModel.cs" />
     <Compile Include="MVVM\ViewModels\SetupViewModel.cs" />
     <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\InputTelemetryViewModel.cs" />
     <Compile Include="MVVM\ViewModels\OverlayContainerViewModel.cs" />
     <Compile Include="MVVM\ViewModels\RadarViewModel.cs" />
-    <Compile Include="MVVM\ViewModels\TyreViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\RelativeInfoViewModel.cs" />
     <Compile Include="MVVM\Views\BaseOverlayView.cs" />
     <Compile Include="MVVM\Views\BaseSettingView.cs" />
     <Compile Include="MVVM\Views\CommonSettingUserControl.xaml.cs">
@@ -181,16 +182,16 @@
     <Compile Include="MVVM\Views\Setup\SetupView.xaml.cs">
       <DependentUpon>SetupView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Views\Tyre\TyreOverlayView.xaml.cs">
-      <DependentUpon>TyreOverlayView.xaml</DependentUpon>
+    <Compile Include="MVVM\Views\RelativeInfo\RelativeInfoOverlayView.xaml.cs">
+      <DependentUpon>RelativeInfoOverlayView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Views\Tyre\TyreSettingView.xaml.cs">
-      <DependentUpon>TyreSettingView.xaml</DependentUpon>
+    <Compile Include="MVVM\Views\RelativeInfo\RelativeInfoSettingView.xaml.cs">
+      <DependentUpon>RelativeInfoSettingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\BaseSettings.cs" />
     <Compile Include="Settings\InputTelemetrySettings.cs" />
     <Compile Include="Settings\RadarSettings.cs" />
-    <Compile Include="Settings\TyreSettings.cs" />
+    <Compile Include="Settings\RelativeInfoSettings.cs" />
     <Compile Include="Structs\CustomTypes.cs" />
     <Compile Include="Structs\PacketCarDamageData.cs" />
     <Compile Include="Structs\PacketCarStatusData.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Structs\PacketLapData.cs" />
     <Compile Include="Structs\PacketMotionData.cs" />
     <Compile Include="Structs\PacketParticipantsData.cs" />
+    <Compile Include="Structs\PacketSessionHistoryData.cs" />
     <Compile Include="Themes\PlusMinusButton.xaml.cs">
       <DependentUpon>PlusMinusButton.xaml</DependentUpon>
     </Compile>
@@ -209,6 +211,8 @@
     <Compile Include="Themes\ToggleButton.xaml.cs">
       <DependentUpon>ToggleButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\IndexingUtils.cs" />
+    <Compile Include="Utils\LapDataUtils.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -257,11 +261,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\Views\Tyre\TyreOverlayView.xaml">
+    <Page Include="MVVM\Views\RelativeInfo\RelativeInfoOverlayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\Views\Tyre\TyreSettingView.xaml">
+    <Page Include="MVVM\Views\RelativeInfo\RelativeInfoSettingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -432,6 +436,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\wrench.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\relative.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />

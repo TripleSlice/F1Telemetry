@@ -24,6 +24,7 @@ namespace F1T.Core
         public delegate void CarDamageDataReceiveDelegate(PacketCarDamageData packet);
         public delegate void LapDataReceiveDelegate(PacketLapData packet);
         public delegate void ParticipantDataReceiveDelegate(PacketParticipantsData packet);
+        public delegate void SessionHistoryDataReceiveDeleage(PacketSessionHistoryData packet);
         // =====
         // EventData is special
         public delegate void EventDataReceiveDelegate(PacketEventData packet);
@@ -54,6 +55,7 @@ namespace F1T.Core
         public event CarDamageDataReceiveDelegate OnCarDamageDataReceive;
         public event LapDataReceiveDelegate OnLapDataReceive;
         public event ParticipantDataReceiveDelegate OnPaticipantDataReceive;
+        public event SessionHistoryDataReceiveDeleage OnSessionHistoryDataReceive;
         // =====
         // EventData is special
         public event EventDataReceiveDelegate OnEventDataReceive;
@@ -148,6 +150,11 @@ namespace F1T.Core
                 case PacketType.Participants:
                     PacketParticipantsData participantData = (PacketParticipantsData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketParticipantsData));
                     OnPaticipantDataReceive?.Invoke(participantData);
+                    break;
+
+                case PacketType.SessionHistory:
+                    PacketSessionHistoryData sessionHistoryData = (PacketSessionHistoryData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketSessionHistoryData));
+                    OnSessionHistoryDataReceive?.Invoke(sessionHistoryData);
                     break;
 
                 case PacketType.Event:
