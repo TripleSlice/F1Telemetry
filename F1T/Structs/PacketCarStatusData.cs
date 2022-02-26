@@ -45,6 +45,7 @@ namespace F1T.Structs
     }
     public enum VisualTyreCompound : byte
     {
+        None = 0,
         Soft = 16,
         Medium = 17,
         Hard = 18,
@@ -56,7 +57,8 @@ namespace F1T.Structs
         F2SuperSoft = 19,
         F2Soft = 20,
         F2Medium = 21,
-        F2Hard = 22
+        F2Hard = 22,
+        Unknown = 255
     }
     public enum VehicleFiaFlags : sbyte
     {

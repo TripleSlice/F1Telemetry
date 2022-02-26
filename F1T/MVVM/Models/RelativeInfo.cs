@@ -1,6 +1,8 @@
 ﻿using F1T.Core;
+using F1T.Structs;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +29,18 @@ namespace F1T.MVVM.Models
             S1Time = 0;
             S2Time = 0;
             S3Time = 0;
+
+            TyreTypes = new ObservableCollection<VisualTyreCompound>();
+            // Game gives data for last 8 tyre changes
+            TyreTypes.Add(VisualTyreCompound.Unknown);
+            TyreTypes.Add(VisualTyreCompound.Unknown);
+            TyreTypes.Add(VisualTyreCompound.Unknown);
+            TyreTypes.Add(VisualTyreCompound.Unknown);
+            TyreTypes.Add(VisualTyreCompound.Unknown);
+            TyreTypes.Add(VisualTyreCompound.Unknown);
+            TyreTypes.Add(VisualTyreCompound.Unknown);
+            TyreTypes.Add(VisualTyreCompound.Unknown);
+
         }
 
         private int _tyreAge;
@@ -92,5 +106,11 @@ namespace F1T.MVVM.Models
             set { SetField(ref _s3Time, value, "S3Time"); }
         }
 
+        private ObservableCollection<VisualTyreCompound> _tyreTypes;
+        public ObservableCollection<VisualTyreCompound> TyreTypes
+        {
+            get { return _tyreTypes; }
+            set { SetField(ref _tyreTypes, value, "TyreTypes"); }
+        }
     }
 }

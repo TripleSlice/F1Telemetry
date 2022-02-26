@@ -133,6 +133,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisConverter.cs" />
     <Compile Include="Converters\MilisecondToStringConverter.cs" />
+    <Compile Include="Converters\TyreToImageConverter.cs" />
     <Compile Include="Converters\UriLabelConverter.cs" />
     <Compile Include="Converters\GearConverter.cs" />
     <Compile Include="Converters\PercentageConverter.cs" />
@@ -442,6 +443,22 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\relative.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\VisualTyreTypes\unknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\VisualTyreTypes\hard.png" />
+    <Resource Include="Images\VisualTyreTypes\inter.png" />
+    <Resource Include="Images\VisualTyreTypes\medium.png" />
+    <Resource Include="Images\VisualTyreTypes\soft.png" />
+    <Resource Include="Images\VisualTyreTypes\wet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\VisualTyreTypes\supersoft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\VisualTyreTypes\empty.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />
