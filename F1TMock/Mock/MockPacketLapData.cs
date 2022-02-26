@@ -3,9 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace F1TMock.Mock
 {
-    class MockLapData
+    class MockPacketLapData
     {
-        private LapData GetRandomLapData()
+        private static LapData GetRandomLapData()
         {
             LapData data = new LapData();
             data.m_lastLapTimeInMS = 100000;
@@ -35,10 +35,10 @@ namespace F1TMock.Mock
             return data;
         }
 
-        private PacketLapData GetRandomPacketLapData()
+        private static PacketLapData GetRandomPacketLapData()
         {
-            PacketLapData data = new PacketLapData();
-            data.m_header = MockHeader.GetPacketHeader(PacketType.LapData);
+            F1T.Structs.PacketLapData data = new F1T.Structs.PacketLapData();
+            data.m_header = MockPacketHeader.GetBytes(PacketType.LapData);
             LapData[] laps = new LapData[22];
             for (int i = 0; i < laps.Length; i++)
             {
@@ -48,7 +48,7 @@ namespace F1TMock.Mock
             return data;
         }
 
-        public byte[] GetBytesLapData()
+        public static byte[] GetBytes()
         {
             var packet = GetRandomPacketLapData();
             int size = Marshal.SizeOf(packet);

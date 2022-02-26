@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace F1TMock.Mock
 {
-    class MockParticipantData
+    class MockPacketParticipantData
     {
-        private ParticipantData GetRandomParticipantData()
+        private static ParticipantData GetRandomParticipantData()
         {
             ParticipantData participantData = new ParticipantData();
             participantData.m_aiControlled = 1;
@@ -30,10 +30,10 @@ namespace F1TMock.Mock
             return participantData;
         }
 
-        private PacketParticipantsData GetRandomPacketParticipantsData()
+        private static PacketParticipantsData GetRandomPacketParticipantsData()
         {
             PacketParticipantsData packetParticipantsData = new PacketParticipantsData();
-            packetParticipantsData.m_header = MockHeader.GetPacketHeader(PacketType.Participants);
+            packetParticipantsData.m_header = MockPacketHeader.GetBytes(PacketType.Participants);
             packetParticipantsData.m_numverActiveCars = 22;
             ParticipantData[] participantDatas = new ParticipantData[22];
             for (int i = 0; i < participantDatas.Length; i++)
@@ -44,7 +44,7 @@ namespace F1TMock.Mock
             return packetParticipantsData;
         }
 
-        public byte[] GetBytesParticipantData()
+        public static byte[] GetBytes()
         {
             PacketParticipantsData packet = GetRandomPacketParticipantsData();
             int size = Marshal.SizeOf(packet);

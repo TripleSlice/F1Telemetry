@@ -1,16 +1,12 @@
 ﻿using F1T.Structs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using F1TMock.Mock;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace F1TMock.Mock
 {
-    class MockCarDamageData
+    class MockPacketCarDamageData
     {
-        private CarDamageData GetRandomCarDamageData()
+        private static CarDamageData GetRandomCarDamageData()
         {
             CarDamageData carDamageData = new CarDamageData();
             float[] testData = { 10.0f, 10.0f, 10.0f, 10.0f };
@@ -36,10 +32,10 @@ namespace F1TMock.Mock
             return carDamageData;
         }
 
-        private PacketCarDamageData GetRandomPacketCarDamageData()
+        private static PacketCarDamageData GetRandomPacketCarDamageData()
         {
             PacketCarDamageData packet = new PacketCarDamageData();
-            packet.m_header = MockHeader.GetPacketHeader(PacketType.CarDamage);
+            packet.m_header = MockPacketHeader.GetBytes(PacketType.CarDamage);
             CarDamageData[] carDamageDatas = new CarDamageData[22];
             for (int i = 0; i < carDamageDatas.Length; i++)
             {
@@ -49,7 +45,7 @@ namespace F1TMock.Mock
             return packet;
         }
 
-        public byte[] GetBytesCarDamageData()
+        public static byte[] GetBytes()
         {
             var packet = GetRandomPacketCarDamageData();
             int size = Marshal.SizeOf(packet);

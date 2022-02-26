@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace F1TMock.Mock
 {
-    class MockEventData
+    class MockPacketEventData
     {
         
+        public static byte[] GetBytes()
+        {
+            return new byte[] { };
+        }
     }
 }
