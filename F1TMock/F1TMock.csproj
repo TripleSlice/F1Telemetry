@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\F1T\Structs\CustomTypes.cs" Link="Structs\CustomTypes.cs" />
+    <Compile Include="..\F1T\Structs\PacketCarDamageData.cs" Link="Structs\PacketCarDamageData.cs" />
+    <Compile Include="..\F1T\Structs\PacketCarStatusData.cs" Link="Structs\PacketCarStatusData.cs" />
+    <Compile Include="..\F1T\Structs\PacketCarTelemetryData.cs" Link="Structs\PacketCarTelemetryData.cs" />
+    <Compile Include="..\F1T\Structs\PacketEventData.cs" Link="Structs\PacketEventData.cs" />
+    <Compile Include="..\F1T\Structs\PacketHeader.cs" Link="Structs\PacketHeader.cs" />
+    <Compile Include="..\F1T\Structs\PacketLapData.cs" Link="Structs\PacketLapData.cs" />
+    <Compile Include="..\F1T\Structs\PacketMotionData.cs" Link="Structs\PacketMotionData.cs" />
+    <Compile Include="..\F1T\Structs\PacketParticipantsData.cs" Link="Structs\PacketParticipantsData.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Structs\" />
+  </ItemGroup>
+
+</Project>
