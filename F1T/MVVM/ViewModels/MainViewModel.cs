@@ -9,7 +9,7 @@ using F1T.MVVM.Views.RelativeInfo;
 using F1T.Settings;
 using F1T.MVVM.Views;
 using System;
-
+using System.Threading;
 
 namespace F1T.MVVM.ViewModels
 {
@@ -59,6 +59,7 @@ namespace F1T.MVVM.ViewModels
         // Dict of ViewModel and SettingView
         Dictionary<BaseModuleViewModel, UserControl> ViewModelAndSettingView = new Dictionary<BaseModuleViewModel, UserControl>();
 
+        private Timer saveSettingsTimer;
 
         private void Init()
         {
@@ -82,9 +83,14 @@ namespace F1T.MVVM.ViewModels
 
             // == SETUP MODULE ==
             SetupViewCommand = new RelayCommand(obj => { CurrentView = Setup; });
+
+            // Save settings once every minute
+            // Could also make it so that everytime a change is detected the settings are saved
+            // But I like the on close and timer approach better
+            saveSettingsTimer = new Timer(SaveSettings, null, 0, 60 * 1000);
         }
 
-        public void SaveSettings()
+        public void SaveSettings(object state = null)
         {
             InputTelemetryModel.Settings.Save<InputTelemetrySettings>();
             RadarModel.Settings.Save<RadarSettings>();
