@@ -16,14 +16,81 @@
     <UserControl.Resources>
         <converters:BoolToVisConverter x:Key="BoolToVisConverter"/>
         <converters:MilisecondToStringConverter x:Key="MilisecondToStringConverter"/>
+        <converters:TyreToImageConverter x:Key="TyreToImageConverter"/>
     </UserControl.Resources>
 
     <Grid MouseDown="Window_MouseDown">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
   
-        <Rectangle Fill="Black" Opacity="{Binding Path=Settings.Opacity}"
+        <Rectangle Grid.Column="1"
+                   Fill="Black" Opacity="{Binding Path=Settings.Opacity}"
                    RenderOptions.EdgeMode="Aliased"></Rectangle>
 
-        <DataGrid ItemsSource="{Binding Path=RelativeInfoArr}" IsReadOnly="True"
+
+        <!-- TODO Make this width changeable-->
+        <DataGrid Grid.Column="0" Width="{Binding Path=Settings.TyreWhiteSpace}"
+                  ItemsSource="{Binding Path=RelativeInfoArr}" IsReadOnly="True" Margin="0,-2,0,0"
+                  AutoGenerateColumns="False" RowHeaderWidth="0" MouseDown="Window_MouseDown"
+                  GridLinesVisibility="None"
+                  Style="{StaticResource DataGridTheme}">
+            <DataGrid.Resources>
+                <core:BindingProxy x:Key="proxy" Data="{Binding Settings}"/>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+
+
+                <DataGridTemplateColumn Visibility="{Binding Data.TyreTypeVisible, 
+                                                Converter={StaticResource BoolToVisConverter},
+                                                Source={StaticResource proxy}}">
+
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image MaxHeight="12" Margin="0,4,0,0" 
+                                Source="{Binding TyreTypes[2], Converter={StaticResource TyreToImageConverter}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+
+
+                <DataGridTemplateColumn Visibility="{Binding Data.TyreTypeVisible, 
+                                                Converter={StaticResource BoolToVisConverter},
+                                                Source={StaticResource proxy}}">
+
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image MaxHeight="12" Margin="-30,4,0,0"
+                                Source="{Binding TyreTypes[1], Converter={StaticResource TyreToImageConverter}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Visibility="{Binding Data.TyreTypeVisible, 
+                                                Converter={StaticResource BoolToVisConverter},
+                                                Source={StaticResource proxy}}">
+
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image MaxHeight="12" Margin="-60,4,0,0"
+                                Source="{Binding TyreTypes[0], Converter={StaticResource TyreToImageConverter}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+
+                
+  
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <DataGrid Grid.Column="1"
+                  ItemsSource="{Binding Path=RelativeInfoArr}" IsReadOnly="True"
                   AutoGenerateColumns="False" RowHeaderWidth="0" MouseDown="Window_MouseDown"
                   GridLinesVisibility="None"
                   Style="{StaticResource DataGridTheme}">

@@ -87,7 +87,7 @@ namespace F1T.MVVM.Views.RelativeInfo
 
                         for (int i = topIndex; i <= bottomIndex; i++)
                         {
-                            // Wear, Age
+                            // Wear, Age, Laptime, Sector times
                             int highestWear = IndexingUtils.GetByRealPosition(AllCarDamageData, IndexToPositionArr, i + 1).m_tyresDamage.Max();
                             int tyreAge = IndexingUtils.GetByRealPosition(AllCarStatusData, IndexToPositionArr, i + 1).m_tyresAgeLaps;
                             uint currentLapTime = IndexingUtils.GetByRealPosition(AllCarLapData, IndexToPositionArr, i + 1).m_currentLapTimeInMS;
@@ -95,18 +95,45 @@ namespace F1T.MVVM.Views.RelativeInfo
                             ushort s1Time = IndexingUtils.GetByRealPosition(AllCarLapData, IndexToPositionArr, i + 1).m_sector1TimeInMS;
                             ushort s2Time = IndexingUtils.GetByRealPosition(AllCarLapData, IndexToPositionArr, i + 1).m_sector2TimeInMS;
                             ushort s3Time = (ushort)(currentLapTime - (s1Time + s2Time));
-
+ 
                             uint fastestLapTime = 0;
                             PacketSessionHistoryData packet;
                             var index = IndexingUtils.GetRealIndex(IndexToPositionArr, i + 1);
 
                             if (Model.SessionHistoryData.TryGetValue(index, out packet))
                             {
-                                if(packet.m_bestLapTimeLapNum >= 1)
+                                // prevent index out of bound
+                                if (packet.m_lapHistoryData.Count() <= packet.m_bestLapTimeLapNum - 1) continue;
+
+                                if (packet.m_bestLapTimeLapNum >= 1) fastestLapTime = packet.m_lapHistoryData[packet.m_bestLapTimeLapNum - 1].m_lapTimeInMS;
+
+                                // TODO make the 3 configurable to show how many tyres 
+                                // 0 is the oldest tyre
+                                var newestTyreIndex = -1;
+                                for (int j = packet.m_tyreStintsHistoryData.Count() - 1; j >= 0; j--)
                                 {
-                                    fastestLapTime = packet.m_lapHistoryData[packet.m_bestLapTimeLapNum - 1].m_lapTimeInMS;
+                                    if(packet.m_tyreStintsHistoryData[j].m_tyreVisualCompound != VisualTyreCompound.None)
+                                    {
+                                        newestTyreIndex = j;
+                                        break;
+                                    }
                                 }
-                              
+
+
+                                var counter = 0;
+                                for (int j = newestTyreIndex; j >= 0; j--)
+                                {
+                                    Model.RelativeInfoArr[count].TyreTypes[counter] = packet.m_tyreStintsHistoryData[j].m_tyreVisualCompound;
+                                    counter++;
+                                }
+                                // Set the rest as nothing
+                                for(int j = counter; j < 8; j++)
+                                {
+                                    Model.RelativeInfoArr[count].TyreTypes[j] = VisualTyreCompound.None;
+                                }
+                   
+      
+
                             }
                            
 
@@ -118,22 +145,9 @@ namespace F1T.MVVM.Views.RelativeInfo
                             Model.RelativeInfoArr[count].S2Time = s2Time;
                             Model.RelativeInfoArr[count].S3Time = s3Time;
                             Model.RelativeInfoArr[count].FastestLapTime = fastestLapTime;
-                            
-                            count++;
-                        }
-
-                        for(int i = count; i< 5; i++)
-                        {
-                            Model.RelativeInfoArr[count].TyreWear = 0;
-                            Model.RelativeInfoArr[count].TyreAge = 0;
-                            Model.RelativeInfoArr[count].CurrentLapTime = 0;
-                            Model.RelativeInfoArr[count].LastLapTime = 0;
-                            Model.RelativeInfoArr[count].S1Time = 0;
-                            Model.RelativeInfoArr[count].S2Time = 0;
-                            Model.RelativeInfoArr[count].S3Time = 0;
-                            Model.RelativeInfoArr[count].FastestLapTime = 0;
 
                             count++;
+
                         }
 
                     }));

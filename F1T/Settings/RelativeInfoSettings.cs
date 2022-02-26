@@ -21,6 +21,16 @@ namespace F1T.Settings
             TyreAgeVisible = true;
             FastestLapVisible = true;
             LastLapVisible = true;
+            TyreTypeVisible = true;
+
+            TyreWhiteSpace = 100;
+        }
+
+        private bool _tyreTypeVisible;
+        public bool TyreTypeVisible
+        {
+            get { return _tyreTypeVisible; }
+            set { SetField(ref _tyreTypeVisible, value, "TyreTypeVisible"); }
         }
 
 
@@ -50,6 +60,13 @@ namespace F1T.Settings
         {
             get { return _fastestLapVisible; }
             set { SetField(ref _fastestLapVisible, value, "FastestLapVisible"); }
+        }
+
+        private int _tyreWhiteSpace;
+        public int TyreWhiteSpace
+        {
+            get { return _tyreWhiteSpace; }
+            set { SetField(ref _tyreWhiteSpace, value, "TyreWhiteSpace"); }
         }
     }
 }

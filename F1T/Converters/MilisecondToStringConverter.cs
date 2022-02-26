@@ -11,7 +11,8 @@ namespace F1T.Converters
     public class MilisecondToStringConverter : IValueConverter
     {
 
-        string fmt = "00.###";
+        string sfmt = "00.###";
+        string msfmt = "000";
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             uint val = (uint)value;
@@ -23,7 +24,7 @@ namespace F1T.Converters
             val = (val - secs) / 60;
             var mins = val % 60;
 
-            return mins + ":" + secs.ToString(fmt) + "." + ms.ToString(fmt);
+            return mins + ":" + secs.ToString(sfmt) + "." + ms.ToString(msfmt);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

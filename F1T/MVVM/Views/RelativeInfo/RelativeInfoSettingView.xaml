@@ -45,6 +45,15 @@
                     <themes:SettingLabel LabelContent="TYRE AGE" HorizontalAlignment="Center"></themes:SettingLabel>
                     <themes:ToggleButton Toggled="{Binding Settings.TyreAgeVisible, Mode=TwoWay}" ></themes:ToggleButton>
                 </StackPanel>
+                <StackPanel>
+                    <themes:SettingLabel LabelContent="TYRE TYPE" HorizontalAlignment="Center"></themes:SettingLabel>
+                    <themes:ToggleButton Toggled="{Binding Settings.TyreTypeVisible, Mode=TwoWay}" ></themes:ToggleButton>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <themes:SettingLabel LabelContent="TYRE WHITE SPACE" HorizontalAlignment="Center"></themes:SettingLabel>
+                <Slider Value="{Binding Settings.TyreWhiteSpace}" Style="{StaticResource PixelSliderTheme}" Minimum="0" Maximum="200"
+                        ></Slider>
             </StackPanel>
         </StackPanel>
 
