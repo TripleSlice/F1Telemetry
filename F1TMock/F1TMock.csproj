@@ -17,10 +17,7 @@
     <Compile Include="..\F1T\Structs\PacketLapData.cs" Link="Structs\PacketLapData.cs" />
     <Compile Include="..\F1T\Structs\PacketMotionData.cs" Link="Structs\PacketMotionData.cs" />
     <Compile Include="..\F1T\Structs\PacketParticipantsData.cs" Link="Structs\PacketParticipantsData.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Structs\" />
+    <Compile Include="..\F1T\Structs\PacketSessionHistoryData.cs" Link="Structs\PacketSessionHistoryData.cs" />
   </ItemGroup>
 
 </Project>

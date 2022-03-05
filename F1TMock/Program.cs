@@ -31,8 +31,4 @@ public class UDPServer
             Thread.Sleep(100);
         }
     }
-
-    
-
-    
 }
