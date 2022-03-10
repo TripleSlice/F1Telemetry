@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F1TMock", "F1TMock\F1TMock.
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "F1T Installer", "F1T Installer\F1T Installer.wixproj", "{9F1BBFD1-F4F2-4CC4-9AB3-651657256F7A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F1TTest", "TestF1T\F1TTest.csproj", "{902D1A7F-77AA-4398-BFDF-1DD4744B20FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{9F1BBFD1-F4F2-4CC4-9AB3-651657256F7A}.Release|Any CPU.Build.0 = Release|x86
 		{9F1BBFD1-F4F2-4CC4-9AB3-651657256F7A}.Release|x86.ActiveCfg = Release|x86
 		{9F1BBFD1-F4F2-4CC4-9AB3-651657256F7A}.Release|x86.Build.0 = Release|x86
+		{902D1A7F-77AA-4398-BFDF-1DD4744B20FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{902D1A7F-77AA-4398-BFDF-1DD4744B20FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{902D1A7F-77AA-4398-BFDF-1DD4744B20FD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{902D1A7F-77AA-4398-BFDF-1DD4744B20FD}.Debug|x86.Build.0 = Debug|Any CPU
+		{902D1A7F-77AA-4398-BFDF-1DD4744B20FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{902D1A7F-77AA-4398-BFDF-1DD4744B20FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{902D1A7F-77AA-4398-BFDF-1DD4744B20FD}.Release|x86.ActiveCfg = Release|Any CPU
+		{902D1A7F-77AA-4398-BFDF-1DD4744B20FD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
