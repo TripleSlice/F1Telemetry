@@ -195,11 +195,14 @@
     <Compile Include="Settings\RelativeInfoSettings.cs" />
     <Compile Include="Structs\CustomTypes.cs" />
     <Compile Include="Structs\PacketCarDamageData.cs" />
+    <Compile Include="Structs\PacketCarSetupData.cs" />
     <Compile Include="Structs\PacketCarStatusData.cs" />
     <Compile Include="Structs\PacketCarTelemetryData.cs" />
     <Compile Include="Structs\PacketEventData.cs" />
+    <Compile Include="Structs\PacketFinalClassificationData.cs" />
     <Compile Include="Structs\PacketHeader.cs" />
     <Compile Include="Structs\PacketLapData.cs" />
+    <Compile Include="Structs\PacketLobbyInfoData.cs" />
     <Compile Include="Structs\PacketMotionData.cs" />
     <Compile Include="Structs\PacketParticipantsData.cs" />
     <Compile Include="Structs\PacketSessionHistoryData.cs" />
