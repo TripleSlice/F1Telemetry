@@ -1,32 +1,33 @@
 ﻿using F1T.Structs;
 using F1TMock.Mock;
+using F1TMock.Utils;
 using System.Runtime.InteropServices;
 
 namespace F1TMock.Mock
 {
     class MockPacketCarDamageData
     {
-        private static CarDamageData GetRandomCarDamageData()
+        private static CarDamageData GetRandomCarDamageData(int index)
         {
             CarDamageData carDamageData = new CarDamageData();
-            carDamageData.m_tyresWear = new float[] { 10.0f, 10.0f, 10.0f, 10.0f };
-            carDamageData.m_tyresDamage = new byte[] {10, 10, 10, 10};
-            carDamageData.m_brakesDamage = new byte[] { 10, 10, 10, 10 };
-            carDamageData.m_frontLeftWingDamage = 10;
-            carDamageData.m_frontRightWingDamage = 10;
-            carDamageData.m_rearWingDamage = 10;
-            carDamageData.m_floorDamage = 10;
-            carDamageData.m_diffuserDamage = 10;
-            carDamageData.m_sidepodDamage = 10;
-            carDamageData.m_drsFault = DRSFault.Ok;
-            carDamageData.m_gearBoxDamage = 10;
-            carDamageData.m_engineDamage = 10;
-            carDamageData.m_engineMGUHWear = 10;
-            carDamageData.m_engineESWear = 10;
-            carDamageData.m_engineCEWear = 10;
-            carDamageData.m_engineICEWear = 10;
-            carDamageData.m_engineMGUKWear = 10;
-            carDamageData.m_engineTCWear = 10;
+            carDamageData.m_tyresWear = IncrementalGenerator.GenerateFloatArray("m_tyresWear" + index, 0, 100, 1, 4);
+            carDamageData.m_tyresDamage = IncrementalGenerator.GenerateByteArray("m_tyresDamage" + index, 0, 100, 1, 4);
+            carDamageData.m_brakesDamage = IncrementalGenerator.GenerateByteArray("m_brakesDamage" + index, 0, 100, 1, 4);
+            carDamageData.m_frontLeftWingDamage = (byte)IncrementalGenerator.GetIntNumber("m_frontLeftWingDamage" + index, 0, 100, 1);
+            carDamageData.m_frontRightWingDamage = (byte)IncrementalGenerator.GetIntNumber("m_frontRightWingDamage" + index, 0, 100, 1);
+            carDamageData.m_rearWingDamage = (byte)IncrementalGenerator.GetIntNumber("m_rearWingDamage" + index, 0, 100, 1);
+            carDamageData.m_floorDamage = (byte)IncrementalGenerator.GetIntNumber("m_frontm_floorDamageLeftWingDamage" + index, 0, 100, 1);
+            carDamageData.m_diffuserDamage = (byte)IncrementalGenerator.GetIntNumber("m_diffuserDamage" + index, 0, 100, 1);
+            carDamageData.m_sidepodDamage = (byte)IncrementalGenerator.GetIntNumber("m_sidepodDamage" + index, 0, 100, 1);
+            carDamageData.m_drsFault = (DRSFault)PerlinGenerator.NoiseInRange("m_drsFault" + index, 0, 1, Intensity.Low);
+            carDamageData.m_gearBoxDamage = (byte)IncrementalGenerator.GetIntNumber("m_gearBoxDamage" + index, 0, 100, 1);
+            carDamageData.m_engineDamage = (byte)IncrementalGenerator.GetIntNumber("m_engineDamage" + index, 0, 100, 1);
+            carDamageData.m_engineMGUHWear = (byte)IncrementalGenerator.GetIntNumber("m_engineMGUHWear" + index, 0, 100, 1);
+            carDamageData.m_engineESWear = (byte)IncrementalGenerator.GetIntNumber("m_engineESWear" + index, 0, 100, 1);
+            carDamageData.m_engineCEWear = (byte)IncrementalGenerator.GetIntNumber("m_engineCEWear" + index, 0, 100, 1);
+            carDamageData.m_engineICEWear = (byte)IncrementalGenerator.GetIntNumber("m_engineICEWear" + index, 0, 100, 1);
+            carDamageData.m_engineMGUKWear = (byte)IncrementalGenerator.GetIntNumber("m_engineMGUKWear" + index, 0, 100, 1);
+            carDamageData.m_engineTCWear = (byte)IncrementalGenerator.GetIntNumber("m_engineTCWear" + index, 0, 100, 1);
             return carDamageData;
         }
 
@@ -37,7 +38,7 @@ namespace F1TMock.Mock
             CarDamageData[] carDamageDatas = new CarDamageData[22];
             for (int i = 0; i < carDamageDatas.Length; i++)
             {
-                carDamageDatas[i] = GetRandomCarDamageData();
+                carDamageDatas[i] = GetRandomCarDamageData(i);
             }
             packet.m_carDamageData = carDamageDatas;
             return packet;
