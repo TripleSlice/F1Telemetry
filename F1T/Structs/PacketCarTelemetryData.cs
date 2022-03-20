@@ -7,6 +7,22 @@ namespace F1T.Structs
         Off,
         On
     }
+    
+    public enum SurfaceType : byte
+    {
+        Tarmac,
+        RumbleStrip,
+        Concrete,
+        Rock,
+        Gravel,
+        Mud,
+        Sand,
+        Grass,
+        Water,
+        Cobblestone,
+        Metal,
+        Ridget
+    }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CarTelemetryData
@@ -31,7 +47,7 @@ namespace F1T.Structs
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
         public float[] m_tyresPressure;         // Tyres pressure (PSI)
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public byte[] m_surfaceType;           // Driving surface, see appendices
+        public SurfaceType[] m_surfaceType;           // Driving surface, see appendices
 
     }
 

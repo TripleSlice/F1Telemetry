@@ -205,6 +205,7 @@
     <Compile Include="Structs\PacketLobbyInfoData.cs" />
     <Compile Include="Structs\PacketMotionData.cs" />
     <Compile Include="Structs\PacketParticipantsData.cs" />
+    <Compile Include="Structs\PacketSessionData.cs" />
     <Compile Include="Structs\PacketSessionHistoryData.cs" />
     <Compile Include="Themes\PlusMinusButton.xaml.cs">
       <DependentUpon>PlusMinusButton.xaml</DependentUpon>
@@ -462,6 +463,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\VisualTyreTypes\empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\f1car.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\relation.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />

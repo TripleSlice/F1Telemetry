@@ -111,7 +111,7 @@
                              Command="{Binding RelativeInfoSettingViewCommand}"
                              BorderBrush="{Binding RelativeInfoModel.Settings.Toggled, Converter={StaticResource ToggledColorConverter}}">
                     <RadioButton.Resources>
-                        <ImageSource x:Key="ImageURI">/Images/relative.png</ImageSource>
+                        <ImageSource x:Key="ImageURI">/Images/relation.png</ImageSource>
                     </RadioButton.Resources>
                 </RadioButton>
             </StackPanel>

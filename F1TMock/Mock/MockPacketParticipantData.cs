@@ -13,7 +13,7 @@ namespace F1TMock.Mock
         private static ParticipantData GetRandomParticipantData()
         {
             ParticipantData participantData = new ParticipantData();
-            participantData.m_aiControlled = 1;
+            participantData.m_aiControlled = AiControlled.Human;
             participantData.m_driverId = DriverID.Unknown;
             participantData.m_networkId = 2;
             participantData.m_teamId = TeamID.Mclaren;

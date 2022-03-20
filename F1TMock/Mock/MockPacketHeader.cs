@@ -4,6 +4,7 @@ namespace F1TMock.Mock
 {
     class MockPacketHeader
     {
+        private static uint _frame = 0;
         public static PacketHeader GetBytes(PacketType packetType)
         {
             PacketHeader header = new PacketHeader();
@@ -15,9 +16,12 @@ namespace F1TMock.Mock
             header.m_sessionUID = 1;
             header.m_sessionUID = 1;
             header.m_sessionTime = 1.0f;
-            header.m_frameIdentifier = 1;
-            header.m_playerCarIndex = 1;
-            header.m_secondaryPlayerCarIndex = 2;
+            header.m_frameIdentifier = _frame;
+            header.m_playerCarIndex = 0;
+            header.m_secondaryPlayerCarIndex = 1;
+
+            _frame++;
+
             return header;
         }
     }

@@ -5,22 +5,99 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace F1TMock.RandomUtils
+namespace F1TMock.Utils
 {
+
+    public enum Intensity
+    {
+        Low,
+        Medium,
+        High,
+    }
+
+    public static class PerlinGenerator
+    {
+
+        private static Dictionary<string, Vector3> _vectorMap  = new Dictionary<string, Vector3>();
+
+        /// <summary>
+        /// Generates a random perlin noise based number between -1.0f and 1.0f (inclusive?)
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="intensity"></param>
+        /// <returns></returns>
+        public static float FloatNoise(string key, Intensity intensity)
+        {
+            Vector3 vec;
+            if (_vectorMap.ContainsKey(key)) vec = _vectorMap.GetValueOrDefault(key);
+            else vec = new Vector3(RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000));
+   
+            var val = Perlin.Noise(vec);
+
+            VectorUtil.Increment(ref vec, intensity);
+            _vectorMap[key] = vec;
+            return val;
+        }
+
+        public static float NoiseInRange(string key, float min, float max, Intensity intensity)
+        {
+            return ((FloatNoise(key, intensity) + 1f) / 2f) * (max - min) + min;      
+        }
+
+        public static int NoiseInRange(string key, int min, int max, Intensity intensity)
+        {
+            max += 1;
+            return (int)Math.Floor(((FloatNoise(key, intensity) + 1f) / 2f) * (max - min) + min);
+        }
+        public static float[] GenerateFloatArray(string key, float min, float max, int length, Intensity intensity)
+        {
+            float[] arr = new float[length];
+            for (int i = 0; i < length; i++)
+            {
+                arr[i] = NoiseInRange(key + i, min, max, intensity);
+            }
+            return arr;
+        }
+
+        public static int[] GenerateIntArray(string key, int min, int max, int length, Intensity intensity)
+        {
+            int[] arr = new int[length];
+            for (int i = 0; i < length; i++)
+            {
+                arr[i] = NoiseInRange(key + i, min, max, intensity);
+            }
+            return arr;
+        }
+
+        public static byte[] GenerateByteArray(string key, int min, int max, int length, Intensity intensity)
+        {
+            byte[] result = new byte[length];
+            var arr =  GenerateIntArray(key, min, max, length, intensity);
+            Buffer.BlockCopy(arr, 0, result, 0, length);
+            return result;
+        }
+
+        public static sbyte[] GenerateSByteArray(string key, int min, int max, int length, Intensity intensity)
+        {
+            sbyte[] result = new sbyte[length];
+            var arr = GenerateIntArray(key, min, max, length, intensity);
+            Buffer.BlockCopy(arr, 0, result, 0, length);
+            return result;
+        }
+
+        public static ushort[] GenerateUShortArray(string key, int min, int max, int length, Intensity intensity)
+        {
+            ushort[] result = new ushort[length];
+            var arr = GenerateIntArray(key, min, max, length, intensity);
+            Buffer.BlockCopy(arr, 0, result, 0, length);
+            return result;
+        }
+
+    }
+
+
     public static class Perlin
     {
-        public static float Clamp(float num, float min, float max)
-        {
-            return  ((num - -1.0f) / (1.0f - -1.0f)) * (max - min) + min;
-        }
-
-        public static int Clamp(float num, int min, int max)
-        {
-            return (int)Math.Floor(((num - -1.0f) / (1.0f - -1.0f)) * (max - min) + min);
-        }
-
-
-
         #region Noise functions
         public static float Noise(float x)
         {

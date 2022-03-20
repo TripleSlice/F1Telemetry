@@ -9,11 +9,9 @@ namespace F1TMock.Mock
         private static CarDamageData GetRandomCarDamageData()
         {
             CarDamageData carDamageData = new CarDamageData();
-            float[] testData = { 10.0f, 10.0f, 10.0f, 10.0f };
-            carDamageData.m_tyresWear = testData;
-            byte[] testData2 = { 10, 10, 10, 10 };
-            carDamageData.m_tyresDamage = testData2;
-            carDamageData.m_brakesDamage = testData2;
+            carDamageData.m_tyresWear = new float[] { 10.0f, 10.0f, 10.0f, 10.0f };
+            carDamageData.m_tyresDamage = new byte[] {10, 10, 10, 10};
+            carDamageData.m_brakesDamage = new byte[] { 10, 10, 10, 10 };
             carDamageData.m_frontLeftWingDamage = 10;
             carDamageData.m_frontRightWingDamage = 10;
             carDamageData.m_rearWingDamage = 10;

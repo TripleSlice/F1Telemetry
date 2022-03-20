@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace F1TMock.RandomUtils
+namespace F1TMock.Utils
 {
     internal static class RandomGenerator
     {

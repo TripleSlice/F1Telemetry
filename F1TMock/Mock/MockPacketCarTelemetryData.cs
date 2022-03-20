@@ -1,5 +1,5 @@
 ﻿using F1T.Structs;
-using F1TMock.RandomUtils;
+using F1TMock.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,47 +12,26 @@ namespace F1TMock.Mock
 {
     class MockPacketCarTelemetryData
     {
-
-        public static Vector3 throttleVector = new Vector3(RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000));
-        public static Vector3 brakeVector = new Vector3(RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000));
-        public static Vector3 steerVector = new Vector3(RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000));
-        public static Vector3 gearVector = new Vector3(RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000));
-        public static Vector3 rpmVector = new Vector3(RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000), RandomGenerator.GenerateRandomInt(0, 1000));
-
-        private static void IncrementRandoms()
-        {
-            VectorUtil.Increment(ref throttleVector, 0.001f, 0.002f, 0.001f);
-            VectorUtil.Increment(ref brakeVector, 0.001f, 0.002f, 0.001f);
-            VectorUtil.Increment(ref steerVector, 0.001f, 0.002f, 0.001f);
-            VectorUtil.Increment(ref gearVector, 0.001f, 0.002f, 0.001f);
-            VectorUtil.Increment(ref rpmVector, 0.001f, 0.002f, 0.001f);
-        }
-
         private static CarTelemetryData GetRandomCarTelemetryData()
         {
-            IncrementRandoms();
-
             CarTelemetryData data = new CarTelemetryData();
-            data.m_speed = (ushort)Perlin.Clamp(Perlin.Noise(rpmVector), 0, 300);
-            data.m_throttle = Perlin.Clamp(Perlin.Noise(throttleVector), 0f, 1f);
-            data.m_steer = Perlin.Noise(steerVector);
-            data.m_brake = Perlin.Clamp(Perlin.Noise(brakeVector), 0f, 1f);
-            data.m_clutch = 0;
-            data.m_gear = (sbyte)Perlin.Clamp(Perlin.Noise(gearVector), 0, 8);
-            data.m_engineRPM = (ushort)Perlin.Clamp(Perlin.Noise(rpmVector), 0, 12000);
-            data.m_drs = DRS.Off;
-            data.m_revLightsPercent = 20;
-            data.m_revLightsBitValue = 4;
-            ushort[] testData = { 200, 200, 200, 200 };
-            data.m_brakesTemperature = testData;
-            byte[] testData2 = { 200, 200, 200, 200 };
-            data.m_tyresSurfaceTemperature = testData2;
-            data.m_tyresInnerTemperature = testData2;
-            data.m_engineTemperature = 200;
-            float[] testData3 = { 20.0f, 20.0f, 20.0f, 20.0f };
-            data.m_tyresPressure = testData3;
-            byte[] testData4 = { 1, 1, 1, 1 };
-            data.m_surfaceType = testData4;
+            data.m_speed = (ushort)PerlinGenerator.NoiseInRange("m_speed", 0, 300, Intensity.Low);
+            data.m_throttle = PerlinGenerator.NoiseInRange("m_throttle", 0f, 1f, Intensity.Low);
+            data.m_steer = PerlinGenerator.FloatNoise("m_steer", Intensity.Low);
+            data.m_brake = PerlinGenerator.NoiseInRange("m_brake", 0f, 1f, Intensity.Low);
+            data.m_clutch = (byte)PerlinGenerator.NoiseInRange("m_clutch", 0, 100, Intensity.Low);
+            data.m_gear = (sbyte)PerlinGenerator.NoiseInRange("m_gear", 0, 8, Intensity.Low);
+            data.m_engineRPM = (ushort)PerlinGenerator.NoiseInRange("m_engineRPM", 0, 12000, Intensity.Low); ;
+            data.m_drs = (DRS)PerlinGenerator.NoiseInRange("m_drs", 0, 1, Intensity.Low);
+            data.m_revLightsPercent = (byte)PerlinGenerator.NoiseInRange("m_revLightsPercent", 0, 100, Intensity.Low);
+            data.m_revLightsBitValue = (ushort)PerlinGenerator.NoiseInRange("m_revLightsBitValue", 0, 14, Intensity.Low);
+            data.m_brakesTemperature = PerlinGenerator.GenerateUShortArray("m_brakesTemperature", 100, 200, 4, Intensity.Low);
+            data.m_tyresSurfaceTemperature = PerlinGenerator.GenerateByteArray("m_tyresSurfaceTemperature", 100, 200, 4, Intensity.Low);
+            data.m_tyresInnerTemperature = PerlinGenerator.GenerateByteArray("m_tyresInnerTemperature", 100, 200, 4, Intensity.Low);
+            data.m_engineTemperature = (ushort)PerlinGenerator.NoiseInRange("m_engineTemperature", 0, 100, Intensity.Low);
+            data.m_tyresPressure = PerlinGenerator.GenerateFloatArray("m_tyresPressure", 0, 30, 4, Intensity.Low);
+            data.m_surfaceType = new SurfaceType[] {SurfaceType.Tarmac, SurfaceType.Tarmac, SurfaceType.Tarmac, SurfaceType.Tarmac };
+
             return data;
         }
 
