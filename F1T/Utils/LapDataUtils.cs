@@ -31,7 +31,7 @@ namespace F1T.Utils
 
         /// <summary>
         /// Translates the <see cref="LapData"/> array into a int[] with indexs which point to the position in the UDP arrays
-        /// <para> Example [2,4,3,0,1] means LapData[2] is in first, Lapdata[1] is in last... etc</para>
+        /// <para> Example [2,4,3,0,1] means LapData[2] is in first, LapData[4] is in second, ... LapData[1] is in last... etc</para>
         /// </summary>
         /// <param name="data"></param>
         /// <param name="indexToPosition"></param>
