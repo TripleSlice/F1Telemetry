@@ -216,6 +216,8 @@
     <Compile Include="Themes\ToggleButton.xaml.cs">
       <DependentUpon>ToggleButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\CarMotionUtils.cs" />
+    <Compile Include="Utils\CarStatusUtils.cs" />
     <Compile Include="Utils\IndexingUtils.cs" />
     <Compile Include="Utils\LapDataUtils.cs" />
     <Page Include="MainWindow.xaml">

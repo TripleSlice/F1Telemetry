@@ -1,6 +1,7 @@
 ﻿using F1T.MVVM.ViewModels;
 using F1T.Settings;
 using F1T.Structs;
+using F1T.Utils;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -41,13 +42,21 @@ namespace F1T.MVVM.Views.Radar
             return Math.Abs(X) < (Model.CarWidth / 2) + radius  && Math.Abs(Y) < (Model.CarHeight / 2) + radius * 2f;
         }
 
+        private void ClearRectanglesFromCanvas()
+        {
+            for (int i = Rectangles.Count - 1; i >= 0; --i)
+            {
+                CanvasInstance.Children.Remove(Rectangles[i]);
+                // Old and laggy
+                // Rectangles.RemoveAt(i);
+            }
+            // Better
+            Rectangles.Clear();
+        }
+
         protected override void UpdateValues(object state = null)
         {
-            if (Model.Settings.Frequency != currentFrequency)
-            {
-                StopTimer();
-                StartTimer();
-            }
+            UpdateTimer();
 
             if (Model.OverlayVisible && Model.PlayerIndex != -1)
             {
@@ -57,78 +66,59 @@ namespace F1T.MVVM.Views.Radar
                     new Action(() =>
                     {
                         // Clear the rectangles from the previous call of this func
-                        for (int i = Rectangles.Count - 1; i >= 0; --i)
-                        {
-                            CanvasInstance.Children.Remove(Rectangles[i]);
-                            //Rectangles.RemoveAt(i);
-                        }
-                        Rectangles.Clear();
+                        ClearRectanglesFromCanvas();
 
                         // Set the PlayerCar and AllCars variables
                         CarMotionData PlayerCar = Model.PlayerCarMotionData;
                         CarMotionData[] AllCars = Model.MotionData.m_carMotionData;
+                        LapData[] AllLapData = Model.LapData.m_lapData;
                         int PlayerCarIndex = Model.PlayerIndex;
 
-                        for (int i = 0; i < AllCars.Length; i++)
+                        CarMotionData[] carsCloseToPlayer = CarMotionUtils.GetCarsInRadius(AllCars, AllLapData, PlayerCarIndex, 20);
+
+                        foreach(var car in carsCloseToPlayer)
                         {
-                            // Skip playercar
-                            if (i == PlayerCarIndex) continue;
+                            var deltaX = car.m_worldPositionX - PlayerCar.m_worldPositionX;
+                            var deltaZ = car.m_worldPositionZ - PlayerCar.m_worldPositionZ;
+                            double deltaYawRad = car.m_yaw - PlayerCar.m_yaw;
+                            double deltaYaw = (180 / Math.PI) * deltaYawRad; // Degrees
 
-                            CarMotionData Car = AllCars[i];
-                            // Ghost cars..? Not sure if this line is neccessary
-                            if (Car.m_yaw == 0) continue;
+                            // Polar coordinates
+                            var radius = Math.Sqrt(deltaX * deltaX + deltaZ * deltaZ);
+                            var phi1 = Math.Atan2(deltaZ, deltaX);
+                            var phi2 = -PlayerCar.m_yaw;
+
+                            var deltaPhi = phi1 - phi2;
+
+                            // Convert from polar back to cartesian
+                            var X = -(radius * Math.Cos(deltaPhi)) * Model.Scale;
+                            var Y = -(radius * Math.Sin(deltaPhi)) * Model.Scale;
+
+                            // default brush
+                            SolidColorBrush color = NiceBlue;
+                            if (isInsideSquare(X, Y, Model.DangerRadius)) color = NiceRed;
+                            else if (isInsideSquare(X, Y, Model.WarningRadius)) color = NiceYellow;
 
 
-                            // https://gamedev.stackexchange.com/questions/79765/how-do-i-convert-from-the-global-coordinate-space-to-a-local-space
-                            // https://gamedev.stackexchange.com/questions/198852/converting-from-global-coordinates-to-local-coordinates/198860#198860
-                            // Compute delta between two cars
-                            var deltaX = Car.m_worldPositionX - PlayerCar.m_worldPositionX;
-                            var deltaZ = Car.m_worldPositionZ - PlayerCar.m_worldPositionZ;
-
-                            // Only continue if car is within square of us
-                            if (Math.Abs(deltaX) < 20 && Math.Abs(deltaZ) < 20)
+                            Rectangle rec = new Rectangle()
                             {
-                                // Compute Deltas
-                                double deltaYawRad = Car.m_yaw - PlayerCar.m_yaw;
-                                double deltaYaw = (180 / Math.PI) * deltaYawRad; // Degrees
+                                Width = Model.CarWidth,
+                                Height = Model.CarHeight,
+                                Fill = color,
+                                RadiusY = 5,
+                                RadiusX = 5
+                            };
 
-                                // Polar coordinates
-                                var radius = Math.Sqrt(deltaX * deltaX + deltaZ * deltaZ);
-                                var phi1 = Math.Atan2(deltaZ, deltaX);
-                                var phi2 = -PlayerCar.m_yaw;
+                            // Rotate the rectangle so that it displays the rotation
+                            rec.RenderTransformOrigin = new Point(0.5, 0.5);
+                            rec.RenderTransform = new RotateTransform(-deltaYaw); ;
 
-                                var deltaPhi = phi1 - phi2;
+                            CanvasInstance.Children.Add(rec);
+                            Rectangles.Add(rec);
 
-                                // Convert from polar back to cartesian
-                                var X = -(radius * Math.Cos(deltaPhi)) * Model.Scale;
-                                var Y = -(radius * Math.Sin(deltaPhi)) * Model.Scale;
-
-                                // default brush
-                                SolidColorBrush color = NiceBlue;
-                                if (isInsideSquare(X, Y, Model.DangerRadius)) color = NiceRed;
-                                else if (isInsideSquare(X, Y, Model.WarningRadius)) color = NiceYellow;
-
-
-                                Rectangle rec = new Rectangle()
-                                {
-                                    Width = Model.CarWidth,
-                                    Height = Model.CarHeight,
-                                    Fill = color,
-                                    RadiusY = 5,
-                                    RadiusX = 5
-                                };
-
-                                // Rotate the rectangle so that it displays the rotation
-                                rec.RenderTransformOrigin = new Point(0.5, 0.5);
-                                rec.RenderTransform = new RotateTransform(-deltaYaw); ;
-
-                                CanvasInstance.Children.Add(rec);
-                                Rectangles.Add(rec);
-
-                                // Set our X and Y multiplied by our scale, subtracted by where our 0,0 is (NOT CANVAS 0,0)
-                                Canvas.SetLeft(rec, Model.PlayerCarLeft + X);
-                                Canvas.SetTop(rec, Model.PlayerCarTop + Y);
-                            }
+                            // Set our X and Y multiplied by our scale, subtracted by where our 0,0 is (NOT CANVAS 0,0)
+                            Canvas.SetLeft(rec, Model.PlayerCarLeft + X);
+                            Canvas.SetTop(rec, Model.PlayerCarTop + Y);
                         }
                     }));
             }

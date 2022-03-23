@@ -10,23 +10,25 @@ namespace F1T.Utils
     public static class LapDataUtils
     {
         /// <summary>
-        /// Get how many cars are left in the race
+        /// Returns the amount of cars that are still active in the race
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         public static int GetActiveCarCount(LapData[] data)
         {
-            // Count how many active cars there are
-            int carCount = 22;
-            for (int i = 0; i < data.Length; i++)
-            {
-                if (data[i].m_resultStatus == ResultStatus.Invalid || data[i].m_resultStatus == ResultStatus.Inactive)
-                {
-                    carCount -= 1;
-                    continue;
-                }
-            }
-            return carCount;
+            return data.Count(car => car.m_resultStatus != ResultStatus.Invalid || car.m_resultStatus != ResultStatus.Inactive);
+        }
+
+        /// <summary>
+        /// Returns a <see cref="int"/>[] of index of cars that are active
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static int[] GetActiveCarIndexs(LapData[] data)
+        {
+            return data.Where(car => car.m_resultStatus != ResultStatus.Invalid || car.m_resultStatus != ResultStatus.Inactive)
+                .Select((car, index) => index)
+                .ToArray();
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace F1T.Utils
         /// <returns></returns>
         public static void UpdatePositionArray(LapData[] data, ref int[] indexToPosition)
         {
-            // Sort the cars in the order that they are on track
+            // Create a array where we can look up the index of an item based on its position
             for (int i = 0; i < data.Length; i++)
             {
                 if (data[i].m_resultStatus == ResultStatus.Invalid || data[i].m_resultStatus == ResultStatus.Inactive) continue;
@@ -47,5 +49,44 @@ namespace F1T.Utils
                 indexToPosition[trueIndex] = i;
             }
         }
+
+        /// <summary>
+        /// Returns positions ± n to the player, and the player. Will always return n * 2 + 1 positions.
+        /// This means if you are last, it will return yourself, and n * 2 people infront of you
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="playerIndex"></param>
+        public static PositionRange GetClosestNPositions(LapData[] data, int n, int playerPosition)
+        {
+            var carCount = GetActiveCarCount(data);
+
+            int topPosition = playerPosition - n;
+            int bottomPosition = playerPosition + n;
+
+            if (topPosition < 1)
+            {
+                topPosition = 1;
+                bottomPosition = topPosition + (2 * n);
+            }
+            else if (bottomPosition > carCount)
+            {
+                topPosition = carCount - (2 * n);
+                bottomPosition = topPosition + (2 * n);
+            }
+
+            if (carCount < bottomPosition) bottomPosition = carCount;
+
+            return new PositionRange(topPosition, bottomPosition);
+        }
+    }
+
+    public class PositionRange
+    {
+        public PositionRange(int top, int bottom){
+            Top = top;
+            Bottom = bottom;
+        }
+        public int Top;
+        public int Bottom;
     }
 }

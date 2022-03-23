@@ -29,7 +29,7 @@ namespace F1TMock
                 sendData(MockPacketCarDamageData.GetBytes());
                 sendData(MockPacketCarStatusData.GetBytes());
                 sendData(MockPacketCarTelemetryData.GetBytes());
-                sendData(MockPacketEventData.GetBytes());
+                //sendData(MockPacketEventData.GetBytes());
                 sendData(MockPacketLapData.GetBytes());
                 sendData(MockPacketMotionData.GetBytes());
                 sendData(MockPacketParticipantData.GetBytes());

@@ -102,12 +102,7 @@ namespace F1T.MVVM.Views.InputTelemetry
 
         protected override void UpdateValues(object state = null)
         {
-            if (Model.Settings.Frequency != currentFrequency)
-            {
-                StopTimer();
-                StartTimer();
-            }
-
+            UpdateTimer();
 
             if (Model.OverlayVisible && Model.PlayerIndex != -1)
             {

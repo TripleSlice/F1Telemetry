@@ -12,7 +12,29 @@ namespace F1TMock.Mock
 {
     class MockPacketMotionData
     {
-
+        private static CarMotionData GetDummyCarMotionData()
+        {
+            CarMotionData carMotionData = new CarMotionData();
+            carMotionData.m_worldPositionX = 100f;
+            carMotionData.m_worldPositionY = 100f;
+            carMotionData.m_worldPositionZ = 100f;
+            carMotionData.m_worldVelocityX = 100.0f;
+            carMotionData.m_worldVelocityY = 100.0f;
+            carMotionData.m_worldVelocityZ = 100.0f;
+            carMotionData.m_worldForwardDirX = 1;
+            carMotionData.m_worldForwardDirY = 1;
+            carMotionData.m_worldForwardDirZ = 1;
+            carMotionData.m_worldRightDirX = 1;
+            carMotionData.m_worldRightDirY = 1;
+            carMotionData.m_worldRightDirZ = 1;
+            carMotionData.m_gForceLateral = 1;
+            carMotionData.m_gForceLongitudinal = 1;
+            carMotionData.m_gForceVertical = 1;
+            carMotionData.m_yaw = 0;
+            carMotionData.m_pitch = 0;
+            carMotionData.m_roll = 0;
+            return carMotionData;
+        }
         private static CarMotionData GetPlayerCarMotionData()
         {
             CarMotionData carMotionData = new CarMotionData();
@@ -67,8 +89,13 @@ namespace F1TMock.Mock
             packetMotionData.m_header = MockPacketHeader.GetBytes(PacketType.Motion);
             CarMotionData[] carMotionDatas = new CarMotionData[22];
 
+            for (int i = 0; i < carMotionDatas.Length; i++)
+            {
+                carMotionDatas[i] = GetDummyCarMotionData();
+            }
+
             carMotionDatas[packetMotionData.m_header.m_playerCarIndex] = GetPlayerCarMotionData();
-            carMotionDatas[8] = GetRandomCarMotionData();
+            carMotionDatas[packetMotionData.m_header.m_playerCarIndex + 1] = GetRandomCarMotionData();
 
             packetMotionData.m_carMotionData = carMotionDatas;
             float[] testData = { 1.0f, 1.0f, 1.0f, 1.0f };
