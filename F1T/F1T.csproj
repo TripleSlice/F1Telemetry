@@ -220,6 +220,7 @@
     <Compile Include="Utils\CarStatusUtils.cs" />
     <Compile Include="Utils\IndexingUtils.cs" />
     <Compile Include="Utils\LapDataUtils.cs" />
+    <Compile Include="Utils\SessionHistoryUtils.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

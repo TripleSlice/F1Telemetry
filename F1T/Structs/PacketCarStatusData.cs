@@ -28,6 +28,7 @@ namespace F1T.Structs
     }
     public enum ActualTyreCompund : byte
     {
+        None = 0,
         C5 = 16,
         C4 = 17,
         C3 = 18,
@@ -41,7 +42,8 @@ namespace F1T.Structs
         F2Soft = 12,
         F2Medium = 13,
         F2Hard = 14,
-        F2Wet = 15
+        F2Wet = 15,
+        Unknown = 255,
     }
     public enum VisualTyreCompound : byte
     {

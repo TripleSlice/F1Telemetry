@@ -21,6 +21,8 @@ namespace F1TMock
                 udpClient.Send(data, data.Length, "127.0.0.1", PORT);
             }
 
+            bool oneTimeFlag = true;
+
             while (true)
             {
 
@@ -33,6 +35,14 @@ namespace F1TMock
                 sendData(MockPacketLapData.GetBytes());
                 sendData(MockPacketMotionData.GetBytes());
                 sendData(MockPacketParticipantData.GetBytes());
+
+                if (oneTimeFlag)
+                {
+                    sendData(MockPacketFinalClassificationData.GetBytes());
+                    Console.WriteLine("Sent one time PacketFinalClassifcationData...");
+                    oneTimeFlag = false;
+                }
+
                 stopWatch.Stop();
                
                 Console.WriteLine("Sent data in " + stopWatch.ElapsedMilliseconds + "ms");
