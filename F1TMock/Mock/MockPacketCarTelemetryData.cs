@@ -47,7 +47,7 @@ namespace F1TMock.Mock
             data.m_carTelemetryData = cars;
             data.m_mfdPanelIndex = MFDPanelIndex.Closed;
             data.m_mfdPanelIndexSecondaryPlayer = 255;
-            data.m_suggestedGear = 0;
+            data.m_suggestedGear = Convert.ToSByte(IncrementalGenerator.GetFloatNumber("m_suggestedGear", 0, 8, 0.05f));
             return data;
         }
 

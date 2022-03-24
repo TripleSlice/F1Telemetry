@@ -11,6 +11,7 @@ namespace F1T.MVVM.Views.InputTelemetry
 
     public partial class InputTelemetryOverlayView : BaseOverlayView<InputTelemetryViewModel, InputTelemetrySettings>
     {
+        // TODO Make this configurable
         private const int MS_OF_DATA_VISIBLE = 7000;
 
         private FixedSizeQueue<double> ThrottleValues;
@@ -19,7 +20,6 @@ namespace F1T.MVVM.Views.InputTelemetry
 
         // === ViewModel ===
         public override InputTelemetryViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
-
 
         public InputTelemetryOverlayView()
         {
@@ -43,44 +43,32 @@ namespace F1T.MVVM.Views.InputTelemetry
         }
 
 
-        // Remake the graph
+        private void CreateSignalPlot(FixedSizeQueue<double> values, System.Drawing.Color color)
+        {
+            var signalPlot = InputTelemetryPlot.Plot.AddSignal(values.ToArray(), 1, color);
+            signalPlot.LineWidth = 3;
+            signalPlot.MarkerSize = 0;
+        }
+
         public override void StartTimer()
         {
             int calculatedArraySize = MS_OF_DATA_VISIBLE / Model.Settings.Frequency;
-            Console.WriteLine(Model.Settings.Frequency);
 
             ThrottleValues = new FixedSizeQueue<double>(calculatedArraySize);
             BrakeValues = new FixedSizeQueue<double>(calculatedArraySize);
             GearValues = new FixedSizeQueue<double>(calculatedArraySize);
 
+            InputTelemetryPlot.Plot.SetAxisLimits(0, calculatedArraySize, -0.01, 1.01);
+            InputTelemetryPlot.Plot.SetOuterViewLimits(0, calculatedArraySize, -0.01, 1.01);
+            InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
+
             InputTelemetryPlot.Plot.Clear();
 
-            // Lower has priority over everything
-            // Throttle will display overtop of gear... etc
-            var gearLine = InputTelemetryPlot.Plot.AddSignal(GearValues.ToArray(), 1, System.Drawing.Color.Gray);
-            gearLine.LineWidth = 3;
-            gearLine.MarkerSize = 0;
-            var throttleLine = InputTelemetryPlot.Plot.AddSignal(ThrottleValues.ToArray(), 1, System.Drawing.Color.LimeGreen);
-            throttleLine.LineWidth = 3;
-            throttleLine.MarkerSize = 0;
-            var breakLine = InputTelemetryPlot.Plot.AddSignal(BrakeValues.ToArray(), 1, System.Drawing.Color.Red);
-            breakLine.LineWidth = 3;
-            breakLine.MarkerSize = 0;
-
-            InputTelemetryPlot.Plot.SetAxisLimits(0, calculatedArraySize, -0.01, 1.01);
-            InputTelemetryPlot.Plot.SetOuterViewLimits(0, calculatedArraySize, -0.01, 1.01);
-            InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
-
-            // This is REALLY REALLY bad.... But the best way to do it (I think...)
-            // Issue was that InputTelemetryPlot was not updating correctly on refresh
-            // Delaying it, or throwing it in the UpdateValues loop (EVEN WORSE) seems to fix the problem
-            Thread.Sleep(1000);
-            calculatedArraySize = MS_OF_DATA_VISIBLE / Model.Settings.Frequency;
-            Console.WriteLine(Model.Settings.Frequency);
-            InputTelemetryPlot.Plot.SetAxisLimits(0, calculatedArraySize, -0.01, 1.01);
-            InputTelemetryPlot.Plot.SetOuterViewLimits(0, calculatedArraySize, -0.01, 1.01);
-            InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
-
+            // Lower lines will display ontop of higher lines
+            CreateSignalPlot(GearValues, System.Drawing.Color.Gray);
+            CreateSignalPlot(ThrottleValues, System.Drawing.Color.LimeGreen);
+            CreateSignalPlot(BrakeValues, System.Drawing.Color.Red);
+     
             base.StartTimer();
         }
 
