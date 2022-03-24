@@ -70,15 +70,6 @@ namespace F1T.MVVM.Views.InputTelemetry
             InputTelemetryPlot.Plot.SetAxisLimits(0, calculatedArraySize, -0.01, 1.01);
             InputTelemetryPlot.Plot.SetOuterViewLimits(0, calculatedArraySize, -0.01, 1.01);
             InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
-            InputTelemetryPlot.Plot.Style(figureBackground: System.Drawing.Color.Transparent);
-            InputTelemetryPlot.Plot.Style(dataBackground: System.Drawing.Color.Transparent);
-            InputTelemetryPlot.Plot.XTicks(new double[1] { -1 }, new string[1] { "" });
-            InputTelemetryPlot.Plot.YTicks(new double[1] { -1 }, new string[1] { "" });
-            InputTelemetryPlot.Plot.XLabel("");
-            InputTelemetryPlot.Plot.YLabel("");
-            InputTelemetryPlot.Plot.Grid(false);
-            InputTelemetryPlot.Plot.Title("");
-            InputTelemetryPlot.Plot.Frameless();
 
             // This is REALLY REALLY bad.... But the best way to do it (I think...)
             // Issue was that InputTelemetryPlot was not updating correctly on refresh
