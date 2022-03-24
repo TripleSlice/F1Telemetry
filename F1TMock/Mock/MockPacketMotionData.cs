@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace F1TMock.Mock
 {
-    class MockPacketMotionData
+    public static class MockPacketMotionData
     {
         private static CarMotionData GetDummyCarMotionData()
         {

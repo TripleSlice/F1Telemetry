@@ -35,6 +35,7 @@ namespace F1TMock
                 sendData(MockPacketLapData.GetBytes());
                 sendData(MockPacketMotionData.GetBytes());
                 sendData(MockPacketParticipantData.GetBytes());
+                sendData(MockPacketSessionData.GetBytes());
 
                 if (oneTimeFlag)
                 {

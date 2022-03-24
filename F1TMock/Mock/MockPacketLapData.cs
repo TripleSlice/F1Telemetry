@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace F1TMock.Mock
 {
-    class MockPacketLapData
+    public static class MockPacketLapData
     {
         private static LapData GetRandomLapData()
         {

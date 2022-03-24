@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace F1TMock.Mock
 {
-    class MockPacketEventData
+    public static class MockPacketEventData
     {
         private static PacketEventData GetRandomPacketEventData()
         {
@@ -20,12 +20,6 @@ namespace F1TMock.Mock
             data.m_eventDetails = new EventDataDetails();
             return data;
         }
-
-
-        public PacketHeader m_header;                  // Header
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public char[] m_eventStringCode;     // Event string code, see below
-        public EventDataDetails m_eventDetails;            // Event details - should be interpreted differently for each type
 
 
         public static byte[] GetBytes()

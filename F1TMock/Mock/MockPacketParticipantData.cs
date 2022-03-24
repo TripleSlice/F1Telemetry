@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace F1TMock.Mock
 {
-    class MockPacketParticipantData
+    public static class MockPacketParticipantData
     {
         private static ParticipantData GetRandomParticipantData()
         {

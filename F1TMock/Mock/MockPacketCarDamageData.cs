@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace F1TMock.Mock
 {
-    class MockPacketCarDamageData
+    public static class MockPacketCarDamageData
     {
         private static CarDamageData GetRandomCarDamageData(int index)
         {

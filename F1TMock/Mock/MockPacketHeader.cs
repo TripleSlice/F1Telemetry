@@ -2,7 +2,7 @@
 
 namespace F1TMock.Mock
 {
-    class MockPacketHeader
+    public static class MockPacketHeader
     {
         private static uint _frame = 0;
         public static PacketHeader GetBytes(PacketType packetType)
