@@ -26,10 +26,6 @@ namespace F1T.MVVM.Views.InputTelemetry
             InitializeComponent();
             this.DataContext = Model;
 
-            // This is here because if we do not call updatevalues atleast once
-            // scottplot complains
-            UpdateValues();
-
             InputTelemetryPlot.Plot.Style(figureBackground: System.Drawing.Color.Transparent);
             InputTelemetryPlot.Plot.Style(dataBackground: System.Drawing.Color.Transparent);
             InputTelemetryPlot.Plot.XTicks(new double[1] { -1 }, new string[1] { "" });
@@ -40,8 +36,6 @@ namespace F1T.MVVM.Views.InputTelemetry
             InputTelemetryPlot.Plot.Title("");
             InputTelemetryPlot.Plot.Frameless();
             InputTelemetryPlot.RightClicked -= InputTelemetryPlot.DefaultRightClickEvent;
-
-
 
             InputTelemetryPlot.Render();
 
@@ -88,12 +82,12 @@ namespace F1T.MVVM.Views.InputTelemetry
             // Delaying it, or throwing it in the UpdateValues loop (EVEN WORSE) seems to fix the problem
             Thread.Sleep(1000);
             calculatedArraySize = MS_OF_DATA_VISIBLE / Model.Settings.Frequency;
+            Console.WriteLine(Model.Settings.Frequency);
             InputTelemetryPlot.Plot.SetAxisLimits(0, calculatedArraySize, -0.01, 1.01);
             InputTelemetryPlot.Plot.SetOuterViewLimits(0, calculatedArraySize, -0.01, 1.01);
             InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
 
-            timer = new Timer(UpdateValues, null, 0, Model.Settings.Frequency);
-            currentFrequency = Model.Settings.Frequency;
+            base.StartTimer();
         }
 
         protected override void UpdateValues(object state = null)

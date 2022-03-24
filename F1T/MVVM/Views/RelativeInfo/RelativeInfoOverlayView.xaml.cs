@@ -34,8 +34,6 @@ namespace F1T.MVVM.Views.RelativeInfo
         {
             this.DataContext = Model;
             InitializeComponent();
-            UpdateValues();
-
             StartTimer();
         }
 
@@ -43,7 +41,6 @@ namespace F1T.MVVM.Views.RelativeInfo
 
         protected override void UpdateValues(object state = null)
         {
-
             UpdateTimer();
 
             if (Model.OverlayVisible && Model.PlayerIndexCarStatus != -1 && Model.PlayerIndexCarDamage != -1 && Model.PlayerIndexLapData != -1)
