@@ -24,7 +24,11 @@ namespace F1T.Core
         public delegate void CarDamageDataReceiveDelegate(PacketCarDamageData packet);
         public delegate void LapDataReceiveDelegate(PacketLapData packet);
         public delegate void ParticipantDataReceiveDelegate(PacketParticipantsData packet);
-        public delegate void SessionHistoryDataReceiveDeleage(PacketSessionHistoryData packet);
+        public delegate void SessionHistoryDataReceiveDelegate(PacketSessionHistoryData packet);
+        public delegate void CarSetupDataReceiveDelegate(PacketCarSetupData packet);
+        public delegate void FinalClassificationDataReceiveDelegate(PacketFinalClassificationData packet);
+        public delegate void LobyInfoDataReceiveDelegate(PacketLobbyInfoData packet);
+        public delegate void SessionDataReceiveDelegate(PacketSessionData packet);
         // =====
         // EventData is special
         public delegate void EventDataReceiveDelegate(PacketEventData packet);
@@ -55,7 +59,11 @@ namespace F1T.Core
         public event CarDamageDataReceiveDelegate OnCarDamageDataReceive;
         public event LapDataReceiveDelegate OnLapDataReceive;
         public event ParticipantDataReceiveDelegate OnPaticipantDataReceive;
-        public event SessionHistoryDataReceiveDeleage OnSessionHistoryDataReceive;
+        public event SessionHistoryDataReceiveDelegate OnSessionHistoryDataReceive;
+        public event CarSetupDataReceiveDelegate OnCarSetupDataReceive;
+        public event FinalClassificationDataReceiveDelegate OnFinalClassificationDataReceive;
+        public event LobyInfoDataReceiveDelegate OnLobyInfoDataReceive;
+        public event SessionDataReceiveDelegate OnSessionDataReceive;
         // =====
         // EventData is special
         public event EventDataReceiveDelegate OnEventDataReceive;
@@ -155,6 +163,26 @@ namespace F1T.Core
                 case PacketType.SessionHistory:
                     PacketSessionHistoryData sessionHistoryData = (PacketSessionHistoryData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketSessionHistoryData));
                     OnSessionHistoryDataReceive?.Invoke(sessionHistoryData);
+                    break;
+
+                case PacketType.CarSetups:
+                    PacketCarSetupData carSetupData = (PacketCarSetupData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketCarSetupData));
+                    OnCarSetupDataReceive?.Invoke(carSetupData);
+                    break;
+
+                case PacketType.FinalClassification:
+                    PacketFinalClassificationData finalClassificationData = (PacketFinalClassificationData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketFinalClassificationData));
+                    OnFinalClassificationDataReceive?.Invoke(finalClassificationData);
+                    break;
+
+                case PacketType.LobbyInfo:
+                    PacketLobbyInfoData lobbyInfoData = (PacketLobbyInfoData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketLobbyInfoData));
+                    OnLobyInfoDataReceive?.Invoke(lobbyInfoData);
+                    break;
+
+                case PacketType.Session:
+                    PacketSessionData sessionData = (PacketSessionData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketSessionData));
+                    OnSessionDataReceive?.Invoke(sessionData);
                     break;
 
                 case PacketType.Event:

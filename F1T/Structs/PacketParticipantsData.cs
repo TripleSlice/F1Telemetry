@@ -160,9 +160,15 @@ namespace F1T.Structs
         Yes
     }
 
+    public enum AiControlled : byte
+    {
+        Human,
+        AI
+    }
+
     public struct ParticipantData
     {
-        public byte m_aiControlled;           // Whether the vehicle is AI (1) or Human (0) controlled
+        public AiControlled m_aiControlled;           // Whether the vehicle is AI (1) or Human (0) controlled
         public DriverID m_driverId;       // Driver id - see appendix, 255 if network human
         public byte m_networkId;      // Network id – unique identifier for network players
         public TeamID m_teamId;                 // Team id - see appendix

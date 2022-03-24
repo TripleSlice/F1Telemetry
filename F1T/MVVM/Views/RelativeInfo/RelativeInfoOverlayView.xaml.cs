@@ -34,8 +34,6 @@ namespace F1T.MVVM.Views.RelativeInfo
         {
             this.DataContext = Model;
             InitializeComponent();
-            UpdateValues();
-
             StartTimer();
         }
 
@@ -43,12 +41,7 @@ namespace F1T.MVVM.Views.RelativeInfo
 
         protected override void UpdateValues(object state = null)
         {
-
-            if (Model.Settings.Frequency != currentFrequency)
-            {
-                StopTimer();
-                StartTimer();
-            }
+            UpdateTimer();
 
             if (Model.OverlayVisible && Model.PlayerIndexCarStatus != -1 && Model.PlayerIndexCarDamage != -1 && Model.PlayerIndexLapData != -1)
             {
@@ -63,50 +56,34 @@ namespace F1T.MVVM.Views.RelativeInfo
                         CarStatusData[] AllCarStatusData = Model.CarStatusData.m_carStatusData;
 
                         LapDataUtils.UpdatePositionArray(AllCarLapData, ref IndexToPositionArr);
-
-
-                        // TODO this can be abstracted into IndexingUtils
-                        var carCount = LapDataUtils.GetActiveCarCount(AllCarLapData);
-                        int carIndex = PlayerCar.m_carPosition - 1;
-                        int topIndex = carIndex - 2;
-                        int bottomIndex = carIndex + 2;
-
-                        if (topIndex < 0)
-                        {
-                            topIndex -= topIndex;
-                            bottomIndex = topIndex + 4;
-                        }else if(bottomIndex > carCount - 1)
-                        {
-                            topIndex = carCount - 5;
-                            bottomIndex = topIndex + 4;
-                        }
-
-                        if (carCount < bottomIndex) bottomIndex = carCount - 1;
+                        PositionRange range = LapDataUtils.GetClosestNPositions(AllCarLapData, 2, PlayerCar.m_carPosition);
 
                         var count = 0;
-
-                        for (int i = topIndex; i <= bottomIndex; i++)
+                        for (int pos = range.Top; pos <= range.Bottom; pos++)
                         {
                             // Wear, Age, Laptime, Sector times
-                            int highestWear = IndexingUtils.GetByRealPosition(AllCarDamageData, IndexToPositionArr, i + 1).m_tyresDamage.Max();
-                            int tyreAge = IndexingUtils.GetByRealPosition(AllCarStatusData, IndexToPositionArr, i + 1).m_tyresAgeLaps;
-                            uint currentLapTime = IndexingUtils.GetByRealPosition(AllCarLapData, IndexToPositionArr, i + 1).m_currentLapTimeInMS;
-                            uint lastLapTime = IndexingUtils.GetByRealPosition(AllCarLapData, IndexToPositionArr, i + 1).m_lastLapTimeInMS;
-                            ushort s1Time = IndexingUtils.GetByRealPosition(AllCarLapData, IndexToPositionArr, i + 1).m_sector1TimeInMS;
-                            ushort s2Time = IndexingUtils.GetByRealPosition(AllCarLapData, IndexToPositionArr, i + 1).m_sector2TimeInMS;
+                            int highestWear = IndexingUtils.GetDataFromPosition(AllCarDamageData, IndexToPositionArr, pos).m_tyresDamage.Max();
+                            int tyreAge = IndexingUtils.GetDataFromPosition(AllCarStatusData, IndexToPositionArr, pos).m_tyresAgeLaps;
+                            uint currentLapTime = IndexingUtils.GetDataFromPosition(AllCarLapData, IndexToPositionArr, pos).m_currentLapTimeInMS;
+                            uint lastLapTime = IndexingUtils.GetDataFromPosition(AllCarLapData, IndexToPositionArr, pos).m_lastLapTimeInMS;
+                            ushort s1Time = IndexingUtils.GetDataFromPosition(AllCarLapData, IndexToPositionArr, pos).m_sector1TimeInMS;
+                            ushort s2Time = IndexingUtils.GetDataFromPosition(AllCarLapData, IndexToPositionArr, pos).m_sector2TimeInMS;
                             ushort s3Time = (ushort)(currentLapTime - (s1Time + s2Time));
  
+                            // Fastest Laptime, Visual Tyre Compounds
                             uint fastestLapTime = 0;
                             PacketSessionHistoryData packet;
-                            var index = IndexingUtils.GetRealIndex(IndexToPositionArr, i + 1);
+                            var index = IndexingUtils.GetIndexFromPosition(IndexToPositionArr, pos);
 
+                            // TODO abstract this aswell..
                             if (Model.SessionHistoryData.TryGetValue(index, out packet))
                             {
                                 // prevent index out of bound
                                 if (packet.m_lapHistoryData.Count() <= packet.m_bestLapTimeLapNum - 1) continue;
 
-                                if (packet.m_bestLapTimeLapNum >= 1) fastestLapTime = packet.m_lapHistoryData[packet.m_bestLapTimeLapNum - 1].m_lapTimeInMS;
+                                fastestLapTime = SessionHistoryUtils.GetFastestLapTime(packet);
 
+                                
                                 // TODO make the 3 configurable to show how many tyres 
                                 // 0 is the oldest tyre
                                 var newestTyreIndex = -1;

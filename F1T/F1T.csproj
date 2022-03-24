@@ -148,6 +148,7 @@
     <Compile Include="DataStructures\FixedSizeQueue.cs" />
     <Compile Include="MVVM\Models\RelativeInfo.cs" />
     <Compile Include="MVVM\ViewModels\BaseModuleViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\SettingsViewModel.cs" />
     <Compile Include="MVVM\ViewModels\SetupViewModel.cs" />
     <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\InputTelemetryViewModel.cs" />
@@ -177,6 +178,9 @@
     <Compile Include="MVVM\Views\Radar\RadarSettingView.xaml.cs">
       <DependentUpon>RadarSettingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Views\Settings\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Views\Setup\ImageWindow.xaml.cs">
       <DependentUpon>ImageWindow.xaml</DependentUpon>
     </Compile>
@@ -193,15 +197,21 @@
     <Compile Include="Settings\InputTelemetrySettings.cs" />
     <Compile Include="Settings\RadarSettings.cs" />
     <Compile Include="Settings\RelativeInfoSettings.cs" />
+    <Compile Include="Settings\SaveableSettings.cs" />
+    <Compile Include="Settings\SettingsSettings.cs" />
     <Compile Include="Structs\CustomTypes.cs" />
     <Compile Include="Structs\PacketCarDamageData.cs" />
+    <Compile Include="Structs\PacketCarSetupData.cs" />
     <Compile Include="Structs\PacketCarStatusData.cs" />
     <Compile Include="Structs\PacketCarTelemetryData.cs" />
     <Compile Include="Structs\PacketEventData.cs" />
+    <Compile Include="Structs\PacketFinalClassificationData.cs" />
     <Compile Include="Structs\PacketHeader.cs" />
     <Compile Include="Structs\PacketLapData.cs" />
+    <Compile Include="Structs\PacketLobbyInfoData.cs" />
     <Compile Include="Structs\PacketMotionData.cs" />
     <Compile Include="Structs\PacketParticipantsData.cs" />
+    <Compile Include="Structs\PacketSessionData.cs" />
     <Compile Include="Structs\PacketSessionHistoryData.cs" />
     <Compile Include="Themes\PlusMinusButton.xaml.cs">
       <DependentUpon>PlusMinusButton.xaml</DependentUpon>
@@ -212,8 +222,11 @@
     <Compile Include="Themes\ToggleButton.xaml.cs">
       <DependentUpon>ToggleButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\CarMotionUtils.cs" />
+    <Compile Include="Utils\CarStatusUtils.cs" />
     <Compile Include="Utils\IndexingUtils.cs" />
     <Compile Include="Utils\LapDataUtils.cs" />
+    <Compile Include="Utils\SessionHistoryUtils.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -251,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\Views\Radar\RadarSettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\Views\Settings\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -460,6 +477,19 @@
   <ItemGroup>
     <Resource Include="Images\VisualTyreTypes\empty.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\f1car.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\relation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\finish-flag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\settings-cog.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

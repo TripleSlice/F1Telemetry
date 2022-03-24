@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace F1TMock.Mock
 {
-    class MockPacketLapData
+    public static class MockPacketLapData
     {
         private static LapData GetRandomLapData()
         {
@@ -27,7 +27,7 @@ namespace F1TMock.Mock
             data.m_numUnservedStopGoPens = 0;
             data.m_gridPosition = 1;
             data.m_driverStatus = DriverStatus.OnTrack;
-            data.m_resultStatus = ResultStatus.Active;
+            data.m_resultStatus = ResultStatus.Inactive;
             data.m_pitLaneTimerActive = PitLaneTimerActive.InActive;
             data.m_pitLaneTimeInLaneInMS = 0;
             data.m_pitStopTimerInMS = 0;

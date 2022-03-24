@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace F1TMock.Mock
 {
-    internal class MockPacketSessionHistoryData
+    public static class MockPacketSessionHistoryData
     {
 
         private static LapHistoryData GetRandomLapHistoryData()

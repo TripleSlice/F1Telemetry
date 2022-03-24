@@ -11,29 +11,25 @@ namespace F1T.MVVM.Views.InputTelemetry
 
     public partial class InputTelemetryOverlayView : BaseOverlayView<InputTelemetryViewModel, InputTelemetrySettings>
     {
-        private static int dummyInput = 50;
-        private FixedSizeQueue<double> ThrottleValues = new FixedSizeQueue<double>(dummyInput);
-        private FixedSizeQueue<double> BrakeValues = new FixedSizeQueue<double>(dummyInput);
-        private FixedSizeQueue<double> GearValues = new FixedSizeQueue<double>(dummyInput);
+        // TODO Make this configurable
+        private const int MS_OF_DATA_VISIBLE = 7000;
+
+        private FixedSizeQueue<double> ThrottleValues;
+        private FixedSizeQueue<double> BrakeValues;
+        private FixedSizeQueue<double> GearValues;
 
         // === ViewModel ===
         public override InputTelemetryViewModel Model { get => InputTelemetryViewModel.GetInstance(); }
-
 
         public InputTelemetryOverlayView()
         {
             InitializeComponent();
             this.DataContext = Model;
 
-            // This is here because if we do not call updatevalues atleast once
-            UpdateValues();
-
             InputTelemetryPlot.Plot.Style(figureBackground: System.Drawing.Color.Transparent);
             InputTelemetryPlot.Plot.Style(dataBackground: System.Drawing.Color.Transparent);
-            double[] tempInt = new double[1] { -1 };
-            string[] tempStr = new string[1] { "" };
-            InputTelemetryPlot.Plot.XTicks(tempInt, tempStr);
-            InputTelemetryPlot.Plot.YTicks(tempInt, tempStr);          
+            InputTelemetryPlot.Plot.XTicks(new double[1] { -1 }, new string[1] { "" });
+            InputTelemetryPlot.Plot.YTicks(new double[1] { -1 }, new string[1] { "" });          
             InputTelemetryPlot.Plot.XLabel("");
             InputTelemetryPlot.Plot.YLabel("");
             InputTelemetryPlot.Plot.Grid(false);
@@ -47,78 +43,49 @@ namespace F1T.MVVM.Views.InputTelemetry
         }
 
 
+        private void CreateSignalPlot(FixedSizeQueue<double> values, System.Drawing.Color color)
+        {
+            var signalPlot = InputTelemetryPlot.Plot.AddSignal(values.ToArray(), 1, color);
+            signalPlot.LineWidth = 3;
+            signalPlot.MarkerSize = 0;
+        }
+
         public override void StartTimer()
         {
-            // TODO move the 7000 to be configurable...
-            // 7000 ms of data
-            int calculatedArraySize = 7000 / Model.Settings.Frequency;
+            int calculatedArraySize = MS_OF_DATA_VISIBLE / Model.Settings.Frequency;
 
             ThrottleValues = new FixedSizeQueue<double>(calculatedArraySize);
             BrakeValues = new FixedSizeQueue<double>(calculatedArraySize);
             GearValues = new FixedSizeQueue<double>(calculatedArraySize);
 
+            InputTelemetryPlot.Plot.SetAxisLimits(0, calculatedArraySize, -0.01, 1.01);
+            InputTelemetryPlot.Plot.SetOuterViewLimits(0, calculatedArraySize, -0.01, 1.01);
+            InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
+
             InputTelemetryPlot.Plot.Clear();
 
-
-            // Lower has priority over everything
-            // Throttle will display overtop of gear... etc
-            InputTelemetryPlot.Plot.PlotSignal(GearValues.ToArray(), 1, 0, 0, System.Drawing.Color.Gray, 3);
-            InputTelemetryPlot.Plot.PlotSignal(ThrottleValues.ToArray(), 1, 0, 0, System.Drawing.Color.LimeGreen, 3);
-            InputTelemetryPlot.Plot.PlotSignal(BrakeValues.ToArray(), 1, 0, 0, System.Drawing.Color.Red, 3);
-
-            InputTelemetryPlot.Plot.SetAxisLimits(0, calculatedArraySize, -0.01, 1.01);
-            InputTelemetryPlot.Plot.SetOuterViewLimits(0, calculatedArraySize, -0.01, 1.01);
-            InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
-            InputTelemetryPlot.Plot.Style(figureBackground: System.Drawing.Color.Transparent);
-            InputTelemetryPlot.Plot.Style(dataBackground: System.Drawing.Color.Transparent);
-            double[] tempInt = new double[1] { -1 };
-            string[] tempStr = new string[1] { "" };
-            InputTelemetryPlot.Plot.XTicks(tempInt, tempStr);
-            InputTelemetryPlot.Plot.YTicks(tempInt, tempStr);
-            InputTelemetryPlot.Plot.XLabel("");
-            InputTelemetryPlot.Plot.YLabel("");
-            InputTelemetryPlot.Plot.Grid(false);
-            InputTelemetryPlot.Plot.Title("");
-            InputTelemetryPlot.Plot.Frameless();
-
-            // This is REALLY REALLY bad....
-            // But the best way to do it
-            // Issue was that Plot was not updating correctly
-            // Delaying it, or throwing it in the UpdateValues loop (EVEN WORSE)
-            // Seems to fix
-            Thread.Sleep(1000);
-            calculatedArraySize = 7000 / Model.Settings.Frequency;
-            InputTelemetryPlot.Plot.SetAxisLimits(0, calculatedArraySize, -0.01, 1.01);
-            InputTelemetryPlot.Plot.SetOuterViewLimits(0, calculatedArraySize, -0.01, 1.01);
-            InputTelemetryPlot.Plot.SetInnerViewLimits(0, calculatedArraySize, -0.01, 1.01);
-
-            timer = new Timer(UpdateValues, null, 0, Model.Settings.Frequency);
-            currentFrequency = Model.Settings.Frequency;
+            // Lower lines will display ontop of higher lines
+            CreateSignalPlot(GearValues, System.Drawing.Color.Gray);
+            CreateSignalPlot(ThrottleValues, System.Drawing.Color.LimeGreen);
+            CreateSignalPlot(BrakeValues, System.Drawing.Color.Red);
+     
+            base.StartTimer();
         }
-
-        // Only update the values of the graph if
-        // We have received PlayerCarTelemtryData and
-        // If the Window is visible
 
         protected override void UpdateValues(object state = null)
         {
-            if (Model.Settings.Frequency != currentFrequency)
-            {
-                StopTimer();
-                StartTimer();
-            }
-
+            UpdateTimer();
 
             if (Model.OverlayVisible && Model.PlayerIndex != -1)
             {
-                if (Model.Settings.BrakeChartVisible) { BrakeValues.Push(Model.PlayerCarTelemetryData.m_brake); }
-                else { BrakeValues.Push(-1); }
+                if (Model.Settings.BrakeChartVisible) BrakeValues.Push(Model.PlayerCarTelemetryData.m_brake); 
+                else BrakeValues.Push(-1); 
 
-                if (Model.Settings.ThrottleChartVisible) { ThrottleValues.Push(Model.PlayerCarTelemetryData.m_throttle); }
-                else { ThrottleValues.Push(-1); }
+                if (Model.Settings.ThrottleChartVisible) ThrottleValues.Push(Model.PlayerCarTelemetryData.m_throttle);
+                else ThrottleValues.Push(-1);
 
-                if (Model.Settings.GearChartVisible) { GearValues.Push(Model.PlayerCarTelemetryData.m_gear / 8f); }
-                else { GearValues.Push(-1); }
+                if (Model.Settings.GearChartVisible) GearValues.Push(Model.PlayerCarTelemetryData.m_gear / 8f);
+                else GearValues.Push(-1);
                 
                 
                 Application.Current.Dispatcher.BeginInvoke(
@@ -129,6 +96,7 @@ namespace F1T.MVVM.Views.InputTelemetry
             }
         }
 
+        // Disable double clicking on the chart
         private void InputTelemetryPlot_PreviewMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             e.Handled = true;

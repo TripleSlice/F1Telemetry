@@ -42,6 +42,18 @@ namespace F1T.MVVM.Views
             currentFrequency = Model.Settings.Frequency;
         }
 
+        /// <summary>
+        /// Updates the frequency that <see cref="BaseOverlayView.UpdateValues(object)"/> runs if required
+        /// </summary>
+        public virtual void UpdateTimer()
+        {
+            if (Model.Settings.Frequency != currentFrequency)
+            {
+                StopTimer();
+                StartTimer();
+            }
+        }
+
         public void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             // TODO

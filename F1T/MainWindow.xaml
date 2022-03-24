@@ -111,7 +111,7 @@
                              Command="{Binding RelativeInfoSettingViewCommand}"
                              BorderBrush="{Binding RelativeInfoModel.Settings.Toggled, Converter={StaticResource ToggledColorConverter}}">
                     <RadioButton.Resources>
-                        <ImageSource x:Key="ImageURI">/Images/relative.png</ImageSource>
+                        <ImageSource x:Key="ImageURI">/Images/relation.png</ImageSource>
                     </RadioButton.Resources>
                 </RadioButton>
             </StackPanel>
@@ -125,6 +125,16 @@
                              BorderBrush="Transparent">
                     <RadioButton.Resources>
                         <ImageSource x:Key="ImageURI">/Images/wrench.png</ImageSource>
+                    </RadioButton.Resources>
+                </RadioButton>
+                <RadioButton Content="Settings" GroupName="SideBarButtons"
+                             Height="50"
+                             Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding SettingsViewCommand}"
+                             BorderBrush="Transparent">
+                    <RadioButton.Resources>
+                        <ImageSource x:Key="ImageURI">/Images/settings-cog.png</ImageSource>
                     </RadioButton.Resources>
                 </RadioButton>
             </StackPanel>

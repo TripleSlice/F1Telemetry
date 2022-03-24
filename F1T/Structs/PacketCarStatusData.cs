@@ -28,6 +28,7 @@ namespace F1T.Structs
     }
     public enum ActualTyreCompund : byte
     {
+        None = 0,
         C5 = 16,
         C4 = 17,
         C3 = 18,
@@ -41,7 +42,8 @@ namespace F1T.Structs
         F2Soft = 12,
         F2Medium = 13,
         F2Hard = 14,
-        F2Wet = 15
+        F2Wet = 15,
+        Unknown = 255,
     }
     public enum VisualTyreCompound : byte
     {
@@ -63,8 +65,11 @@ namespace F1T.Structs
     public enum VehicleFiaFlags : sbyte
     {
         Unknown = -1,
-        None = 0,
-        Green = 1
+        None,
+        Green ,
+        Blue,
+        Yellow,
+        Red
     }
     public enum ERSDeployMode : byte
     {
@@ -72,6 +77,12 @@ namespace F1T.Structs
         Medium,
         Hotlap,
         Overtake
+    }
+
+    public enum DRSAllowed : byte
+    {
+        NotAllowed,
+        Allowed
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -88,7 +99,7 @@ namespace F1T.Structs
         public ushort m_maxRPM;                   // Cars max RPM, point of rev limiter
         public ushort m_idleRPM;                  // Cars idle RPM
         public byte m_maxGears;                 // Maximum number of gears
-        public byte m_drsAllowed;               // 0 = not allowed, 1 = allowed
+        public DRSAllowed m_drsAllowed;               // 0 = not allowed, 1 = allowed
         public ushort m_drsActivationDistance;    // 0 = DRS not available, non-zero - DRS will be available
                                                   // in [X] metres
         public ActualTyreCompund m_actualTyreCompound;    // F1 Modern - 16 = C5, 17 = C4, 18 = C3, 19 = C2, 20 = C1

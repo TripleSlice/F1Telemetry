@@ -44,7 +44,7 @@ namespace F1T.MVVM.ViewModels
     /// <para><see cref="T"/> must be of type <see cref="BaseSettings"/></para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class BaseModuleViewModel<T> : BaseModuleViewModel where T : BaseSettings
+    public abstract class BaseModuleViewModel<T> : BaseModuleViewModel where T : SaveableSettings
     {
         /// <summary>
         /// Settings for the module

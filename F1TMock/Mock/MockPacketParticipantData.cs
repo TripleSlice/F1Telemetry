@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace F1TMock.Mock
 {
-    class MockPacketParticipantData
+    public static class MockPacketParticipantData
     {
         private static ParticipantData GetRandomParticipantData()
         {
             ParticipantData participantData = new ParticipantData();
-            participantData.m_aiControlled = 1;
+            participantData.m_aiControlled = AiControlled.Human;
             participantData.m_driverId = DriverID.Unknown;
             participantData.m_networkId = 2;
             participantData.m_teamId = TeamID.Mclaren;

@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace F1T.Structs
 {
+    [ObsoleteAttribute()]
     [StructLayout(LayoutKind.Explicit, Pack = 0, Size = 4)]
     public struct UInt8Quad
     {
@@ -15,6 +17,7 @@ namespace F1T.Structs
         public byte D;
     }
 
+    [ObsoleteAttribute()]
     [StructLayout(LayoutKind.Explicit, Pack = 0, Size = 8)]
     public struct UInt16Quad
     {
@@ -27,6 +30,7 @@ namespace F1T.Structs
         [FieldOffset(6)]
         public ushort D;
     }
+    [ObsoleteAttribute()]
     [StructLayout(LayoutKind.Explicit, Pack = 0, Size = 16)]
     public struct FloatQuad
     {
@@ -39,6 +43,7 @@ namespace F1T.Structs
         [FieldOffset(12)]
         public float D;
     }
+    [ObsoleteAttribute()]
     [StructLayout(LayoutKind.Explicit, Pack = 0, Size = 4)]
     public struct ByteQuad
     {

@@ -87,6 +87,7 @@ namespace F1T.MVVM.ViewModels
        
 
         public PacketMotionData MotionData;
+        public PacketLapData LapData;
         public CarMotionData PlayerCarMotionData;
         public int PlayerIndex = -1;
 
@@ -95,6 +96,11 @@ namespace F1T.MVVM.ViewModels
             MotionData = packet;
             PlayerIndex = packet.m_header.m_playerCarIndex;
             PlayerCarMotionData = packet.m_carMotionData[packet.m_header.m_playerCarIndex];
+        }
+
+        private void LapDataUpdate(PacketLapData packet)
+        {
+            LapData = packet;
         }
 
 
@@ -113,6 +119,7 @@ namespace F1T.MVVM.ViewModels
             WarningRadius = (int)Math.Round(3.5f * Scale);
 
             udpConnection.OnMotionDataReceive += RadarUpdate;
+            udpConnection.OnLapDataReceive += LapDataUpdate;
         }
     }
 }
