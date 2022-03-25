@@ -18,9 +18,9 @@ namespace F1T.Structs
         public byte m_numPenalties;          // Number of penalties applied to this driver
         public byte m_numTyreStints;         // Number of tyres stints up to maximum
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public byte[] m_tyreStintsActual;   // Actual tyres used by this driver
+        public ActualTyreCompund[] m_tyreStintsActual;   // Actual tyres used by this driver
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public byte[] m_tyreStintsVisual;   // Visual tyres used by this driver
+        public VisualTyreCompound[] m_tyreStintsVisual;   // Visual tyres used by this driver
     }
 
 

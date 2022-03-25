@@ -1,5 +1,4 @@
 ﻿using F1T.Structs;
-using F1TMock.Mock;
 using F1TMock.Utils;
 using System.Runtime.InteropServices;
 
