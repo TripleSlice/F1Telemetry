@@ -51,13 +51,14 @@ namespace F1T.MVVM.Views
             set { SetField(ref _viewModel, value, "ViewModel"); }
         }
 
-        public OverlayContainer(UserControl overlayView, BaseModuleViewModel vm)
+        public OverlayContainer(UserControl overlayView, BaseModuleViewModel vm, string title)
         {
             ViewModel = vm;
             InitializeComponent();
             this.DataContext = vm;
             ContentHolder.DataContext = Model;
             Model.CurrentOverlay = overlayView;
+            this.Title = "F1T - " + title;
         }
     }
 }

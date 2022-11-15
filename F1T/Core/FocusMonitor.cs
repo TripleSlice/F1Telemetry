@@ -55,7 +55,7 @@ namespace F1T.Core
             foreach (KeyValuePair<BaseModuleViewModel, UserControl> entry in ViewModelAndOverlayUserControl)
             {
                 // Create our Window instance and store it
-                Window display = new OverlayContainer(entry.Value, entry.Key);
+                Window display = new OverlayContainer(entry.Value, entry.Key, entry.Value.GetType().Name);
                 ViewModelAndContainerWindows.Add(entry.Key, display);
             }
 
@@ -191,7 +191,13 @@ namespace F1T.Core
         private bool IsF1Focussed(string currWindowName)
         {
             if (currWindowName == null) return false;
-            return (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021") || currWindowName.StartsWith("F1T"));
+            return (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021") || currWindowName.StartsWith("F1T") || currWindowName.StartsWith("F1 22") || currWindowName.StartsWith("F1_22"));
+        }
+
+        private bool IsF1TFocussed(string currWindowName)
+        {
+            if (currWindowName == null) return false;
+            return (currWindowName.StartsWith("F1T"));
         }
 
         /// <summary>
@@ -201,24 +207,29 @@ namespace F1T.Core
         private void CheckActiveWindow(object state = null)
         {
             var CurrWindow = WindowHelper.GetActiveWindowTitle();
-            var res = IsF1Focussed(CurrWindow);
-            F1Focused = res;
+            var F1Focused = IsF1Focussed(CurrWindow);
+            var F1TFocused = IsF1TFocussed(CurrWindow);
 
             // This is here incase we switch from one F1 related window to the next
             // It would disapear, but we make it re-appear :)
-            if(F1Focused && CurrWindow != LastWindow)
+            if (F1Focused && CurrWindow != LastWindow)
             {
+                if (!F1TFocused) Taskbar.Hide();
                 DisplayOverlaysRefresh();
             }else if (F1Focused && !ModulesDisplayed)
             {
+                if (!F1TFocused) Taskbar.Hide();
                 DisplayOverlays();
                 ModulesDisplayed = true;
             }
             else if(!F1Focused && ModulesDisplayed)
             {
+                Taskbar.Show();
                 HideOverlays();
                 ModulesDisplayed = false;
             }
+
+            if (F1TFocused) Taskbar.Show();
 
             LastWindow = WindowHelper.GetActiveWindowTitle();
         }
@@ -242,6 +253,59 @@ namespace F1T.Core
 
             if (GetWindowText(handle, Buff, nChars) > 0) return Buff.ToString();
             return null;
+        }
+    }
+
+    public class Taskbar
+    {
+        [DllImport("user32.dll")]
+        private static extern int FindWindow(string className, string windowText);
+
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(int hwnd, int command);
+
+        [DllImport("user32.dll")]
+        public static extern int FindWindowEx(int parentHandle, int childAfter, string className, int windowTitle);
+
+        [DllImport("user32.dll")]
+        private static extern int GetDesktopWindow();
+
+        private const int SW_HIDE = 0;
+        private const int SW_SHOW = 1;
+
+        protected static int Handle
+        {
+            get
+            {
+                return FindWindow("Shell_TrayWnd", "");
+            }
+        }
+
+        protected static int HandleOfStartButton
+        {
+            get
+            {
+                int handleOfDesktop = GetDesktopWindow();
+                int handleOfStartButton = FindWindowEx(handleOfDesktop, 0, "button", 0);
+                return handleOfStartButton;
+            }
+        }
+
+        private Taskbar()
+        {
+            // hide ctor
+        }
+
+        public static void Show()
+        {
+            ShowWindow(Handle, SW_SHOW);
+            ShowWindow(HandleOfStartButton, SW_SHOW);
+        }
+
+        public static void Hide()
+        {
+            ShowWindow(Handle, SW_HIDE);
+            ShowWindow(HandleOfStartButton, SW_HIDE);
         }
     }
 }

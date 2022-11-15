@@ -48,6 +48,16 @@ namespace F1T.Utils
                 var trueIndex = data[i].m_carPosition - 1;
                 indexToPosition[trueIndex] = i;
             }
+
+            // Update to something like this
+            /*
+             
+                int[] lastLapTimeLookupArray = lapData.m_lapData
+                    .Select((data, index) => new { data, index }) // Create a object that looks like {LapData data, int index}
+                    .OrderBy(value => value.data.m_lastLapTimeInMS) // Order it by the m_lastLapTimeInMS property
+                    .Select(value => value.index) // Take only the index property from the sorted array
+                    .ToArray(); // Convert the array
+             */
         }
 
         /// <summary>

@@ -37,7 +37,7 @@ namespace F1TMock.Mock
 
         private static PacketLapData GetRandomPacketLapData()
         {
-            F1T.Structs.PacketLapData data = new F1T.Structs.PacketLapData();
+            PacketLapData data = new PacketLapData();
             data.m_header = MockPacketHeader.GetBytes(PacketType.LapData);
             LapData[] laps = new LapData[22];
             for (int i = 0; i < laps.Length; i++)
