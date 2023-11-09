@@ -19,6 +19,7 @@ namespace F1T.Core
 
         // Delegates
         public delegate void MotionDataReceiveDelegate(PacketMotionData packet);
+        public delegate void MotionDataExReceiveDelegate(PacketMotionExData packet);
         public delegate void CarTelemetryDataReceiveDelegate(PacketCarTelemetryData packet);
         public delegate void CarStatusDataReceiveDelegate(PacketCarStatusData packet);
         public delegate void CarDamageDataReceiveDelegate(PacketCarDamageData packet);
@@ -54,6 +55,7 @@ namespace F1T.Core
 
         // Packet events
         public event MotionDataReceiveDelegate OnMotionDataReceive;
+        public event MotionDataExReceiveDelegate OnMotionDataExReceive;
         public event CarTelemetryDataReceiveDelegate OnCarTelemetryDataReceive;
         public event CarStatusDataReceiveDelegate OnCarStatusDataReceive;
         public event CarDamageDataReceiveDelegate OnCarDamageDataReceive;
@@ -138,6 +140,11 @@ namespace F1T.Core
                 case PacketType.Motion:
                     PacketMotionData motionData = (PacketMotionData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketMotionData));
                     OnMotionDataReceive?.Invoke(motionData);
+                    break;
+
+                case PacketType.MotionEx:
+                    PacketMotionExData motionExData = (PacketMotionExData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketMotionExData));
+                    OnMotionDataExReceive?.Invoke(motionExData);
                     break;
 
                 case PacketType.CarDamage:

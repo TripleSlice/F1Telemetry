@@ -34,7 +34,7 @@ namespace F1T.Structs
         public byte m_engineMGUKWear;                   // Engine wear MGU-K (percentage)
         public byte m_engineTCWear;                     // Engine wear TC (percentage)
         public CarFault m_engineBlown;                      // Engine blown, 0 = OK, 1 = fault
-+       public CarFault m_engineSeized;                     // Engine seized, 0 = OK, 1 = faul
+        public CarFault m_engineSeized;                     // Engine seized, 0 = OK, 1 = faul
     }
 
 

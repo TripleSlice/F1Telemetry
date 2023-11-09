@@ -191,7 +191,7 @@ namespace F1T.Core
         private bool IsF1Focussed(string currWindowName)
         {
             if (currWindowName == null) return false;
-            return (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021") || currWindowName.StartsWith("F1T") || currWindowName.StartsWith("F1 22") || currWindowName.StartsWith("F1_22"));
+            return (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021") || currWindowName.StartsWith("F1T") || currWindowName.StartsWith("F1 22") || currWindowName.StartsWith("F1_22") || currWindowName.StartsWith("F1 23") || currWindowName.StartsWith("F1_23"));
         }
 
         private bool IsF1TFocussed(string currWindowName)

@@ -214,6 +214,8 @@
     <Compile Include="Structs\PacketHeader.cs" />
     <Compile Include="Structs\PacketLapData.cs" />
     <Compile Include="Structs\PacketLobbyInfoData.cs" />
+    <Compile Include="Structs\PacketTyreSetsData.cs" />
+    <Compile Include="Structs\PacketMotionExData.cs" />
     <Compile Include="Structs\PacketMotionData.cs" />
     <Compile Include="Structs\PacketParticipantsData.cs" />
     <Compile Include="Structs\PacketSessionData.cs" />
