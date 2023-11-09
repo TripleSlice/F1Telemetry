@@ -2,7 +2,7 @@
 
 namespace F1T.Structs
 {
-    public enum DRSFault : byte
+    public enum CarFault : byte
     {
         Ok,
         Fault
@@ -23,7 +23,8 @@ namespace F1T.Structs
         public byte m_floorDamage;                      // Floor damage (percentage)
         public byte m_diffuserDamage;                   // Diffuser damage (percentage)
         public byte m_sidepodDamage;                    // Sidepod damage (percentage)
-        public DRSFault m_drsFault;                     // Indicator for DRS fault, 0 = OK, 1 = fault
+        public CarFault m_drsFault;                     // Indicator for DRS fault, 0 = OK, 1 = fault
+        public CarFault m_ersFault;                     // Indicator for DRS fault, 0 = OK, 1 = fault
         public byte m_gearBoxDamage;                    // Gear box damage (percentage)
         public byte m_engineDamage;                     // Engine damage (percentage)
         public byte m_engineMGUHWear;                   // Engine wear MGU-H (percentage)
@@ -32,6 +33,8 @@ namespace F1T.Structs
         public byte m_engineICEWear;                    // Engine wear ICE (percentage)
         public byte m_engineMGUKWear;                   // Engine wear MGU-K (percentage)
         public byte m_engineTCWear;                     // Engine wear TC (percentage)
+        public CarFault m_engineBlown;                      // Engine blown, 0 = OK, 1 = fault
++       public CarFault m_engineSeized;                     // Engine seized, 0 = OK, 1 = faul
     }
 
 

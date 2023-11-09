@@ -91,5 +91,8 @@ namespace F1T.Structs
         public PacketHeader m_header;        // Header
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 22)]
         public LapData[] m_lapData;
+
+        public byte m_timeTrialPBCarIdx; 	// Index of Personal Best car in time trial (255 if invalid)
+        public byte m_timeTrialRivalCarIdx; 	// Index of Rival car in time trial (255 if invalid)
     }
 }

@@ -78,7 +78,10 @@ namespace F1T.Structs
         Zandvoort,
         Imola,
         Portimão,
-        Jeddah
+        Jeddah,
+        Miami,
+        LasVegas,
+        Qatar
     }
 
     public enum Formula : byte
@@ -155,7 +158,7 @@ namespace F1T.Structs
     {
         public SessionType m_sessionType;              // 0 = unknown, 1 = P1, 2 = P2, 3 = P3, 4 = Short P, 5 = Q1
                                                 // 6 = Q2, 7 = Q3, 8 = Short Q, 9 = OSQ, 10 = R, 11 = R2
-                                                // 12 = Time Trial
+                                                // 12 = R3, 13 = Time Trial
         public byte m_timeOffset;               // Time in minutes the forecast is for
         public Weather m_weather;                  // Weather - 0 = clear, 1 = light cloud, 2 = overcast
                                                 // 3 = light rain, 4 = heavy rain, 5 = storm
@@ -180,13 +183,13 @@ namespace F1T.Structs
         public SessionType m_sessionType;            // 0 = unknown, 1 = P1, 2 = P2, 3 = P3, 4 = Short P
                                               // 5 = Q1, 6 = Q2, 7 = Q3, 8 = Short Q, 9 = OSQ
                                               // 10 = R, 11 = R2, 12 = R3, 13 = Time Trial
-        public TrackID m_trackId;                 // -1 for unknown, 0-21 for tracks, see appendix
+        public TrackID m_trackId;                 // -1 for unknown, see appendix
         public Formula m_formula;                    // Formula, 0 = F1 Modern, 1 = F1 Classic, 2 = F2,
-                                                  // 3 = F1 Generic
+                                                 // 3 = F1 Generic, 4 = Beta, 5 = Supercars 6 = Esports, 7 = F2 2021
         public ushort m_sessionTimeLeft;       // Time left in session in seconds
         public ushort m_sessionDuration;       // Session duration in seconds
         public byte m_pitSpeedLimit;          // Pit speed limit in kilometres per hour
-        public byte m_gamePaused;                // Whether the game is paused
+        public byte m_gamePaused;                // Whether the game is paused - network game only
         public byte m_isSpectating;           // Whether the player is spectating
         public byte m_spectatorCarIndex;      // Index of the car being spectated
         public byte m_sliProNativeSupport;    // SLI Pro support, 0 = inactive, 1 = active
@@ -216,5 +219,9 @@ namespace F1T.Structs
         public AssistLevel m_DRSAssist;                 // 0 = off, 1 = on
         public RacingLineAssistLevel m_dynamicRacingLine;         // 0 = off, 1 = corners only, 2 = full
         public RacingLineType m_dynamicRacingLineType;     // 0 = 2D, 1 = 3D
+        public byte m_gameMode;                  // Game mode id - see appendix
+        public byte m_ruleSet;                   // Ruleset - see appendix
+        public uint m_timeOfDay;                 // Local time of day - minutes since midnight
+        public byte m_sessionLength;             // 0 = None, 2 = Very Short, 3 = Short, 4 = Medium 5 = Medium Long, 6 = Long, 7 = Full
     }
 }

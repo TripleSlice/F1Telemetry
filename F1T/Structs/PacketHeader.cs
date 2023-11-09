@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using Newtonsoft.Json;
+using System.Runtime.InteropServices;
 
 namespace F1T.Structs
 {
@@ -22,15 +23,25 @@ namespace F1T.Structs
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct PacketHeader
     {
-        public ushort m_packetFormat;         // 2021
+        [JsonProperty("packetFormat")]
+        public ushort m_packetFormat;         // 2023
+        [JsonProperty("gameMajorVersion")]
         public byte m_gameMajorVersion;     // Game major version - "X.00"
+        [JsonProperty("gameMinorVersion")]
         public byte m_gameMinorVersion;     // Game minor version - "1.XX"
+        [JsonProperty("packetVersion")]
         public byte m_packetVersion;        // Version of this packet type, all start from 1
+        [JsonIgnore]
         public PacketType m_packetId;             // Identifier for the packet type, see above
+        [JsonIgnore]
         public ulong m_sessionUID;           // Unique identifier for the session
+        [JsonIgnore]
         public float m_sessionTime;          // Session timestamp
+        [JsonIgnore]
         public uint m_frameIdentifier;      // Identifier for the frame the data was retrieved on
+        [JsonIgnore]
         public byte m_playerCarIndex;       // Index of player's car in the array
+        [JsonIgnore]
         public byte m_secondaryPlayerCarIndex;       // Index of 2nd player's car in the array
     };
 }

@@ -21,6 +21,8 @@ namespace F1T.Structs
         public ActualTyreCompund[] m_tyreStintsActual;   // Actual tyres used by this driver
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
         public VisualTyreCompound[] m_tyreStintsVisual;   // Visual tyres used by this driver
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+        public byte[] m_tyreStintsEndLaps;  // The lap number stints end on
     }
 
 
