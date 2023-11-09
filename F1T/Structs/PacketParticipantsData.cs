@@ -179,6 +179,8 @@ namespace F1T.Structs
         public char[] m_name;               // Name of participant in UTF-8 format – null terminated
                                    // Will be truncated with … (U+2026) if too long
         public byte m_yourTelemetry;          // The player's UDP setting, 0 = restricted, 1 = public
+        byte m_showOnlineNames;        // The player's show online names setting, 0 = off, 1 = on
+        byte m_platform;               // 1 = Steam, 3 = PlayStation, 4 = Xbox, 6 = Origin, 255 = unknown
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]

@@ -56,7 +56,11 @@ namespace F1T.Structs
         public uint m_lastLapTimeInMS;            // Last lap time in milliseconds
         public uint m_currentLapTimeInMS;     // Current time around the lap in milliseconds
         public ushort m_sector1TimeInMS;           // Sector 1 time in milliseconds
+        public byte m_sector1TimeMinutes;        // Sector 1 whole minute part
         public ushort m_sector2TimeInMS;           // Sector 2 time in milliseconds
+        public byte m_sector2TimeMinutes;        // Sector 2 whole minute part
+        public short m_deltaToCarInFrontInMS;     // Time delta to car in front in milliseconds
+        public short m_deltaToRaceLeaderInMS;     // Time delta to race leader in milliseconds
         public float m_lapDistance;         // Distance vehicle is around current lap in metres – could
                                             // be negative if line hasn’t been crossed yet
         public float m_totalDistance;       // Total distance travelled in session in metres – could
@@ -69,7 +73,8 @@ namespace F1T.Structs
         public Sector m_sector;                  // 0 = sector1, 1 = sector2, 2 = sector3
         public byte m_currentLapInvalid;       // Current lap invalid - 0 = valid, 1 = invalid
         public byte m_penalties;               // Accumulated time penalties in seconds to be added
-        public byte m_warnings;                  // Accumulated number of warnings issued
+        public byte m_totalWarnings;             // Accumulated number of warnings issued
+        public byte m_cornerCuttingWarnings;     // Accumulated number of corner cutting warnings issued
         public byte m_numUnservedDriveThroughPens;  // Num drive through pens left to serve
         public byte m_numUnservedStopGoPens;        // Num stop go pens left to serve
         public byte m_gridPosition;            // Grid position the vehicle started the race in

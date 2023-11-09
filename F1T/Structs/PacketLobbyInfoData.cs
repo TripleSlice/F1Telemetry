@@ -13,6 +13,7 @@ namespace F1T.Structs
         public AiControlled m_aiControlled;            // Whether the vehicle is AI (1) or Human (0) controlled
         public TeamID m_teamId;                  // Team id - see appendix (255 if no team currently selected)
         public byte m_nationality;             // Nationality of the driver
+        public byte m_platform;          // 1 = Steam, 3 = PlayStation, 4 = Xbox, 6 = Origin, 255 = unknown
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 48)]
         public char[] m_name;        // Name of participant in UTF-8 format – null terminated
                                      // Will be truncated with ... (U+2026) if too long

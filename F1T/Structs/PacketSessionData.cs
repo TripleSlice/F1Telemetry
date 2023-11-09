@@ -9,7 +9,6 @@ namespace F1T.Structs
         Green,
         Blue,
         Yellow,
-        Red
     }
 
     public enum SessionType : byte
@@ -150,9 +149,9 @@ namespace F1T.Structs
     public struct MarshalZone
     {
         public float m_zoneStart;   // Fraction (0..1) of way through the lap the marshal zone starts
-        public ZoneFlag m_zoneFlag;    // -1 = invalid/unknown, 0 = none, 1 = green, 2 = blue, 3 = yellow, 4 = red
+        public ZoneFlag m_zoneFlag;    // -1 = invalid/unknown, 0 = none, 1 = green, 2 = blue, 3 = yellow
     }
-
+    
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct WeatherForecastSample
     {
@@ -223,5 +222,12 @@ namespace F1T.Structs
         public byte m_ruleSet;                   // Ruleset - see appendix
         public uint m_timeOfDay;                 // Local time of day - minutes since midnight
         public byte m_sessionLength;             // 0 = None, 2 = Very Short, 3 = Short, 4 = Medium 5 = Medium Long, 6 = Long, 7 = Full
+        public byte m_speedUnitsLeadPlayer;             // 0 = MPH, 1 = KPH
+        public byte m_temperatureUnitsLeadPlayer;       // 0 = Celsius, 1 = Fahrenheit
+        public byte m_speedUnitsSecondaryPlayer;        // 0 = MPH, 1 = KPH
+        public byte m_temperatureUnitsSecondaryPlayer;  // 0 = Celsius, 1 = Fahrenheit
+        public byte m_numSafetyCarPeriods;              // Number of safety cars called during session
+        public byte m_numVirtualSafetyCarPeriods;       // Number of virtual safety cars called
+        public byte m_numRedFlagPeriods;                // Number of red flags called during session
     }
 }

@@ -46,8 +46,10 @@ namespace F1T.Structs
     {
         public byte vehicleIdx;		// Vehicle index of the vehicle triggering speed trap
         public float speed;             // Top speed achieved in kilometres per hour
-        public byte overallFastestInSession;   // Overall fastest speed in session = 1, otherwise 0
-        public byte driverFastestInSession;    // Fastest speed for driver in session = 1, otherwise 0
+        public byte isOverallFastestInSession;   // Overall fastest speed in session = 1, otherwise 0
+        public byte isDriverFastestInSession;    // Fastest speed for driver in session = 1, otherwise 0
+        public byte fastestVehicleIdxInSession;// Vehicle index of the vehicle that is the fastest in this session
+        public float fastestSpeedInSession;      // Speed of the vehicle that is the fastest in this session
 
     }
 
@@ -80,6 +82,12 @@ namespace F1T.Structs
     public struct EventButtons
     {
         public uint m_buttonStatus;    // Bit flags specifying which buttons are being pressed currently - see appendices
+    }
+
+    public struct Overtake
+    {
+        public byte overtakingVehicleIdx;       // Vehicle index of the vehicle overtaking
+        public byte beingOvertakenVehicleIdx;   // Vehicle index of the vehicle being overtaken
     }
 
 

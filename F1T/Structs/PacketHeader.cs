@@ -18,6 +18,8 @@ namespace F1T.Structs
         LobbyInfo = 9,	// Information about players in a multiplayer lobby
         CarDamage = 10,	// Damage status for all cars
         SessionHistory = 11,	// Lap and tyre data for session
+        TyreSets = 12,	// Extended tyre set data
+        MotionEx = 13,	// Extended motion data for player ca
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -25,6 +27,8 @@ namespace F1T.Structs
     {
         [JsonProperty("packetFormat")]
         public ushort m_packetFormat;         // 2023
+        [JsonProperty("gameYear")]
+        public byte  m_gameYear;                // Game year - last two digits e.g. 23
         [JsonProperty("gameMajorVersion")]
         public byte m_gameMajorVersion;     // Game major version - "X.00"
         [JsonProperty("gameMinorVersion")]
@@ -39,6 +43,9 @@ namespace F1T.Structs
         public float m_sessionTime;          // Session timestamp
         [JsonIgnore]
         public uint m_frameIdentifier;      // Identifier for the frame the data was retrieved on
+        [JsonIgnore]
+        public uint m_overallFrameIdentifier;  // Overall identifier for the frame the data was retrieved
+                                         // on, doesn't go back after flashbacks
         [JsonIgnore]
         public byte m_playerCarIndex;       // Index of player's car in the array
         [JsonIgnore]

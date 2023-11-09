@@ -68,8 +68,7 @@ namespace F1T.Structs
         None,
         Green ,
         Blue,
-        Yellow,
-        Red
+        Yellow
     }
     public enum ERSDeployMode : byte
     {
@@ -103,7 +102,7 @@ namespace F1T.Structs
         public ushort m_drsActivationDistance;    // 0 = DRS not available, non-zero - DRS will be available
                                                   // in [X] metres
         public ActualTyreCompund m_actualTyreCompound;    // F1 Modern - 16 = C5, 17 = C4, 18 = C3, 19 = C2, 20 = C1
-                                             // 7 = inter, 8 = wet
+                                             // 21 = C0, 7 = inter, 8 = wet
                                              // F1 Classic - 9 = dry, 10 = wet
                                              // F2 – 11 = super soft, 12 = soft, 13 = medium, 14 = hard
                                              // 15 = wet
@@ -114,7 +113,9 @@ namespace F1T.Structs
                                                 // 21 = medium , 22 = hard
         public byte m_tyresAgeLaps;             // Age in laps of the current set of tyres
         public VehicleFiaFlags m_vehicleFiaFlags;    // -1 = invalid/unknown, 0 = none, 1 = green
-                                           // 2 = blue, 3 = yellow, 4 = red
+                                           // 2 = blue, 3 = yellow
+        public float m_enginePowerICE;           // Engine power output of ICE (W)
+        public float m_enginePowerMGUK;          // Engine power output of MGU-K (W)
         public float m_ersStoreEnergy;           // ERS energy store in Joules
         public ERSDeployMode m_ersDeployMode;            // ERS deployment mode, 0 = none, 1 = medium
                                                 // 2 = hotlap, 3 = overtake
