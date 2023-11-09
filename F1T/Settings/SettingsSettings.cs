@@ -16,6 +16,7 @@ namespace F1T.Settings
         {
             SaveFinalClassification = false;
             FinalClassificationSaveLocation = FilesPath;
+            MotionDataSaveLocation = FilesPath;
         }
 
 
@@ -32,5 +33,20 @@ namespace F1T.Settings
             get { return _finalClassifcationSaveLocation; }
             set { SetField(ref _finalClassifcationSaveLocation, value, "FinalClassificationSaveLocation"); }
         }
+
+        private bool _saveMotionaData;
+        public bool SaveMotionData
+        {
+            get { return _saveMotionaData; }
+            set { SetField(ref _saveMotionaData, value, "SaveMotionData"); }
+        }
+
+        private string _motionDataSaveLocation;
+        public string MotionDataSaveLocation
+        {
+            get { return _motionDataSaveLocation; }
+            set { SetField(ref _motionDataSaveLocation, value, "MotionDataSaveLocation"); }
+        }
+
     }
 }

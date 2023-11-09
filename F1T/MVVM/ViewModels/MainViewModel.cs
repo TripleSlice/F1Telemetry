@@ -11,6 +11,7 @@ using F1T.MVVM.Views;
 using System;
 using System.Threading;
 using F1T.MVVM.Views.Settings;
+using System.Diagnostics;
 
 namespace F1T.MVVM.ViewModels
 {
@@ -33,12 +34,14 @@ namespace F1T.MVVM.ViewModels
         public RelayCommand RelativeInfoSettingViewCommand { get; set; }
         public RelayCommand SetupViewCommand { get; set; }
         public RelayCommand SettingsViewCommand { get; set; }
+        public RelayCommand F1LViewCommand { get; set; }
 
         // === VIEWS ===
         // === HomeView/SetupView Instance ===
         HomeView Home = new HomeView();
         SetupView Setup = new SetupView();
         SettingsView Settings = new SettingsView();
+        F1LView F1L = new F1LView();
         // === SettingView Instances ===
         InputTelemetrySettingView InputTelemetrySetting = new InputTelemetrySettingView();
         RadarSettingView RadarSetting = new RadarSettingView();
@@ -56,6 +59,7 @@ namespace F1T.MVVM.ViewModels
         public RadarViewModel RadarModel { get { return RadarViewModel.GetInstance(); } }   
         public RelativeInfoViewModel RelativeInfoModel { get { return RelativeInfoViewModel.GetInstance(); } }
         public SettingsViewModel SettingsModel { get { return SettingsViewModel.GetInstance(); } }
+        public F1LViewModel F1LModel { get { return F1LViewModel.GetInstance(); } }
 
 
         // Dict of ViewModel and OverlayView
@@ -91,6 +95,9 @@ namespace F1T.MVVM.ViewModels
             // == SETTINGS MODULE ==
             SettingsViewCommand = new RelayCommand(obj => { CurrentView = Settings; });
 
+            // == F1L INTEGRATION ==
+            F1LViewCommand = new RelayCommand(obj => { CurrentView = F1L; });
+
             // Save settings once every minute
             // Could also make it so that everytime a change is detected the settings are saved
             // But I like the on close and timer approach better
@@ -103,6 +110,7 @@ namespace F1T.MVVM.ViewModels
             RadarModel.Settings.Save<RadarSettings>();
             RelativeInfoModel.Settings.Save<RelativeInfoSettings>();
             SettingsModel.Settings.Save<SettingsSettings>();
+            F1LModel.Settings.Save<F1LSettings>();
         }
 
 

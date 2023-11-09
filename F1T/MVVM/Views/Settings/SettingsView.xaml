@@ -15,7 +15,7 @@
     <StackPanel HorizontalAlignment="Left">
         <themes:SettingLabel LabelContent="SAVE FINAL CLASSIFICATION DATA" TooltipContent="Will save the final classifcation of cars at the end of the race as a JSON"></themes:SettingLabel>
         <themes:ToggleButton Toggled="{Binding Settings.SaveFinalClassification, Mode=TwoWay}"></themes:ToggleButton>
-        <Button Style="{StaticResource ButtonTheme}" Name="btnOpenFile" Click="btnOpenFile_Click">Select Save Location</Button>
+        <Button Style="{StaticResource ButtonTheme}" Click="btnOpenFileFinalClassification_Click">Select Save Location</Button>
         <Label 
 					d:Content="C:/Users/test"
 					Content="{Binding Settings.FinalClassificationSaveLocation}"
@@ -24,5 +24,19 @@
 					FontSize="11"
 					HorizontalAlignment="Center"
 					Background="Transparent"></Label>
+
+
+        <themes:SettingLabel LabelContent="SAVE MOTION DATA" TooltipContent="Will save the motion data as JSON throughout the race"></themes:SettingLabel>
+        <themes:ToggleButton Toggled="{Binding Settings.SaveMotionData, Mode=TwoWay}"></themes:ToggleButton>
+        <Button Style="{StaticResource ButtonTheme}" Click="btnOpenFileMotion_Click">Select Save Location</Button>
+        <Label 
+					d:Content="C:/Users/test"
+					Content="{Binding Settings.MotionDataSaveLocation}"
+					FontFamily="/Fonts/#Poppins"
+					Foreground="White"
+					FontSize="11"
+					HorizontalAlignment="Center"
+					Background="Transparent"></Label>
     </StackPanel>
+    
 </UserControl>

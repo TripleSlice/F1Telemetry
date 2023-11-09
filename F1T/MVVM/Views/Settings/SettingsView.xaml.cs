@@ -29,7 +29,7 @@ namespace F1T.MVVM.Views.Settings
             InitializeComponent();
         }
 
-        private void btnOpenFile_Click(object sender, RoutedEventArgs e)
+        private void btnOpenFileFinalClassification_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
@@ -38,6 +38,18 @@ namespace F1T.MVVM.Views.Settings
             {
                 var path = dialog.SelectedPath;
                 ViewModel.Settings.FinalClassificationSaveLocation = path;
+            }
+        }
+
+        private void btnOpenFileMotion_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                var path = dialog.SelectedPath;
+                ViewModel.Settings.MotionDataSaveLocation = path;
             }
         }
     }

@@ -7,7 +7,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Themes/MenuButtonTheme.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="./Themes/TextBoxTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="./Themes/UsernameTextBoxTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="./Themes/PasswordTextBoxTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/BrakeBarTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/ThrottleBarTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Themes/TopbarButtonTheme.xaml"></ResourceDictionary>

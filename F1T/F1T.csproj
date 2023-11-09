@@ -148,6 +148,7 @@
     <Compile Include="DataStructures\FixedSizeQueue.cs" />
     <Compile Include="MVVM\Models\RelativeInfo.cs" />
     <Compile Include="MVVM\ViewModels\BaseModuleViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\F1LViewModel.cs" />
     <Compile Include="MVVM\ViewModels\SettingsViewModel.cs" />
     <Compile Include="MVVM\ViewModels\SetupViewModel.cs" />
     <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
@@ -178,6 +179,9 @@
     <Compile Include="MVVM\Views\Radar\RadarSettingView.xaml.cs">
       <DependentUpon>RadarSettingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Views\F1L\F1LView.xaml.cs">
+      <DependentUpon>F1LView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Views\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -198,6 +202,7 @@
     <Compile Include="Settings\RadarSettings.cs" />
     <Compile Include="Settings\RelativeInfoSettings.cs" />
     <Compile Include="Settings\SaveableSettings.cs" />
+    <Compile Include="Settings\F1LSettings.cs" />
     <Compile Include="Settings\SettingsSettings.cs" />
     <Compile Include="Structs\CustomTypes.cs" />
     <Compile Include="Structs\PacketCarDamageData.cs" />
@@ -266,6 +271,10 @@
     <Page Include="MVVM\Views\Radar\RadarSettingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\Views\F1L\F1LView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MVVM\Views\Settings\SettingsView.xaml">
       <SubType>Designer</SubType>
@@ -347,7 +356,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\TextBoxTheme.xaml">
+    <Page Include="Themes\PasswordTextBoxTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UsernameTextBoxTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -489,7 +502,9 @@
   <ItemGroup>
     <Resource Include="Images\settings-cog.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\f-dark.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

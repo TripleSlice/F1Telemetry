@@ -39,7 +39,7 @@
                 <Grid  HorizontalAlignment="Stretch">
                     <Label Grid.Row="0" Grid.Column="0" 
                        VerticalAlignment="Center" HorizontalAlignment="Left" 
-                       Content="F1T V1.1.0" Foreground="DarkGray" FontSize="12" FontFamily="/Fonts/#Poppins"
+                       Content="F1T V21.0.0" Foreground="DarkGray" FontSize="12" FontFamily="/Fonts/#Poppins"
                        Margin="10,0,0,0"></Label>
 
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,3,0,0">
@@ -117,6 +117,16 @@
             </StackPanel>
 
             <StackPanel VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="0">
+                <RadioButton Content="Upload races" GroupName="SideBarButtons"
+                             Height="50"
+                             Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding F1LViewCommand}"
+                             BorderBrush="Transparent">
+                    <RadioButton.Resources>
+                        <ImageSource x:Key="ImageURI">/Images/f-dark.png</ImageSource>
+                    </RadioButton.Resources>
+                </RadioButton>
                 <RadioButton Content="Setup" GroupName="SideBarButtons"
                              Height="50"
                              Foreground="White" FontSize="14" FontFamily="/Fonts/#Poppins"
