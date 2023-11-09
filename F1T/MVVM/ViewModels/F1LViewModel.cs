@@ -224,6 +224,8 @@ namespace F1T.MVVM.ViewModels
             }
         }
 
+
+        // TODO this doesn't currently work because we need to upload something with no driverIds which F1L does not currently support
         public async void UploadResults()
         {
             Trace.WriteLine(Race);
