@@ -1,6 +1,6 @@
 # F1T
 
-F1T is a open source telemetry client for F1 2021!
+F1T is a open source telemetry client for F1 23!
 
 <img src="https://github.com/F1Telemetry/F1T/blob/main/READMEimages/home.png" width="600px">
 
@@ -21,7 +21,7 @@ Creates a graph of your inputs!
 #### Download or Compile executable
 Download the latest release from [here](https://github.com/F1Telemetry/F1T/releases "Releases"), or clone the project and compile it yourself.
 
-#### Required F1 2021 Settings
+#### Required F1 23 Settings
 
 ##### Video Settings
 F1 needs to be run in **(Windowed) Fullscreen**
@@ -53,7 +53,7 @@ Feel free to create new issues with new features you would like. I can't guarant
 
 [The overlay won't display over top of F1?](#the-overlay-wont-display-over-top-of-f1)
 
-[Will this work for F1 2022?](#will-this-work-for-f1-2022)
+[Will this work for the next F1 game?](#will-this-work-for-the-next-game)
 
 [How can I tell there is no malicious code](#how-can-i-tell-there-is-no-malicious-code)
 
@@ -68,8 +68,10 @@ Feel free to create new issues with new features you would like. I can't guarant
 It does! It is not considered "cheating" by the games standards, and you can use it whenever you want. However you may want to check with your league owner if something like this would be allowed in your league
 #### The overlay won't display over top of F1?
 Make sure you follow [these](##how-to-use?) instructions
-#### Will this work for F1 2022?
-It's likely that when F1 2022 comes out I will update this tool to F1 2022
+#### Will this work for the next game?
+It's likely that when the new game comes out, I will update this. You may have to join the Discord in order to poke me to update it though
+
+If I do not update it, you can switch your UDP version of your game to whatever the last version of F1T has been released. The game supports up to 2 years back.
 #### How can I tell there is no malicious code?
 Short answer, you can't. You can't trust anything, so I don't blame you. Source code is available and you can have a look through it and compile it yourself. Alternatively, run the executable through a couple anti-virus scanners. If the tool gets popular enough I will look into a better method of assuring there is not malicious code other than "Trust me :)"
 #### Will there ever be premium features or a paid version?
