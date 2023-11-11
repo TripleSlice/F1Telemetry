@@ -146,7 +146,7 @@ namespace F1T.MVVM.ViewModels
 
             // INIT Static Classes
             // Create FocusMonitor to monitor application for when to display overlays
-            FocusMonitor FocusMonitor = new FocusMonitor(ViewModelAndOverlayView);
+            FocusMonitor FocusMonitor = new FocusMonitor(ViewModelAndOverlayView, SettingsModel);
             // Create and start UDP Connection to game on port 21777
             UDPConnection UDPConnection = UDPConnection.GetInstance();
         } 

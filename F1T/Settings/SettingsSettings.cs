@@ -17,6 +17,7 @@ namespace F1T.Settings
             SaveFinalClassification = false;
             FinalClassificationSaveLocation = FilesPath;
             MotionDataSaveLocation = FilesPath;
+            ForceDisplayOverlay = false;
         }
 
 
@@ -46,6 +47,13 @@ namespace F1T.Settings
         {
             get { return _motionDataSaveLocation; }
             set { SetField(ref _motionDataSaveLocation, value, "MotionDataSaveLocation"); }
+        }
+
+        private bool _forceDisplayOverlay;
+        public bool ForceDisplayOverlay
+        {
+            get { return _forceDisplayOverlay; }
+            set { SetField(ref _forceDisplayOverlay, value, "ForceDisplayOverlay"); }
         }
 
     }

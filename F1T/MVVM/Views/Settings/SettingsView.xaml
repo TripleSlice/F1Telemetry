@@ -37,6 +37,9 @@
 					FontSize="11"
 					HorizontalAlignment="Center"
 					Background="Transparent"></Label>
+
+        <themes:SettingLabel LabelContent="ALWAYS DISPLAY OVERLAY" TooltipContent="Will force the overlay to always be displayed"></themes:SettingLabel>
+        <themes:ToggleButton Toggled="{Binding Settings.ForceDisplayOverlay, Mode=TwoWay}"></themes:ToggleButton>
     </StackPanel>
     
 </UserControl>

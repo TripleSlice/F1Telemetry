@@ -32,6 +32,8 @@ namespace F1T.Core
         // Prevent from being garbage collected
         private Timer timer;
 
+        private SettingsViewModel settings;
+
         /// <summary>
         /// Statically set FocusMonitors ViewModel and OverlayWindow instances
         /// </summary>
@@ -44,7 +46,7 @@ namespace F1T.Core
         /// Initializes a new instance of <see cref="FocusMonitor"/> with the ViewModels and UserControls we might want to display
         /// </summary>
         /// <param name="ViewModelAndOverlayUserControl"></param>
-        public FocusMonitor(Dictionary<BaseModuleViewModel, UserControl> ViewModelAndOverlayUserControl)
+        public FocusMonitor(Dictionary<BaseModuleViewModel, UserControl> ViewModelAndOverlayUserControl, SettingsViewModel SettingsModel)
         {
             // We are taking our ViewModels and UserControls
             // And assigning all the UserControls to a "OverlayWindow"
@@ -64,6 +66,8 @@ namespace F1T.Core
             // TIMER BASED
             // Check to see if a Window of interest is open on a timer
             timer = new Timer(CheckActiveWindow, null, 0, 1000);
+
+            settings = SettingsModel;
         }
 
         /// <summary>
@@ -190,6 +194,7 @@ namespace F1T.Core
         /// <returns></returns>
         private bool IsF1Focussed(string currWindowName)
         {
+            if (settings.Settings.ForceDisplayOverlay) return true;
             if (currWindowName == null) return false;
             return (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021") || currWindowName.StartsWith("F1T") || currWindowName.StartsWith("F1 22") || currWindowName.StartsWith("F1_22") || currWindowName.StartsWith("F1 23") || currWindowName.StartsWith("F1_23"));
         }

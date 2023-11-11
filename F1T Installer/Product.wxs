@@ -4,7 +4,7 @@
 <!--https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html-->
 <!--https://stackoverflow.com/questions/11868499/create-shortcut-to-desktop-using-wix-->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="F1T_Installer" Language="1033" Version="23.0.0.0" Manufacturer="F1T" UpgradeCode="a46a6d50-c65d-4477-b347-e56bf3a90b49">
+	<Product Id="*" Name="F1T_Installer" Language="1033" Version="23.0.1.0" Manufacturer="F1T" UpgradeCode="a46a6d50-c65d-4477-b347-e56bf3a90b49">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
