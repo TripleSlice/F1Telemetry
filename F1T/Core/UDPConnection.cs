@@ -1,5 +1,6 @@
 ﻿using F1T.Structs;
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
@@ -270,6 +271,9 @@ namespace F1T.Core
 
                     break;
             }
+
+            handle.Free();
+
             Client.BeginReceive(new AsyncCallback(recv), null);
         }
     }
