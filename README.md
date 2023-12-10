@@ -19,7 +19,7 @@ Creates a graph of your inputs!
 ## How to use?
 
 #### Download or Compile executable
-Download the latest release from [here](https://github.com/F1Telemetry/F1T/releases "Releases"), or clone the project and compile it yourself.
+Download the latest release (.zip or.msi) from [here](https://github.com/F1Telemetry/F1T/releases "Releases"), or clone the project and compile it yourself.
 
 #### Required F1 23 Settings
 
