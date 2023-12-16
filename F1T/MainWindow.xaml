@@ -39,7 +39,7 @@
                 <Grid  HorizontalAlignment="Stretch">
                     <Label Grid.Row="0" Grid.Column="0" 
                        VerticalAlignment="Center" HorizontalAlignment="Left" 
-                       Content="F1T V23.0.2" Foreground="DarkGray" FontSize="12" FontFamily="/Fonts/#Poppins"
+                       Content="F1T V23.0.3" Foreground="DarkGray" FontSize="12" FontFamily="/Fonts/#Poppins"
                        Margin="10,0,0,0"></Label>
 
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,3,0,0">

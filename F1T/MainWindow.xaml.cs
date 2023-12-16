@@ -33,8 +33,21 @@ namespace F1T
         [STAThreadAttribute]
         public static void Main()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
-            App.Main();
+            try
+            {
+                AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
+                App.Main();
+            }
+            catch (Exception e)
+            {
+                var ErrorFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\F1T\\errors\\";
+
+                Directory.CreateDirectory(ErrorFilePath);
+                using (StreamWriter outputFile = new StreamWriter(Path.Combine(ErrorFilePath, "error-" + DateTime.Now.ToString("yyyy-MM-dd-HHmmssfff") + ".log"), true))
+                {
+                    outputFile.WriteLine(e);
+                }
+            }
         }
 
         /// <summary>
