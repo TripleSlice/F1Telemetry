@@ -39,7 +39,7 @@ To do this, go into **Settings** -> **Telemetry Settings** and ensure you have t
 - **UDP IP Address** -> **127.0.0.1**
 - **UDP Port** -> **20777**
 - **UDP Send Rate** -> **60hz** (Recomended 60hz, although if you computer is struggling you can lower it)
-- **UDP Format** -> **2021**
+- **UDP Format** -> **2023**
 
 
 ## How to contribute?
