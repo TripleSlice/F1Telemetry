@@ -18,6 +18,7 @@ namespace F1T.Settings
             FinalClassificationSaveLocation = FilesPath;
             MotionDataSaveLocation = FilesPath;
             ForceDisplayOverlay = false;
+            Port = 20777;
         }
 
 
@@ -54,6 +55,13 @@ namespace F1T.Settings
         {
             get { return _forceDisplayOverlay; }
             set { SetField(ref _forceDisplayOverlay, value, "ForceDisplayOverlay"); }
+        }
+
+        private int _port;
+        public int Port
+        {
+            get { return _port; }
+            set { SetField(ref _port, value, "Port"); }
         }
 
     }

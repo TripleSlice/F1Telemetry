@@ -40,6 +40,11 @@
 
         <themes:SettingLabel LabelContent="ALWAYS DISPLAY OVERLAY" TooltipContent="Will force the overlay to always be displayed"></themes:SettingLabel>
         <themes:ToggleButton Toggled="{Binding Settings.ForceDisplayOverlay, Mode=TwoWay}"></themes:ToggleButton>
+
+
+        <themes:SettingLabel LabelContent="UDP PORT" TooltipContent="The port to listen on"></themes:SettingLabel>
+        <themes:SettingLabel LabelContent="PLEASE RESTART F1T AFTER CHANGING THIS SETTING"></themes:SettingLabel>
+        <themes:PlusMinusButton x:Name="PortButtonInstance" Value="{Binding Settings.Port, Mode=TwoWay}"></themes:PlusMinusButton>
     </StackPanel>
     
 </UserControl>

@@ -1,9 +1,12 @@
-﻿using F1T.Structs;
+﻿using F1T.MVVM.ViewModels;
+using F1T.Settings;
+using F1T.Structs;
 using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace F1T.Core
 {
@@ -91,6 +94,7 @@ namespace F1T.Core
         // =====
 
 
+        private SettingsSettings _settings = new SettingsSettings().Read<SettingsSettings>();
 
         // === Singleton Instance with Thread Saftey ===
         private static UDPConnection _instance = null;
@@ -108,10 +112,14 @@ namespace F1T.Core
 
         private UDPConnection()
         {
-            // TODO Gracefully exit with
-            // message if UDP port is in use...
-            //Client uses as receive udp client
-            Client = new UdpClient(20777);
+    
+            try
+            {
+                Client = new UdpClient(_settings.Port);
+            }catch (Exception ex)
+            {
+                MessageBox.Show("Unable to connect to UDP port " + _settings.Port + ".\nIs something already accessing this port?\nNOTE: You can change your port in the settings.\nPlease restart after setting the new port.", "UDP Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             try { Client.BeginReceive(new AsyncCallback(recv), null); }
             catch (Exception e) { Console.WriteLine(e.ToString()); }
