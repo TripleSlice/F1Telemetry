@@ -81,7 +81,7 @@
                     <Button Grid.Column="0" Background="Transparent" Click="DiscordButton_Click" Style="{StaticResource SocialButtonTheme}">
                         <Image Source="/Images/discord.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Button>
-                    <Button Grid.Column="1" Background="Transparent" Click="DiscordButton_Click" Style="{StaticResource SocialButtonTheme}">
+                    <Button Grid.Column="1" Background="Transparent" Click="GithubButton_Click" Style="{StaticResource SocialButtonTheme}">
                         <Image Source="/Images/github.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Button>
                 </Grid>

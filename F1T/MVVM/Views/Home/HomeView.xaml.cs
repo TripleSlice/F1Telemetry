@@ -22,7 +22,7 @@ namespace F1T.MVVM.Views.Home
         {
             System.Diagnostics.Process.Start(new ProcessStartInfo
             {
-                FileName = "https://github.com/ryanabaker/F1T",
+                FileName = "https://github.com/TripleSlice/F1Telemetry",
                 UseShellExecute = true
             });
         }
