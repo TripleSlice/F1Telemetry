@@ -37,6 +37,9 @@ namespace F1T
         {
             try
             {
+
+                throw new Exception("yes i want to");
+
                 AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
                 App.Main();
             }
@@ -50,11 +53,17 @@ namespace F1T
                     outputFile.WriteLine(e);
                 }
 
-                using (HttpClient client = new HttpClient())
+                var Result = MessageBox.Show("An unexpected error has occured. Would you like to submit the error logs?", "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (Result == MessageBoxResult.Yes)
                 {
-                    var _ = client.PostAsync("https://f1l.ca/api/f1t/error", new StringContent(e.ToString()));
-                    Thread.Sleep(1000); // Delay the crash by 1 second to give this request enough time to go
+                    using (HttpClient client = new HttpClient())
+                    {
+                        var _ = client.PostAsync("https://f1l.ca/api/f1t/error", new StringContent(e.ToString()));
+                        Thread.Sleep(1000); // Delay the crash by 1 second to give this request enough time to go
+                    }
                 }
+           
             }
         }
 
