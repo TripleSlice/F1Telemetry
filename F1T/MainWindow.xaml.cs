@@ -15,6 +15,8 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using F1T.Settings;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace F1T
 {
@@ -46,6 +48,12 @@ namespace F1T
                 using (StreamWriter outputFile = new StreamWriter(Path.Combine(ErrorFilePath, "error-" + DateTime.Now.ToString("yyyy-MM-dd-HHmmssfff") + ".log"), true))
                 {
                     outputFile.WriteLine(e);
+                }
+
+                using (HttpClient client = new HttpClient())
+                {
+                    var _ = client.PostAsync("https://f1l.ca/api/f1t/error", new StringContent(e.ToString()));
+                    Thread.Sleep(1000); // Delay the crash by 1 second to give this request enough time to go
                 }
             }
         }
