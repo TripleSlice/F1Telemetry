@@ -37,9 +37,6 @@ namespace F1T
         {
             try
             {
-
-                throw new Exception("yes i want to");
-
                 AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
                 App.Main();
             }
