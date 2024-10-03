@@ -22,7 +22,7 @@ namespace F1TMock.Mock
             data.m_sector = Sector.SectorOne;
             data.m_currentLapInvalid = 0;
             data.m_penalties = 0;
-            data.m_warnings = 0;
+            // data.m_warnings = 0;
             data.m_numUnservedDriveThroughPens = 0;
             data.m_numUnservedStopGoPens = 0;
             data.m_gridPosition = 1;

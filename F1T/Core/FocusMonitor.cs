@@ -196,7 +196,17 @@ namespace F1T.Core
         {
             if (settings.Settings.ForceDisplayOverlay) return true;
             if (currWindowName == null) return false;
-            return (currWindowName.StartsWith("F1 2021") || currWindowName.StartsWith("F1_2021") || currWindowName.StartsWith("F1T") || currWindowName.StartsWith("F1 22") || currWindowName.StartsWith("F1_22") || currWindowName.StartsWith("F1 23") || currWindowName.StartsWith("F1_23"));
+            return (
+                currWindowName.StartsWith("F1 2021") ||
+                currWindowName.StartsWith("F1_2021") || 
+                currWindowName.StartsWith("F1T") || 
+                currWindowName.StartsWith("F1 22") || 
+                currWindowName.StartsWith("F1_22") || 
+                currWindowName.StartsWith("F1 23") || 
+                currWindowName.StartsWith("F1_23") ||
+                currWindowName.StartsWith("F1 24") ||
+                currWindowName.StartsWith("F1_24")
+                );
         }
 
         private bool IsF1TFocussed(string currWindowName)

@@ -99,21 +99,21 @@ namespace F1TMock.Mock
 
             packetMotionData.m_carMotionData = carMotionDatas;
             float[] testData = { 1.0f, 1.0f, 1.0f, 1.0f };
-            packetMotionData.m_suspensionPosition = testData;
-            packetMotionData.m_suspensionVelocity = testData;
-            packetMotionData.m_suspensionAcceleration = testData;
-            packetMotionData.m_wheelSpeed = testData;
-            packetMotionData.m_wheelSlip = testData;
-            packetMotionData.m_localVelocityX = 10.0f;
-            packetMotionData.m_localVelocityY = 10.0f;
-            packetMotionData.m_localVelocityZ = 10.0f;
-            packetMotionData.m_angularAccelerationX = 10.0f;
-            packetMotionData.m_angularAccelerationY = 10.0f;
-            packetMotionData.m_angularAccelerationZ = 10.0f;
-            packetMotionData.m_angularVelocityX = 10.0f;
-            packetMotionData.m_angularVelocityY = 10.0f;
-            packetMotionData.m_angularVelocityZ = 10.0f;
-            packetMotionData.m_frontWheelsAngle = 0.5f;
+            //packetMotionData.m_suspensionPosition = testData;
+            //packetMotionData.m_suspensionVelocity = testData;
+            //packetMotionData.m_suspensionAcceleration = testData;
+            //packetMotionData.m_wheelSpeed = testData;
+            //packetMotionData.m_wheelSlip = testData;
+            //packetMotionData.m_localVelocityX = 10.0f;
+            //packetMotionData.m_localVelocityY = 10.0f;
+            //packetMotionData.m_localVelocityZ = 10.0f;
+            //packetMotionData.m_angularAccelerationX = 10.0f;
+            //packetMotionData.m_angularAccelerationY = 10.0f;
+            //packetMotionData.m_angularAccelerationZ = 10.0f;
+            //packetMotionData.m_angularVelocityX = 10.0f;
+            //packetMotionData.m_angularVelocityY = 10.0f;
+            //packetMotionData.m_angularVelocityZ = 10.0f;
+            //packetMotionData.m_frontWheelsAngle = 0.5f;
             return packetMotionData;
         }
 

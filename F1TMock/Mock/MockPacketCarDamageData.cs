@@ -18,7 +18,7 @@ namespace F1TMock.Mock
             carDamageData.m_floorDamage = (byte)IncrementalGenerator.GetIntNumber("m_frontm_floorDamageLeftWingDamage" + index, 0, 100, 1);
             carDamageData.m_diffuserDamage = (byte)IncrementalGenerator.GetIntNumber("m_diffuserDamage" + index, 0, 100, 1);
             carDamageData.m_sidepodDamage = (byte)IncrementalGenerator.GetIntNumber("m_sidepodDamage" + index, 0, 100, 1);
-            carDamageData.m_drsFault = (DRSFault)PerlinGenerator.NoiseInRange("m_drsFault" + index, 0, 1, Intensity.Low);
+            // carDamageData.m_drsFault = (DRSFault)PerlinGenerator.NoiseInRange("m_drsFault" + index, 0, 1, Intensity.Low);
             carDamageData.m_gearBoxDamage = (byte)IncrementalGenerator.GetIntNumber("m_gearBoxDamage" + index, 0, 100, 1);
             carDamageData.m_engineDamage = (byte)IncrementalGenerator.GetIntNumber("m_engineDamage" + index, 0, 100, 1);
             carDamageData.m_engineMGUHWear = (byte)IncrementalGenerator.GetIntNumber("m_engineMGUHWear" + index, 0, 100, 1);

@@ -8,3 +8,30 @@ uint32 -> uint (32 bit) (4 byes)
 float -> float (32 bit) (4 bytes)
 
 float[4] -> FloatQuad (128 bit) (16 bytes)
+
+
+https://answers.ea.com/t5/General-Discussion/F1-24-UDP-Specification/m-p/13745520
+
+What has changed since last year?
+F1® 24 sees the following changes to the UDP specification:
+• Adding simulation/rules options to the session packet
+• Event type added to show details of safety car events
+• Show online names and Your Telemetry settings added to online lobby packet
+• F1 World Tech level added to lobby and participants packets
+• Added minute part to car in front and leader’s deltas in lap packet
+• Renamed MS and Minute items to include the word part to make it clearer
+• Changed formula list received in session packet
+• Final Classification packets now get sent every five seconds on the results screen in case they
+were missed initially
+• Added Time Trial packet to give more specialised information when in that game mode
+• Added plank height data to the Motion Ex packet
+• Added suspension roll angle to the Motion Ex packet
+• Inter-car collision event added
+• Weekend structure added to session packet
+• Increased the size of the weather forecast array from 56 to 64 in order to accommodate new
+sprint weekends with more sessions
+• Added speed trap details to lap packet for all cars in case any speed trap events are missed
+• Added chassis yaw to Motion Ex packet to be able to work out amount of slide
+• Added engine braking parameter to car setups packet
+• Added track sector 2 & 3 distances to session data so marshal zone matching is easier
+• Added front wing value at next pit stop to car setup for players

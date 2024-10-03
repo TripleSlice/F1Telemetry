@@ -57,7 +57,7 @@ namespace F1T
                     using (HttpClient client = new HttpClient())
                     {
                         var _ = client.PostAsync("https://f1l.ca/api/f1t/error", new StringContent(e.ToString()));
-                        Thread.Sleep(1000); // Delay the crash by 1 second to give this request enough time to go
+                        Thread.Sleep(5000); // Delay the crash by 5 seconds to give this request enough time to go
                     }
                 }
            
